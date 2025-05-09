@@ -1,17 +1,20 @@
-#include <Vector.h>
 #include "Transition.hpp"
+#include <Vector.h>
 
-
-Transition::Transition(State<Transition>* source, State<Transition>* target) : source(source), target(target){
-  this->source->addOutgoingTransition(this);
+Transition::Transition(State<Transition>* source, State<Transition>* target)
+    : source(source)
+    , target(target)
+{
+    this->source->addOutgoingTransition(this);
 };
 
-Transition::~Transition(){
-    
+Transition::~Transition()
+{
 }
 
-void Transition::setSync(event e){
-  this->sync = e;
+void Transition::setSync(event e)
+{
+    this->sync = e;
 };
 
 // void Transition::setSource(State<Transition>* s){
@@ -22,34 +25,39 @@ void Transition::setSync(event e){
 //   this->target = s;
 // };
 
-
-bool Transition::isEnabled(event e){
-  return this-> sync == e;
+bool Transition::isEnabled(event e)
+{
+    return this->sync == e;
 };
 
-void Transition::setTrigger(char trigger){
-  this->trigger = trigger;
+void Transition::setTrigger(char trigger)
+{
+    this->trigger = trigger;
 };
 
-char Transition::getTrigger(){
-  return this -> trigger;
+char Transition::getTrigger()
+{
+    return this->trigger;
 };
 
-bool Transition::isTrigger(char e){
-  // Serial.println("debugging isTrigger() ");
-  // Serial.print("before comp: ");
-  // Serial.println(this -> getTrigger());
-  // bool comp = this -> trigger == e;
-  // Serial.print("after comp: ");
-  // Serial.println(this -> getTrigger());
-  // return comp;
-  return this -> trigger == e;
+bool Transition::isTrigger(char e)
+{
+    // Serial.println("debugging isTrigger() ");
+    // Serial.print("before comp: ");
+    // Serial.println(this -> getTrigger());
+    // bool comp = this -> trigger == e;
+    // Serial.print("after comp: ");
+    // Serial.println(this -> getTrigger());
+    // return comp;
+    return this->trigger == e;
 };
 
-State<Transition>* Transition::getTarget(){
-  return this->target;
+State<Transition>* Transition::getTarget()
+{
+    return this->target;
 };
 
-State<Transition>* Transition::getSource(){
-  return this->source;
+State<Transition>* Transition::getSource()
+{
+    return this->source;
 }

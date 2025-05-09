@@ -2,11 +2,12 @@
 #ifndef Transition_hpp
 #define Transition_hpp
 
-#include <stdio.h>
 #include "State.hpp"
+#include <stdio.h>
 
-class Transition{
-public:
+class Transition
+{
+  public:
     Transition(State<Transition>* source, State<Transition>* target);
     ~Transition();
     State<Transition>* getSource();
@@ -18,8 +19,8 @@ public:
     void setTrigger(char trigger);
     bool isTrigger(char e);
     char getTrigger();
-    
-private:
+
+  private:
     const State<Transition>* const source;
     const State<Transition>* const target;
     event sync;

@@ -1,0 +1,35 @@
+# Use the base LLVM style
+BasedOnStyle: LLVM
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Line length
+ColumnLimit: 100
+
+# Braces
+BreakBeforeBraces: Allman  # alternatives: Attach, Linux, Stroustrup, etc.
+
+# Control statements
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: InlineOnly
+
+# Pointer and reference alignment
+PointerAlignment: Left  # alternatives: Right, Middle
+
+# Namespace formatting
+NamespaceIndentation: All  # indent inside namespaces
+
+# Reflow comments to fit within ColumnLimit
+ReflowComments: true
+
+# Sort includes
+SortIncludes: true
+IncludeBlocks: Preserve  # options: Merge, Preserve, Regroup
+
+# Keep constructor initializer list formatting readable
+ConstructorInitializerIndentWidth: 4
+BreakConstructorInitializersBeforeComma: true
