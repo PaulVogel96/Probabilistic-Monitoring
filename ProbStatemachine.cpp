@@ -21,69 +21,55 @@ State<ProbTransition>* ProbStatemachine::getInitialState()
 
 State<ProbTransition>* ProbStatemachine::addState(State<ProbTransition>* state)
 {
-    // we are adding pre-initialized States
-    // State<ProbTransition>* state = new State<ProbTransition>(name);
-
     this->statePointers.add(state);
     this->states.insert(std::make_pair(state, 0));
     return state;
 };
+
+void ProbStatemachine::removeState(State<ProbTransition>* state){
+    List<State<ProbTransition>*> states = this->statePointers;
+    for (int i = 0; i < states.getSize(); i++)
+    {
+        if (states[i]->getName() == state->getName())
+        {
+            statePointers.remove(i);
+        }
+    }
+
+    this->states.erase(state);
+}
+
+State<ProbTransition>* ProbStatemachine::getState(String name)
+{
+    List<State<ProbTransition>*> states = this->statePointers;
+    for (int i = 0; i < states.getSize(); i++)
+    {
+        if (states[i]->getName() == name)
+        {
+            return states[i];
+        }
+    }
+    return NULL;
+}
 
 std::map<State<ProbTransition>*, float> ProbStatemachine::getCurrentStates()
 {
     return this->states;
 }
 
-void ProbStatemachine::setReached(event i)
+
+void ProbStatemachine::reset(String state)
 {
     std::map<State<ProbTransition>*, float>& oldStates = this->states;
+
     for (auto it = oldStates.begin(); it != oldStates.end(); ++it)
     {
-        State<ProbTransition>* state = it->first;
+        State<ProbTransition>* s = it->first;
         float prob = it->second;
-        if (prob > 0)
-        {
-            bool enabled = false;
-            List<ProbTransition*>& transitions = state->getOutgoingTransitions();
-            for (int t = 0; t < transitions.getSize(); t++)
-            {
-                ProbTransition* transition = transitions[t];
-                if (transition->isEnabled(i))
-                {
-                    this->states[transition->getTarget()] += (prob * transition->getProb());
-                    enabled = true;
-                }
-            }
-            if (enabled)
-                this->states[state] -= prob;
-        }
-    }
-};
 
-// void ProbStatemachine::changeStates(char trigger){
-//   std::map<State<ProbTransition>*, float>& oldStates = this->states;
-//   for(auto it = oldStates.begin(); it != oldStates.end(); ++it){
-//     Serial.println("debug changeState()");
-//     State<ProbTransition>* state = it->first;
-//     Serial.print(state->toString());
-//     float prob = it -> second;
-//     Serial.println(prob);
-//     if(prob > 0){
-//       bool enabled = false;
-//       List<ProbTransition*>& transitions = state->getOutgoingTransitions();
-//       for(int t = 0; t < transitions.getSize(); t++){
-//         ProbTransition* transition = transitions[t];
-//         if(transition->isTrigger(trigger)){
-//           this->states[transition->getTarget()] += (prob * transition->getProb());
-//           prob *= transition->getProb();
-//           enabled = true;
-//         }
-//       }
-//       if(enabled)
-//         this->states[state] -= prob;
-//     }
-//   }
-// }
+        this->states[s] = (s->getName() == state);
+    }
+}
 
 void ProbStatemachine::changeStates(char trigger)
 {
@@ -99,14 +85,14 @@ void ProbStatemachine::changeStates(char trigger)
         if (prob > 0)
         {
             bool enabled = false;
-            List<ProbTransition*>& transitions = state->getOutgoingTransitions();
+            List<ProbTransition*> transitions = state->getOutgoingTransitions();
             for (int t = 0; t < transitions.getSize(); t++)
             {
                 ProbTransition* transition = transitions[t];
-                if (transition->isTrigger(trigger))
+                if (transition->getTrigger() == trigger)
                 {
-                    newStates[transition->getTarget()] += (prob * transition->getProb());
-                    prob *= transition->getProb();
+                    newStates[transition->getTarget()] += (prob * transition->getProbability());
+                    prob *= transition->getProbability();
                     enabled = true;
                 }
             }
@@ -117,8 +103,7 @@ void ProbStatemachine::changeStates(char trigger)
     this->states = newStates;
 }
 
-// gets most probable state
-State<ProbTransition>* ProbStatemachine::getCurrentState()
+State<ProbTransition>* ProbStatemachine::getMostLikelyCurrentState()
 {
     State<ProbTransition>* s = this->initialState;
     float p = 0;
@@ -135,40 +120,13 @@ State<ProbTransition>* ProbStatemachine::getCurrentState()
     return s;
 }
 
-State<ProbTransition>* ProbStatemachine::getState(String name)
-{
-    List<State<ProbTransition>*> states = this->statePointers;
-    for (int i = 0; i < states.getSize(); i++)
-    {
-        if (states[i]->toString() == name)
-        {
-            return states[i];
-        }
-    }
-    return NULL;
-}
-
-// state.prob soll auf 1, rest auf 0 gesetzt werden
-void ProbStatemachine::reset(String state)
-{
-    std::map<State<ProbTransition>*, float>& oldStates = this->states;
-
-    for (auto it = oldStates.begin(); it != oldStates.end(); ++it)
-    {
-        State<ProbTransition>* s = it->first;
-        float prob = it->second;
-
-        this->states[s] = (s->toString() == state);
-    }
-}
-
 float ProbStatemachine::probToBeIn(String state)
 {
     List<State<ProbTransition>*>& currStates = this->statePointers;
     for (int i = 0; i < currStates.getSize(); i++)
     {
         State<ProbTransition>* s = currStates[i];
-        if (s->toString() == state)
+        if (s->getName() == state)
             return this->states[s];
     }
     return 0;

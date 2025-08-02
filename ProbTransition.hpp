@@ -2,24 +2,28 @@
 #define ProbTransition_hpp
 
 #include "State.hpp"
+#include "event.hpp"
 #include <stdio.h>
 
 class ProbTransition
 {
   public:
-    ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target);
-    ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability);
+    ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, char trigger);
     ~ProbTransition();
-    State<ProbTransition>* getSource();
-    State<ProbTransition>* getTarget();
+
     void setSource(State<ProbTransition>* s);
+    State<ProbTransition>* getSource();
+
     void setTarget(State<ProbTransition>* s);
+    State<ProbTransition>* getTarget();
+
     void setSync(event e);
-    bool isEnabled(event e);
-    void setProbability(float prob);
-    float getProb();
+    event getSync();
+
+    void setProbability(float probability);
+    float getProbability();
+
     void setTrigger(char c);
-    bool isTrigger(char c);
     char getTrigger();
 
   private:
