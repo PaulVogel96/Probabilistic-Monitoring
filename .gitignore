@@ -31,3 +31,6 @@
 *.out
 *.app
 /.vs
+
+# Visual Studio files
+.vs

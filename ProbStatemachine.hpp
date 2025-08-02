@@ -16,16 +16,20 @@ class ProbStatemachine
 {
   public:
     ProbStatemachine(State<ProbTransition>* initialState);
-    State<ProbTransition>* getInitialState();
     ~ProbStatemachine();
-    void removeState(String name);
+
+    State<ProbTransition>* getInitialState();
     void setReached(event i);
+
     State<ProbTransition>* addState(State<ProbTransition>* name);
-    std::map<State<ProbTransition>*, float> getCurrentStates();
-    State<ProbTransition>* getCurrentState();
-    void changeStates(char trigger);
     State<ProbTransition>* getState(String name);
+    void removeState(State<ProbTransition>* state);
+    std::map<State<ProbTransition>*, float> getCurrentStates();
+
     void reset(String state);
+    void changeStates(char trigger);
+    
+    State<ProbTransition>* getMostLikelyCurrentState();
     float probToBeIn(String state);
 
   private:
