@@ -16,6 +16,8 @@ class ProbStatemachine
 {
   public:
     ProbStatemachine(State<ProbTransition>* initialState);
+    ProbStatemachine();
+
     ~ProbStatemachine();
 
     State<ProbTransition>* getInitialState();
@@ -32,7 +34,7 @@ class ProbStatemachine
     State<ProbTransition>* getMostLikelyCurrentState();
     float probToBeIn(String state);
 
-  private:
+  protected:
     bool switchState();
     std::map<State<ProbTransition>*, float> states;
     State<ProbTransition>* initialState;

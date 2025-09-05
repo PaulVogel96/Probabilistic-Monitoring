@@ -1,46 +1,55 @@
+#include <AUnit.h>
+#include <AUnitVerbose.h>
+
 #include <List.hpp>
 #include "State.hpp"
 #include "ProbTransition.hpp"
 #include "ProbStatemachine.hpp"
+#include "BasicAutomaton.cpp"
 
 // use version 1.8.2 please
+//#define TEST
 
-State<ProbTransition> A("A");
-State<ProbTransition> B("B");
-State<ProbTransition> E("E");
-
-ProbTransition s1(&A, &B, 1.0, 'a');
-ProbTransition s2(&B, &B, 1.0, 'a');
-ProbTransition h1(&B, &A, 1.0, 'b');
-ProbTransition h2(&A, &E, 1.0, 'b');
-
-ProbStatemachine Automat(&A);
+BasicABAutomaton automaton; 
 
 void setup() {
   Serial.begin(9600);
   Serial.flush();
-  Serial.print("\n");
+  //Serial.print("\n");
 }
 
 void loop() {
-  if (Serial.available()) {
-    char wort = Serial.read();
-    if (wort != '\n') {
-      Serial.println("Current State: ");
-      State<ProbTransition>* currState = Automat.getMostLikelyCurrentState();
-      Serial.println(currState->getName());
-      Automat.changeStates(wort);
+  #ifdef TEST
+    aunit::TestRunner::run();
+  #else
+    if (Serial.available()) {
+      char wort = Serial.read();
+      if (wort != '\n') {
+        Serial.println("Current probabilities: ");
+        std::map<State<ProbTransition>*, float> currentStates = automaton.getCurrentStates();
+        for(auto it = currentStates.begin(); it != currentStates.end(); ++it){
+          State<ProbTransition>* state = it ->first;
+          float prob = it->second;
+          Serial.print(state->getName());
+          Serial.print(" with probability ");
+          Serial.println(prob);
+        }
 
-      Serial.println("after change: ");
-      // State<ProbTransition>* currState1 = Automat.getCurrentState();
-      // Serial.println(currState1->toString());
-      std::map<State<ProbTransition>*, float> currentStates1 = Automat.getCurrentStates();
-      for(auto it = currentStates1.begin(); it != currentStates1.end(); ++it){
-        State<ProbTransition>* state = it ->first;
-        float prob = it->second;
-        Serial.println(state->getName());
-        Serial.println(prob);
+        Serial.println("");
+        Serial.println("changing states");
+        automaton.changeStates(wort);
+        Serial.println("");
+
+        Serial.println("after change: ");
+        std::map<State<ProbTransition>*, float> newStates = automaton.getCurrentStates();
+        for(auto it = newStates.begin(); it != newStates.end(); ++it){
+          State<ProbTransition>* state = it ->first;
+          float prob = it->second;
+          Serial.print(state->getName());
+          Serial.print(" with probability ");
+          Serial.println(prob);
+        }
       }
     }
-  }
+  #endif
 }

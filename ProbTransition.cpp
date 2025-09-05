@@ -1,6 +1,6 @@
 #include "ProbTransition.hpp"
 
-ProbTransition::ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, char triggger)
+ProbTransition::ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, char trigger)
 {
     this->source = source;
     this->source->addOutgoingTransition(this);

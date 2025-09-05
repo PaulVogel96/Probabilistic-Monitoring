@@ -10,8 +10,12 @@ ProbStatemachine::ProbStatemachine(State<ProbTransition>* initialState)
     this->states[this->initialState] = 1;
 };
 
+ProbStatemachine::ProbStatemachine(){
+    // do nothing
+};
+
 ProbStatemachine::~ProbStatemachine(){
-    //  delete all states here?
+    // delete all states here?
 };
 
 State<ProbTransition>* ProbStatemachine::getInitialState()
@@ -76,21 +80,35 @@ void ProbStatemachine::changeStates(char trigger)
     // temporary map to store the new probabilities after transitions
     std::map<State<ProbTransition>*, float> newStates = this->states;
     // Iterate through the current states
+    Serial.print("Input: ");
+    Serial.println(trigger);
+    Serial.println("Calculating State change, iterating over old state-probability map");
     std::map<State<ProbTransition>*, float>& oldStates = this->states;
     for (auto it = oldStates.begin(); it != oldStates.end(); ++it)
     {
         State<ProbTransition>* state = it->first;
         float prob = it->second;
-
+        Serial.print("found state: ");
+        Serial.print(state->getName() + ", ");
+        Serial.println(prob);
         if (prob > 0)
         {
+            Serial.println("probability > 0");
             bool enabled = false;
             List<ProbTransition*> transitions = state->getOutgoingTransitions();
+            Serial.print("found ");
+            Serial.print(transitions.getSize());
+            Serial.println(" transitions");
             for (int t = 0; t < transitions.getSize(); t++)
             {
                 ProbTransition* transition = transitions[t];
+                Serial.print("Found Transition with trigger: ");
+                Serial.print(transition->getTrigger());
+                Serial.print(" and destination: ");
+                Serial.println(transition->getTarget()->getName());
                 if (transition->getTrigger() == trigger)
                 {
+                    Serial.println("Transition triggered");
                     newStates[transition->getTarget()] += (prob * transition->getProbability());
                     prob *= transition->getProbability();
                     enabled = true;
