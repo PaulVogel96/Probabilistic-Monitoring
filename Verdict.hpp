@@ -1,0 +1,5 @@
+enum Verdict {
+  SATISFIED,
+  VIOLATED,
+  INCONCLUSIVE
+};

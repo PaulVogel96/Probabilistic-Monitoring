@@ -80,14 +80,15 @@ void ProbStatemachine::changeStates(char trigger)
     // temporary map to store the new probabilities after transitions
     std::map<State<ProbTransition>*, float> newStates = this->states;
     // Iterate through the current states
-    Serial.print("Input: ");
-    Serial.println(trigger);
-    Serial.println("Calculating State change, iterating over old state-probability map");
+    // Serial.print("Input: ");
+    // Serial.println(trigger);
+    // Serial.println("Calculating State change, iterating over old state-probability map");
     std::map<State<ProbTransition>*, float>& oldStates = this->states;
     for (auto it = oldStates.begin(); it != oldStates.end(); ++it)
     {
         State<ProbTransition>* state = it->first;
         float prob = it->second;
+        float restprob = it->second;
         Serial.print("found state: ");
         Serial.print(state->getName() + ", ");
         Serial.println(prob);
@@ -106,16 +107,20 @@ void ProbStatemachine::changeStates(char trigger)
                 Serial.print(transition->getTrigger());
                 Serial.print(" and destination: ");
                 Serial.println(transition->getTarget()->getName());
-                if (transition->getTrigger() == trigger)
+                if (transition->getTrigger() == trigger && transition->getTarget() != state)
                 {
                     Serial.println("Transition triggered");
+                    Serial.print("Followup State probability: ");
+                    Serial.println(prob * transition->getProbability());
                     newStates[transition->getTarget()] += (prob * transition->getProbability());
-                    prob *= transition->getProbability();
+                    restprob -= (prob * transition->getProbability());
                     enabled = true;
                 }
             }
             if (enabled)
-                newStates[state] -= prob;
+                Serial.print("Restprobability ");
+                Serial.println(restprob);
+                newStates[state] = restprob;
         }
     }
     this->states = newStates;
@@ -148,4 +153,18 @@ float ProbStatemachine::probToBeIn(String state)
             return this->states[s];
     }
     return 0;
+}
+
+Results ProbStatemachine::getResults(){
+    Results results;
+
+    for(auto it = states.begin(); it != states.end(); ++it){
+        State<ProbTransition>* state = it ->first;
+        float prob = it->second;
+        if(prob > 0){
+            results.addProbableState(state, prob);
+        }
+    }
+
+    return results;
 }
