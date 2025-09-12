@@ -8,11 +8,12 @@
 #include "BasicABAutomaton.cpp"
 #include "ABCSplitAutomaton.cpp"
 #include "DoubleSplitAutomatonWithLoop.cpp"
+#include "ALoopBAutomaton.cpp"
 
 // use version 1.8.2 please
 // #define TEST
 
-DoubleSplitAutomatonWithLoop automaton; 
+ALoopBAutomaton automaton; 
 
 void setup() {
   Serial.begin(9600);

@@ -45,5 +45,6 @@ class DoubleSplitAutomatonWithLoop : public ProbStatemachine {
       this->addState(&e);
       this->addState(&f);
       this->addState(&g);
+
     }
 };
