@@ -8,8 +8,13 @@ Results::~Results(){
     // do nothing
 }
 
-std::map<State<ProbTransition>*, float> Results::getProbableStates(){
-  return probableStates;
+std::map<String, float> Results::getStateProbabilities(){
+  std::map<String, float> results;
+  for (auto it = this->probableStates.begin(); it != this->probableStates.end(); ++it)
+  {
+      results[it->first->getName()] = it->second;
+  }
+  return results;
 }
 
 State<ProbTransition>* Results::addProbableState(State<ProbTransition>* state, float probability)

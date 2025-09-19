@@ -12,7 +12,7 @@ class Results
     Results();
     ~Results();
 
-    std::map<State<ProbTransition>*, float> getProbableStates();
+    std::map<String, float> getStateProbabilities();
     State<ProbTransition>* addProbableState(State<ProbTransition>* name, float probability);
 
     std::map<Verdict, float> getVerdictProbabilities();
