@@ -21,7 +21,7 @@ template <class T> class State
     bool removeOutgoingTransition(T* t);
     bool deleteOutgoingTransition(T* t);
 
-    List<T*> getOutgoingTransitions();
+    List<T*>& getOutgoingTransitions();
 
   private:
     String name;

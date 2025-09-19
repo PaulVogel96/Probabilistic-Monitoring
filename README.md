@@ -4,8 +4,14 @@ This repository contains code for two types of state machines implemented on Ard
 2. **Probabilistic State Machine:** A state machine where transitions between states still depend on predefined condition but are also determined by probabilistic rules.
     Thus, each state has a certain probability to be active at any given moment.
 ## Requirements
+
   ### Extrernal Libraries
   Almost all of the libraries used for the Statemachine are already included in the Arduino IDE.
+  From the Arduino IDE include the following libraries:
+  1. List (by Niklas Kaaf), version 3.0.1
+  2. Vector (by Peter Polidoro), version 1.2.2
+  3. AUnit (by Brian T. Parks), version 1.2.2
+  
   The only external Library that needs to be installed:
   [Standart C++ for Arduino](https://github.com/maniacbug/StandardCplusplus/tree/master).
   For the installation, please refer to the instructions provided in the repository of the library.
