@@ -17,7 +17,7 @@ template <class T> void State<T>::addOutgoingTransition(T* t)
 };
 
 
-template <class T> List<T*> State<T>::getOutgoingTransitions()
+template <class T> List<T*>& State<T>::getOutgoingTransitions()
 {
     return this->outgoingTransitions;
 };

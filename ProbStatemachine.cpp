@@ -99,7 +99,7 @@ void ProbStatemachine::changeStates(char trigger)
             Serial.print("Calculating state changes for State ");
             Serial.println(state->getName());
             bool enabled = false;
-            List<ProbTransition*> transitions = state->getOutgoingTransitions();
+            List<ProbTransition*>& transitions = state->getOutgoingTransitions();
             Serial.print("found ");
             Serial.print(transitions.getSize());
             Serial.println(" transitions");
