@@ -11,7 +11,7 @@
 #include "ALoopBAutomaton.cpp"
 
 // use version 1.8.2 please
- #define TEST
+//#define TEST
 
 DoubleSplitAutomatonWithLoop automaton; 
 

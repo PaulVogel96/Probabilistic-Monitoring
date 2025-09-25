@@ -159,22 +159,13 @@ float ProbStatemachine::probToBeIn(String state)
     return 0;
 }
 
-Results ProbStatemachine::getResults(){
-    Results results;
-
-    for(auto it = states.begin(); it != states.end(); ++it){
-        State<ProbTransition>* state = it ->first;
-        float prob = it->second;
-        if(prob > 0){
-            results.addProbableState(state, prob);
-        }
+std::map<String, float> ProbStatemachine::getStateProbabilities(){
+  std::map<String, float> results;
+  for (auto it = this->states.begin(); it != this->states.end(); ++it)
+  {
+    if(it->second > 0){
+      results[it->first->getName()] = it->second;
     }
-
-    return results;
-}
-
-void printPtr(const char* label, void* ptr) {
-  Serial.print(label);
-  Serial.print(" 0x");
-  Serial.println((uintptr_t)ptr, HEX);
+  }
+  return results;
 }
