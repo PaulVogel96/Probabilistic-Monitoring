@@ -1,7 +1,3 @@
-#include <Vector.h>
-
-#include <List.hpp>
-
 #ifndef state_hpp
 #define state_hpp
 
@@ -26,6 +22,7 @@ template <class T> class State
   private:
     String name;
     List<T*> outgoingTransitions;
+
 };
 
 #endif /* state_hpp */

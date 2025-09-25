@@ -11,7 +11,7 @@
 #include "ALoopBAutomaton.cpp"
 
 // use version 1.8.2 please
-//#define TEST
+#define TEST
 
 DoubleSplitAutomatonWithLoop automaton; 
 
@@ -30,8 +30,7 @@ void loop() {
         automaton.changeStates(wort);
 
         Serial.println("Results: ");
-        Results results = automaton.getResults();
-        std::map<String, float> probableStates = results.getStateProbabilities();
+        std::map<String, float> probableStates = automaton.getStateProbabilities();
         for(auto it = probableStates.begin(); it != probableStates.end(); ++it){
           String name = it ->first;
           float prob = it->second;
