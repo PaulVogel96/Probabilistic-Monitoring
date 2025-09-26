@@ -14,13 +14,13 @@ class DoubleSplitAutomatonWithLoop : public ProbStatemachine {
     //               |--- G
     DoubleSplitAutomatonWithLoop() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> a("A");
-      static State<ProbTransition> b("B");
-      static State<ProbTransition> c("C");
-      static State<ProbTransition> d("D");
-      static State<ProbTransition> e("E");
-      static State<ProbTransition> f("F");
-      static State<ProbTransition> g("G");
+      static State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> b("B", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> c("C", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> d("D", Verdict::SATISFIED);
+      static State<ProbTransition> e("E", Verdict::VIOLATED);
+      static State<ProbTransition> f("F", Verdict::SATISFIED);
+      static State<ProbTransition> g("G", Verdict::VIOLATED);
 
       //static declaration of transitions
       //transitions are registered automatically in the constructor

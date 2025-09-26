@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Results.hpp"
 
 // compiles with  Arduino AVR Boards version 1.8.2
 
@@ -28,14 +27,14 @@ class ProbStatemachine
     State<ProbTransition>* getState(String name);
     void removeState(State<ProbTransition>* state);
     std::map<State<ProbTransition>*, float> getCurrentStates();
+    std::map<String, float> getStateProbabilities();
+    std::map<Verdict, float> getVerdictProbabilities();
 
     void reset(String state);
     void changeStates(char trigger);
     
     State<ProbTransition>* getMostLikelyCurrentState();
     float probToBeIn(String state);
-
-    Results getResults();
 
   protected:
     std::map<State<ProbTransition>*, float> states;

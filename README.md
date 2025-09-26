@@ -1,8 +1,8 @@
 ## Arduino State Machine
-This repository contains code for two types of state machines implemented on Arduino:
-1. **Normal State Machine:** A standard state machine for transitioning between different states based on predefined conditions.
-2. **Probabilistic State Machine:** A state machine where transitions between states still depend on predefined condition but are also determined by probabilistic rules.
-    Thus, each state has a certain probability to be active at any given moment.
+This repository contains code to run probabilistic state machines on an arduino board.
+These probabilistic state machines represent a monitor for stream runtime verification.
+The longterm goal of this project is to build probabilistic monitors which are able to handle multiple types of uncertainty.
+
 ## Requirements
 
   ### Extrernal Libraries
@@ -24,3 +24,5 @@ This repository contains code for two types of state machines implemented on Ard
   2. for "Arduino AVR Boards" install version **1.8.2**
   3. restart you IDE
   
+## Tests
+To run the Unit tests, either uncomment `//define TEST` or if using the Arduino CLI, compile with the flag `TEST`

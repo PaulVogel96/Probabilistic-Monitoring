@@ -11,7 +11,9 @@
 #include "ALoopBAutomaton.cpp"
 
 // use version 1.8.2 please
- #define TEST
+
+// comment or uncomment this flag to execute/not execute Unit Tests 
+#define TEST
 
 DoubleSplitAutomatonWithLoop automaton; 
 
@@ -30,15 +32,15 @@ void loop() {
         automaton.changeStates(wort);
 
         Serial.println("Results: ");
-        Results results = automaton.getResults();
-        std::map<String, float> probableStates = results.getStateProbabilities();
-        for(auto it = probableStates.begin(); it != probableStates.end(); ++it){
-          String name = it ->first;
-          float prob = it->second;
-          Serial.print(name);
-          Serial.print(" with probability ");
-          Serial.println(prob);
-        }
+        std::map<Verdict, float> verdictProbabilities = automaton.getVerdictProbabilities();
+
+        Serial.println("Verdict:");
+        Serial.print("Inconclusive: ");
+        Serial.println(verdictProbabilities[Verdict::INCONCLUSIVE]);
+        Serial.print("Satisfied: ");
+        Serial.println(verdictProbabilities[Verdict::SATISFIED]);
+        Serial.print("Violated: ");
+        Serial.println(verdictProbabilities[Verdict::VIOLATED]);
         Serial.println("_________________________________");
       }
     }

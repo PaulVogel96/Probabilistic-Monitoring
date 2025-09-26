@@ -1,3 +1,4 @@
+#include <map>
 #include "ProbStatemachine.hpp"
 #include "List.hpp"
 #include "ProbTransition.hpp"
@@ -90,39 +91,39 @@ void ProbStatemachine::changeStates(char trigger)
         State<ProbTransition>* state = it->first;
         float prob = it->second;
         float restprob = it->second;
-        Serial.print("found state: ");
-        Serial.print(state->getName() + ", ");
-        Serial.println(prob);
+        // Serial.print("found state: ");
+        // Serial.print(state->getName() + ", ");
+        // Serial.println(prob);
         if (prob > 0)
         {
-            Serial.println("___________________________________");
-            Serial.print("Calculating state changes for State ");
-            Serial.println(state->getName());
+            // Serial.println("___________________________________");
+            // Serial.print("Calculating state changes for State ");
+            // Serial.println(state->getName());
             bool enabled = false;
             List<ProbTransition*>& transitions = state->getOutgoingTransitions();
-            Serial.print("found ");
-            Serial.print(transitions.getSize());
-            Serial.println(" transitions");
+            // Serial.print("found ");
+            // Serial.print(transitions.getSize());
+            // Serial.println(" transitions");
             for (int t = 0; t < transitions.getSize(); t++)
             {
                 ProbTransition* transition = transitions[t];
-                Serial.print("Found Transition with trigger: ");
-                Serial.print(transition->getTrigger());
-                Serial.print(" and destination: ");
-                Serial.println(transition->getTarget()->getName());
+                // Serial.print("Found Transition with trigger: ");
+                // Serial.print(transition->getTrigger());
+                // Serial.print(" and destination: ");
+                // Serial.println(transition->getTarget()->getName());
                 if (transition->getTrigger() == trigger && transition->getTarget() != state)
                 {
-                    Serial.println("Transition triggered");
-                    Serial.print("Followup State probability: ");
-                    Serial.println(prob * transition->getProbability());
+                    // Serial.println("Transition triggered");
+                    // Serial.print("Followup State probability: ");
+                    // Serial.println(prob * transition->getProbability());
                     newStates[transition->getTarget()] += (prob * transition->getProbability());
                     restprob -= (prob * transition->getProbability());
                     enabled = true;
                 }
             }
             if (enabled){
-                Serial.print("Restprobability ");
-                Serial.println(restprob);
+                // Serial.print("Restprobability ");
+                // Serial.println(restprob);
                 newStates[state] = restprob;
             }
         }
@@ -159,22 +160,27 @@ float ProbStatemachine::probToBeIn(String state)
     return 0;
 }
 
-Results ProbStatemachine::getResults(){
-    Results results;
-
-    for(auto it = states.begin(); it != states.end(); ++it){
-        State<ProbTransition>* state = it ->first;
-        float prob = it->second;
-        if(prob > 0){
-            results.addProbableState(state, prob);
+std::map<String, float> ProbStatemachine::getStateProbabilities(){
+    std::map<String, float> results;
+    for (auto it = this->states.begin(); it != this->states.end(); ++it)
+    {
+        if(it->second > 0){
+        results[it->first->getName()] = it->second;
         }
     }
-
     return results;
 }
 
-void printPtr(const char* label, void* ptr) {
-  Serial.print(label);
-  Serial.print(" 0x");
-  Serial.println((uintptr_t)ptr, HEX);
+std::map<Verdict, float> ProbStatemachine::getVerdictProbabilities() {
+    std::map<Verdict, float> results;
+    results[Verdict::INCONCLUSIVE] = 0.0;
+    results[Verdict::SATISFIED] = 0.0;
+    results[Verdict::VIOLATED] = 0.0;
+    for (auto it = this->states.begin(); it != this->states.end(); ++it)
+    {
+        if(it->second > 0){
+            results[it->first->getIndicatedVerdict()] += it->second;
+        }
+    }
+    return results;
 }
