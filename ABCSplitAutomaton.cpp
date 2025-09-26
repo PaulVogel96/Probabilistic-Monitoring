@@ -6,9 +6,9 @@ class ABCSplitAutomaton : public ProbStatemachine {
   public:
     ABCSplitAutomaton() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> a("A");
-      static State<ProbTransition> b("B");
-      static State<ProbTransition> c("C");
+      static State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> b("B", Verdict::SATISFIED);
+      static State<ProbTransition> c("C", Verdict::VIOLATED);
 
       //static declaration of transitions
       //transitions are registered automatically in the constructor

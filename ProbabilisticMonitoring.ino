@@ -11,9 +11,9 @@
 #include "ALoopBAutomaton.cpp"
 
 // use version 1.8.2 please
-#define TEST
+//#define TEST
 
-DoubleSplitAutomatonWithLoop automaton; 
+ALoopBAutomaton automaton; 
 
 void setup() {
   Serial.begin(9600);
@@ -30,14 +30,15 @@ void loop() {
         automaton.changeStates(wort);
 
         Serial.println("Results: ");
-        std::map<String, float> probableStates = automaton.getStateProbabilities();
-        for(auto it = probableStates.begin(); it != probableStates.end(); ++it){
-          String name = it ->first;
-          float prob = it->second;
-          Serial.print(name);
-          Serial.print(" with probability ");
-          Serial.println(prob);
-        }
+        std::map<Verdict, float> verdictProbabilities = automaton.getVerdictProbabilities();
+
+        Serial.println("Verdict:");
+        Serial.print("Inconclusive: ");
+        Serial.println(verdictProbabilities[Verdict::INCONCLUSIVE]);
+        Serial.print("Satisfied: ");
+        Serial.println(verdictProbabilities[Verdict::SATISFIED]);
+        Serial.print("Violated: ");
+        Serial.println(verdictProbabilities[Verdict::VIOLATED]);
         Serial.println("_________________________________");
       }
     }

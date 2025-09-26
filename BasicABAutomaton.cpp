@@ -6,8 +6,8 @@ class BasicABAutomaton : public ProbStatemachine {
   public:
     BasicABAutomaton() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> a("A");
-      static State<ProbTransition> b("B");
+      static State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> b("B", Verdict::SATISFIED);
 
       //static declaration of transitions
       //transitions are registered automatically in the constructor

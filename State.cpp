@@ -1,14 +1,20 @@
 #include "State.hpp"
 #include "ProbTransition.hpp"
 
-template <class T> State<T>::State(String name)
+template <class T> State<T>::State(String name, Verdict indicatedVerdict)
 {
     this->name = name;
+    this->indicatedVerdict = indicatedVerdict;
 }
 
 template <class T> String State<T>::getName()
 {
     return this->name;
+}
+
+template <class T> Verdict State<T>::getIndicatedVerdict()
+{
+    return this->indicatedVerdict;
 }
 
 template <class T> void State<T>::addOutgoingTransition(T* t)

@@ -28,6 +28,7 @@ class ProbStatemachine
     void removeState(State<ProbTransition>* state);
     std::map<State<ProbTransition>*, float> getCurrentStates();
     std::map<String, float> getStateProbabilities();
+    std::map<Verdict, float> getVerdictProbabilities();
 
     void reset(String state);
     void changeStates(char trigger);

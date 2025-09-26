@@ -6,13 +6,16 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "Verdict.hpp"
+
 using namespace std;
 
 template <class T> class State
 {
   public:
-    State(String name);
+    State(String name, Verdict indicatedVerdict);
     String getName();
+    Verdict getIndicatedVerdict();
     void addOutgoingTransition(T* t);
     bool removeOutgoingTransition(T* t);
     bool deleteOutgoingTransition(T* t);
@@ -22,7 +25,7 @@ template <class T> class State
   private:
     String name;
     List<T*> outgoingTransitions;
-
+    Verdict indicatedVerdict;
 };
 
 #endif /* state_hpp */
