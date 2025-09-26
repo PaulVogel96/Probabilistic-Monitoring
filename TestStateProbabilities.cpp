@@ -7,7 +7,7 @@
 
 using namespace aunit;
 
-class ProbStatemachineTest : public TestOnce {
+class TestStateProbabilities : public TestOnce {
   protected:
   void setup() override { /* runs once */ }
   
@@ -16,8 +16,8 @@ class ProbStatemachineTest : public TestOnce {
   }
 };
 
-//Tests a basic Transition from A to B
-testF(ProbStatemachineTest, BasicABAutomaton) {
+//Tests state probabilities a basic Transition from A to B
+testF(TestStateProbabilities, BasicABAutomaton) {
   //given
   BasicABAutomaton automaton;
 
@@ -31,7 +31,7 @@ testF(ProbStatemachineTest, BasicABAutomaton) {
 }
 
 //Tests a probabilistic transition from A to B or C
-testF(ProbStatemachineTest, ABCSplitAutomaton) {
+testF(TestStateProbabilities, ABCSplitAutomaton) {
   //given
   ABCSplitAutomaton automaton;
 
@@ -46,7 +46,7 @@ testF(ProbStatemachineTest, ABCSplitAutomaton) {
 }
 
 //Tests a probabilistic transition from A to B or loop back to A
-testF(ProbStatemachineTest, ALoopBAutomaton) {
+testF(TestStateProbabilities, ALoopBAutomaton) {
   //given
   ALoopBAutomaton automaton;
 
@@ -62,7 +62,7 @@ testF(ProbStatemachineTest, ALoopBAutomaton) {
 }
 
 //Tests a Loop transition an multiple probabilitic transitions
-testF(ProbStatemachineTest, DoubleSplitAutomatonWithLoop) {
+testF(TestStateProbabilities, DoubleSplitAutomatonWithLoop) {
   //given
   DoubleSplitAutomatonWithLoop automaton;
 

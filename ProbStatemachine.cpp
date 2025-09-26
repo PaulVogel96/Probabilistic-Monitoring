@@ -161,14 +161,14 @@ float ProbStatemachine::probToBeIn(String state)
 }
 
 std::map<String, float> ProbStatemachine::getStateProbabilities(){
-  std::map<String, float> results;
-  for (auto it = this->states.begin(); it != this->states.end(); ++it)
-  {
-    if(it->second > 0){
-      results[it->first->getName()] = it->second;
+    std::map<String, float> results;
+    for (auto it = this->states.begin(); it != this->states.end(); ++it)
+    {
+        if(it->second > 0){
+        results[it->first->getName()] = it->second;
+        }
     }
-  }
-  return results;
+    return results;
 }
 
 std::map<Verdict, float> ProbStatemachine::getVerdictProbabilities() {

@@ -11,9 +11,11 @@
 #include "ALoopBAutomaton.cpp"
 
 // use version 1.8.2 please
-//#define TEST
 
-ALoopBAutomaton automaton; 
+// comment or uncomment this flag to execute/not execute Unit Tests 
+#define TEST
+
+DoubleSplitAutomatonWithLoop automaton; 
 
 void setup() {
   Serial.begin(9600);
