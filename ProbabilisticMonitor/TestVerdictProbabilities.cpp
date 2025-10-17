@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include "BasicABAutomaton.cpp"
-#include "ABCSplitAutomaton.cpp"
-#include "ALoopBAutomaton.cpp"
-#include "DoubleSplitAutomatonWithLoop.cpp"
+#include "test/BasicABAutomaton.cpp"
+#include "test/ABCSplitAutomaton.cpp"
+#include "test/ALoopBAutomaton.cpp"
+#include "test/DoubleSplitAutomatonWithLoop.cpp"
 
 using namespace aunit;
 

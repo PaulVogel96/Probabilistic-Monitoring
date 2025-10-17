@@ -5,15 +5,15 @@
 #include "State.hpp"
 #include "ProbTransition.hpp"
 #include "ProbStatemachine.hpp"
-#include "BasicABAutomaton.cpp"
-#include "ABCSplitAutomaton.cpp"
-#include "DoubleSplitAutomatonWithLoop.cpp"
-#include "ALoopBAutomaton.cpp"
+#include "test/BasicABAutomaton.cpp"
+#include "test/ABCSplitAutomaton.cpp"
+#include "test/DoubleSplitAutomatonWithLoop.cpp"
+#include "test/ALoopBAutomaton.cpp"
 
 // use version 1.8.2 please
 
 // comment or uncomment this flag to execute/not execute Unit Tests 
-//#define TEST
+#define TEST
 
 ALoopBAutomaton automaton; 
 

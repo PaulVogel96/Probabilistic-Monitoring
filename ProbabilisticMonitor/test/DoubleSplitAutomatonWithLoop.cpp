@@ -1,6 +1,6 @@
-#include "State.hpp"
-#include "ProbTransition.hpp"
-#include "ProbStatemachine.hpp"
+#include "../State.hpp"
+#include "../ProbTransition.hpp"
+#include "../ProbStatemachine.hpp"
 
 class DoubleSplitAutomatonWithLoop : public ProbStatemachine {
   public:
