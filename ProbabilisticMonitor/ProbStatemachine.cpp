@@ -78,57 +78,40 @@ void ProbStatemachine::reset(String state)
 
 void ProbStatemachine::changeStates(char trigger)
 {
-    // temporary map to store the new probabilities after transitions
     std::map<State<ProbTransition>*, float> newStates = this->states;
-
-    // Iterate through the current states
-    // Serial.print("Input: ");
-    // Serial.println(trigger);
-    // Serial.println("Calculating State change, iterating over old state-probability map");
     std::map<State<ProbTransition>*, float>& oldStates = this->states;
     for (auto it = oldStates.begin(); it != oldStates.end(); ++it)
     {
         State<ProbTransition>* state = it->first;
         float prob = it->second;
         float restprob = it->second;
-        // Serial.print("found state: ");
-        // Serial.print(state->getName() + ", ");
-        // Serial.println(prob);
         if (prob > 0)
         {
-            // Serial.println("___________________________________");
-            // Serial.print("Calculating state changes for State ");
-            // Serial.println(state->getName());
             bool enabled = false;
             List<ProbTransition*>& transitions = state->getOutgoingTransitions();
-            // Serial.print("found ");
-            // Serial.print(transitions.getSize());
-            // Serial.println(" transitions");
             for (int t = 0; t < transitions.getSize(); t++)
             {
                 ProbTransition* transition = transitions[t];
-                // Serial.print("Found Transition with trigger: ");
-                // Serial.print(transition->getTrigger());
-                // Serial.print(" and destination: ");
-                // Serial.println(transition->getTarget()->getName());
                 if (transition->getTrigger() == trigger && transition->getTarget() != state)
                 {
-                    // Serial.println("Transition triggered");
-                    // Serial.print("Followup State probability: ");
-                    // Serial.println(prob * transition->getProbability());
                     newStates[transition->getTarget()] += (prob * transition->getProbability());
                     restprob -= (prob * transition->getProbability());
                     enabled = true;
                 }
             }
             if (enabled){
-                // Serial.print("Restprobability ");
-                // Serial.println(restprob);
                 newStates[state] = restprob;
             }
         }
     }
     this->states = newStates;
+}
+
+void ProbStatemachine::processEvents(String eventString)
+{
+    for(char trigger: eventString){
+        this->changeStates(trigger);
+    }
 }
 
 State<ProbTransition>* ProbStatemachine::getMostLikelyCurrentState()

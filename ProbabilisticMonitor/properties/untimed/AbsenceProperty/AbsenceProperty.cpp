@@ -15,14 +15,14 @@ class AbsenceProperty : public ProbStatemachine {
   public:
     AbsenceProperty() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> initial_state("A", Verdict::SATISFIED);
-      static State<ProbTransition> p_has_happened("B", Verdict::VIOLATED);
+      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
+      static State<ProbTransition> p_has_happened("P happened", Verdict::VIOLATED);
 
       //static declaration of transitions
       //transitions are registered automatically in the constructor
       static ProbTransition t1(&initial_state, &p_has_happened, 1.0, 'P');
-      static ProbTransition t2(&initial_state, &initial_state, 0.99, 'R');
-      static ProbTransition t3(&initial_state, &p_has_happened, 0.01, 'R');
+      static ProbTransition t2(&initial_state, &initial_state, 0.99, 'X');
+      static ProbTransition t3(&initial_state, &p_has_happened, 0.01, 'X');
 
       //register states and transitions in automaton
 

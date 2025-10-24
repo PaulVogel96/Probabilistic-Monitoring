@@ -1,6 +1,6 @@
-#include "../../State.hpp"
-#include "../../ProbTransition.hpp"
-#include "../../ProbStatemachine.hpp"
+#include "../../../State.hpp"
+#include "../../../ProbTransition.hpp"
+#include "../../../ProbStatemachine.hpp"
 
 /*
 This property describe the absence of an event 
@@ -15,10 +15,12 @@ In this implementation:
 Here, we model the uncertainty in the value of the event
 There is a 0.01 chance for any X event to actually be a P and
 there is a 0.01 chance for any X event to actually be a Q 
+
+Transitions where X behaves as another event are all modeled when this behaviour differs from "normal" X behavior
 */
-class AbsenceBeforeQProperty : public ProbStatemachine {
+class AbsenceAfterQProperty : public ProbStatemachine {
   public:
-    AbsenceBeforeQProperty() : ProbStatemachine() {
+    AbsenceAfterQProperty() : ProbStatemachine() {
       //static declaration of states
       static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
       static State<ProbTransition> q_happened("Q happened", Verdict::SATISFIED);
@@ -26,15 +28,13 @@ class AbsenceBeforeQProperty : public ProbStatemachine {
 
       //static declaration of transitions
       //transitions are registered automatically in the constructor
-      static ProbTransition t1(&initial_state, &initial_state, 0.98, 'X');
-      static ProbTransition t1(&initial_state, &initial_state, 0.01, 'X'); //0.01 chance that X is actually P (P can happen before Q)
-      static ProbTransition t1(&initial_state, &q_happened, 0.01, 'X'); //0.01 chance that X is actually Q
-      static ProbTransition t1(&initial_state, &initial_state, 1.00, 'P'); //0.01 chance that X is actually Q
-      static ProbTransition t1(&initial_state, &q_happened, 1.00, 'Q'); //0.01 chance that X is actually Q
-      static ProbTransition t1(&q_happened, &p_happened_after_q, 1.00, 'P'); //0.01 chance that X is actually Q
-      //todo: actually missing some X  transitions?
+      static ProbTransition t4(&initial_state, &q_happened, 1.00, 'Q');
+      static ProbTransition t2(&initial_state, &initial_state, 0.99, 'X');
+      static ProbTransition t3(&initial_state, &q_happened, 0.01, 'X'); //0.01 chance that X is actually Q
 
-      //register states and transitions in automaton
+      static ProbTransition t5(&q_happened, &p_happened_after_q, 1.00, 'P');
+      static ProbTransition t6(&q_happened, &q_happened, 0.99, 'X');
+      static ProbTransition t7(&q_happened, &p_happened_after_q, 0.01, 'X'); //0.01 chance that X is actually P
 
       //initial state
       this->initialState = this->addState(&initial_state);

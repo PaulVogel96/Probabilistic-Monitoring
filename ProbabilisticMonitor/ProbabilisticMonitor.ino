@@ -1,3 +1,6 @@
+// comment or uncomment this flag to execute/not execute Unit Tests 
+#define TEST
+
 #include <AUnit.h>
 #include <AUnitVerbose.h>
 
@@ -12,10 +15,8 @@
 
 // use version 1.8.2 please
 
-// comment or uncomment this flag to execute/not execute Unit Tests 
-#define TEST
 
-ALoopBAutomaton automaton; 
+BasicABAutomaton automaton; 
 
 void setup() {
   Serial.begin(9600);

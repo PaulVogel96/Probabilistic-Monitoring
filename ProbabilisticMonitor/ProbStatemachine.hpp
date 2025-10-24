@@ -32,6 +32,7 @@ class ProbStatemachine
 
     void reset(String state);
     void changeStates(char trigger);
+    void processEvents(String eventString);
     
     State<ProbTransition>* getMostLikelyCurrentState();
     float probToBeIn(String state);
