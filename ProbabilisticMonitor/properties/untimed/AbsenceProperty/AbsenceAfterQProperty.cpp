@@ -11,7 +11,7 @@ The property is violated when:
 In this implementation: 
 - the char "P" indicates that P has happened
 - the char "Q" indicates that Q has happened
-- the char "X" indicates that neither R nor P has happened
+- the char "X" indicates that neither Q nor P has happened
 Here, we model the uncertainty in the value of the event
 There is a 0.01 chance for any X event to actually be a P and
 there is a 0.01 chance for any X event to actually be a Q 

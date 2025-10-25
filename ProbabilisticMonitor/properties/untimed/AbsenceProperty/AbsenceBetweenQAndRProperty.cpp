@@ -4,7 +4,7 @@
 
 /*
 This property describe the absence of an event 
-In structure english we can formulate it as:
+In structured english we can formulate it as:
 "It is never the case that P holds between Q and R"
 The property is violated when:
 1. Q happens and P happens afterwards and then R happens
