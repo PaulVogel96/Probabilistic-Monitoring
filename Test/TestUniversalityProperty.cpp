@@ -1,13 +1,13 @@
 #include <map>
 #include <AUnit.h>
-#include "properties/untimed/AbsenceProperty/AbsenceProperty.cpp"
-#include "properties/untimed/AbsenceProperty/AbsenceBeforeRProperty.cpp"
-#include "properties/untimed/AbsenceProperty/AbsenceAfterQProperty.cpp"
-#include "properties/untimed/AbsenceProperty/AbsenceBetweenQAndRProperty.cpp"
+#include <automatons/properties/untimed/UniversalityProperty/UniversalityProperty.cpp>
+#include <automatons/properties/untimed/UniversalityProperty/UniversalityBeforeRProperty.cpp>
+#include <automatons/properties/untimed/UniversalityProperty/UniversalityAfterQProperty.cpp>
+#include <automatons/properties/untimed/UniversalityProperty/UniversalityBetweenQAndRProperty.cpp>
 
 using namespace aunit;
 
-class TestAbsenceProperty : public TestOnce {
+class TestUniversalityProperty : public TestOnce {
   protected:
   void setup() override { /* runs once */ }
   
@@ -16,13 +16,12 @@ class TestAbsenceProperty : public TestOnce {
   }
 };
 
-//Tests state probabilities a basic Transition from A to B
-testF(TestAbsenceProperty, AbsenceProperty_satisfied) {
+testF(TestUniversalityProperty, UniversalityProperty_satisfied) {
   //given
-  AbsenceProperty automaton;
+  UniversalityProperty automaton;
 
   //when
-  automaton.processEvents("XXXXX");
+  automaton.processEvents("PPPPP");
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -31,10 +30,9 @@ testF(TestAbsenceProperty, AbsenceProperty_satisfied) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-//Tests state probabilities a basic Transition from A to B
-testF(TestAbsenceProperty, AbsenceProperty_violated) {
+testF(TestUniversalityProperty, UniversalityProperty_violated) {
   //given
-  AbsenceProperty automaton;
+  UniversalityProperty automaton;
 
   //when
   automaton.processEvents("XXPXX");
@@ -46,23 +44,23 @@ testF(TestAbsenceProperty, AbsenceProperty_violated) {
   assertTrue(results[Verdict::INCONCLUSIVE] == 0.0);
 }
 
-testF(TestAbsenceProperty, AbsenceBeforeRProperty_satisfied_when_P_after_R) {
+testF(TestUniversalityProperty, UniversalityBeforeRProperty_satisfied_when_P_before_R) {
   //given
-  AbsenceBeforeRProperty automaton;
+  UniversalityBeforeRProperty automaton;
 
   //when
-  automaton.processEvents("XXRPXX");
+  automaton.processEvents("PPRXX");
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.98));
-  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.02));
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.99));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.01));
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestAbsenceProperty, AbsenceBeforeRProperty_satisfied_when_no_P_or_R) {
+testF(TestUniversalityProperty, UniversalityBeforeRProperty_satisfied_when_no_P_or_R) {
   //given
-  AbsenceBeforeRProperty automaton;
+  UniversalityBeforeRProperty automaton;
 
   //when
   automaton.processEvents("XXXXX");
@@ -74,26 +72,12 @@ testF(TestAbsenceProperty, AbsenceBeforeRProperty_satisfied_when_no_P_or_R) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestAbsenceProperty, AbsenceBeforeRProperty_violated) {
+testF(TestUniversalityProperty, UniversalityBeforeRProperty_violated) {
   //given
-  AbsenceBeforeRProperty automaton;
+  UniversalityBeforeRProperty automaton;
 
   //when
-  automaton.processEvents("XXPRXX");
-  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
-
-  //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.02));
-  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.98));
-  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
-}
-
-testF(TestAbsenceProperty, AbsenceAfterQProperty_violated_when_P_after_Q) {
-  //given
-  AbsenceAfterQProperty automaton;
-
-  //when
-  automaton.processEvents("XXQPXX");
+  automaton.processEvents("PXPRX");
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -102,23 +86,37 @@ testF(TestAbsenceProperty, AbsenceAfterQProperty_violated_when_P_after_Q) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestAbsenceProperty, AbsenceAfterQProperty_satisfied_when_no_P_after_Q) {
+testF(TestUniversalityProperty, UniversalityAfterQProperty_violated_when_not_only_P_after_Q) {
   //given
-  AbsenceAfterQProperty automaton;
+  UniversalityAfterQProperty automaton;
 
   //when
-  automaton.processEvents("XXPQXX");
+  automaton.processEvents("XXQPXP");
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.96));
-  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.04));
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.00));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 1.00));
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestAbsenceProperty, AbsenceAfterQProperty_satisfied_when_no_P_or_Q) {
+testF(TestUniversalityProperty, UniversalityAfterQProperty_violated_when_not_P_after_Q) {
   //given
-  AbsenceAfterQProperty automaton;
+  UniversalityAfterQProperty automaton;
+
+  //when
+  automaton.processEvents("PPXQX");
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+
+  //then
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.00));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 1.00));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
+}
+
+testF(TestUniversalityProperty, UniversalityAfterQProperty_satisfied_when_no_P_or_Q) {
+  //given
+  UniversalityAfterQProperty automaton;
 
   //when
   automaton.processEvents("XXXXX");
@@ -130,23 +128,23 @@ testF(TestAbsenceProperty, AbsenceAfterQProperty_satisfied_when_no_P_or_Q) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestAbsenceProperty, AbsenceBetweenQAndRProperty_satisfied) {
+testF(TestUniversalityProperty, UniversalityBetweenQAndRProperty_satisfied) {
   //given
-  AbsenceBetweenQAndRProperty automaton;
+  UniversalityBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents("XXPXQXRXPX");
+  automaton.processEvents("XXQPRXXQRXXQPPPRXX");
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.96));
-  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.04));
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.98));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.02));
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestAbsenceProperty, AbsenceBetweenQAndRProperty_satisfied_no_events) {
+testF(TestUniversalityProperty, UniversalityBetweenQAndRProperty_satisfied_no_events) {
   //given
-  AbsenceBetweenQAndRProperty automaton;
+  UniversalityBetweenQAndRProperty automaton;
 
   //when
   automaton.processEvents("XXXXXXX");
@@ -158,9 +156,9 @@ testF(TestAbsenceProperty, AbsenceBetweenQAndRProperty_satisfied_no_events) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestAbsenceProperty, AbsenceBetweenQAndRProperty_violated) {
+testF(TestUniversalityProperty, UniversalityBetweenQAndRProperty_violated) {
   //given
-  AbsenceBetweenQAndRProperty automaton;
+  UniversalityBetweenQAndRProperty automaton;
 
   //when
   automaton.processEvents("XXQXPXRXX");

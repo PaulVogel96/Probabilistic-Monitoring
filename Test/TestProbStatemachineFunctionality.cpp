@@ -1,6 +1,6 @@
 #include <map>
 #include <AUnit.h>
-#include "test/ALoopBAutomaton.cpp"
+#include <automatons/basic/ALoopBAutomaton.cpp>
 
 using namespace aunit;
 

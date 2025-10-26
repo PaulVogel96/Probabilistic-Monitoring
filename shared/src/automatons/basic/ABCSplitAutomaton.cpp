@@ -1,17 +1,19 @@
-#include "../State.hpp"
-#include "../ProbTransition.hpp"
-#include "../ProbStatemachine.hpp"
+#include "../../State.hpp"
+#include "../../ProbTransition.hpp"
+#include "../../ProbStatemachine.hpp"
 
-class BasicABAutomaton : public ProbStatemachine {
+class ABCSplitAutomaton : public ProbStatemachine {
   public:
-    BasicABAutomaton() : ProbStatemachine() {
+    ABCSplitAutomaton() : ProbStatemachine() {
       //static declaration of states
       static State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
       static State<ProbTransition> b("B", Verdict::SATISFIED);
+      static State<ProbTransition> c("C", Verdict::VIOLATED);
 
       //static declaration of transitions
       //transitions are registered automatically in the constructor
-      static ProbTransition t(&a, &b, 1.0, 'a');
+      static ProbTransition t1(&a, &b, 0.5, 'a');
+      static ProbTransition t2(&a, &c, 0.5, 'a');
 
       //register states and transitions in automaton
 
@@ -22,6 +24,6 @@ class BasicABAutomaton : public ProbStatemachine {
 
       //register other states
       this->addState(&b);
-
+      this->addState(&c);
     }
 };
