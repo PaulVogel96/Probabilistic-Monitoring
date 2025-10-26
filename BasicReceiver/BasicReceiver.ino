@@ -1,4 +1,3 @@
-// Mega_UART_receiver.ino
 void setup() {
   Serial.begin(9600);   // USB serial to PC
   Serial1.begin(9600);  // hardware Serial1 (pins 19 RX1, 18 TX1)

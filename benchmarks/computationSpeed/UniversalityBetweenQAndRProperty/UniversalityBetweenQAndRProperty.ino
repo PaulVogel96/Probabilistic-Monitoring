@@ -1,0 +1,58 @@
+// We calculate a verdict based on an eventString that is 1000 characters long
+// We are interested in how fast we can calculate the state of the system
+// Additionally, we model the uncertainty in the value of P
+// There is a 0.01 percent chance that P is actually not P (X)
+
+//Results on an Arduino Mega 2560
+//Verdict: Satisfied,Violated,Inconclusive
+//21:51:32.172 -> Start Verdict: 1.00,0.00,0.00
+//21:51:32.836 -> End Verdict: 0.77,0.23,0.00
+
+#include <List.hpp>
+#include <State.hpp>
+#include <ProbTransition.hpp>
+#include <ProbStatemachine.hpp>
+#include <automatons/properties/untimed/UniversalityProperty/UniversalityBetweenQAndRProperty.cpp>
+
+UniversalityBetweenQAndRProperty automaton;
+String eventsToProcess = "XXXXXXXXXXXXXXQRXXXXXXXXQRXXXXXPXPXXXRXRXPXPXXXRXRXXQPPPPRXXXXQPPPPRXXXPXPXXXRXRXXXXXXXXXXXXXXQRXXXXXXQPPPPRXXXXXXQRXXXXXXQPPPPRXXXPXPXXXRXRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXQRXXXXXXQPPPPRXXXXQPPPPRXXXXXXXXXXXXXXXXQRXXXXXXXXQRXXXXXXXXQRXXXXXXQPPPPRXXXXXXQRXXXXXXXXXXXXXXXPXPXXXRXRXXQPPPPRXXXXXXXXXXXXXXXXQRXXXXXPXPXXXRXRXXQPPPPRXXXXXXXXXXXXXPXPXXXRXRXXXXQRXXXXXXXXXXXXXXXXXXQRXXXXXXXXXXXXXXXXXXQRXXXXXXXXXXXXXXXXQPPPPRXXXXXXQRXXXXXXQPPPPRXXXXXXQRXXXXXXXXQRXXXXXXQPPPPRXXXXXXXXXXXXXPXPXXXRXRXXXXQRXXXXXXXXQRXXXXXXXXQRXXXXXXQPPPPRXXXXQPPPPRXXXXQPPPPRXXXPXPXXXRXRXXQPPPPRXXXXQPPPPRXXXPXPXXXRXRXXXXXXXXXXXPXPXXXRXRXPXPXXXRXRXXXXQRXXXXXXQPPPPRXXXXXXQRXXXXXXXXQRXXXXXXXXQRXXXXXXQPPPPRXXXXQPPPPRXXXXXXQRXXXXXPXPXXXRXRXXXXQRXXXXXXXXXXXXXXXXXXQRXXXXXXXXQRXXXXXPXPXXXRXRXXXXXXXXXXXXQPPPPRXXXXXXQRXXXXXXXXQRXXXXXXXXXXXXXXXPXPXXXRXRXXXXQRXXXXXXXXQRXXXXXXXXQRXXXXXXXXXXXXXXXXXXQRXXXXXXQPPPPRXXXXXXXXXXXXXPXPXXXRXRXXQPPPPRXXXXXXXXXXXXXXXXQRXXXXXPXPXXXRXRXXQPPPPRXXXPXPXXXRXRXXQPPPPRXXXXXXQRXXXXXPXPXXXRXRXXQPPPPRXXXXXXQRXXXX";
+int eventsProcessed = 0;
+
+void setup() {
+  Serial.begin(9600);
+  Serial.flush();
+}
+
+void loop() {
+  if (Serial.available()) {
+    if (eventsProcessed < 1000) {
+
+      //log initial state
+      if(eventsProcessed == 0){
+        std::map<Verdict, float> verdictProbabilities = automaton.getVerdictProbabilities();
+        Serial.print("Start Verdict: ");
+        Serial.print(verdictProbabilities[Verdict::SATISFIED]);
+        Serial.print(",");
+        Serial.print(verdictProbabilities[Verdict::VIOLATED]);
+        Serial.print(",");
+        Serial.println(verdictProbabilities[Verdict::INCONCLUSIVE]);
+      }
+
+      char event = eventsToProcess[eventsProcessed];
+      automaton.changeStates(event);
+      eventsProcessed += 1;
+
+      //log final state
+      if(eventsProcessed == 1000){
+        std::map<Verdict, float> verdictProbabilities = automaton.getVerdictProbabilities();
+        Serial.print("End Verdict: ");
+        Serial.print(verdictProbabilities[Verdict::SATISFIED]);
+        Serial.print(",");
+        Serial.print(verdictProbabilities[Verdict::VIOLATED]);
+        Serial.print(",");
+        Serial.println(verdictProbabilities[Verdict::INCONCLUSIVE]);
+      }
+    }
+  }
+}
+
