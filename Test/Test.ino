@@ -5,7 +5,6 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/basic/ALoopBAutomaton.cpp>
 
 
 void setup() {

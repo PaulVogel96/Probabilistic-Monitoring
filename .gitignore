@@ -32,5 +32,6 @@
 *.app
 /.vs
 
-# Visual Studio files
+# Visual Studio (Code) files
 .vs
+.vscode
