@@ -28,13 +28,13 @@ class PrecedenceBetweenQAndRProperty : public ProbStatemachine {
       //static declaration of transitions
       //transitions are registered automatically in the constructor
       static ProbTransition t1(&initial_state, &q_happened, 1.0, 'Q');
-      static ProbTransition t1(&q_happened, &initial_state, 1.0, 'R');
-      static ProbTransition t1(&q_happened, &s_happened, 1.0, 'S');
-      static ProbTransition t1(&q_happened, &not_p_nor_s, 1.0, 'X');
-      static ProbTransition t1(&not_p_nor_s, &p_before_s, 0.99, 'P');
-      static ProbTransition t1(&not_p_nor_s, &not_p_nor_s, 0.01, 'P');
-      static ProbTransition t1(&p_before_s, &error, 1.0, 'R');
-      static ProbTransition t1(&p_before_s, &error, 1.0, 'S');
+      static ProbTransition t2(&q_happened, &initial_state, 1.0, 'R');
+      static ProbTransition t3(&q_happened, &s_happened, 1.0, 'S');
+      static ProbTransition t4(&q_happened, &not_p_nor_s, 1.0, 'X');
+      static ProbTransition t5(&not_p_nor_s, &p_before_s, 0.99, 'P');
+      static ProbTransition t6(&not_p_nor_s, &not_p_nor_s, 0.01, 'P');
+      static ProbTransition t7(&p_before_s, &error, 1.0, 'R');
+      static ProbTransition t8(&p_before_s, &error, 1.0, 'S');
 
       //register states and transitions in automaton
 

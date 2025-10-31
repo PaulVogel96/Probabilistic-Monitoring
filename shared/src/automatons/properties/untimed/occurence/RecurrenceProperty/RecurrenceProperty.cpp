@@ -23,7 +23,7 @@ class RecurrenceProperty : public ProbStatemachine {
       //transitions are registered automatically in the constructor
       static ProbTransition t1(&initial_state, &initial_state, 0.01, 'P');
       static ProbTransition t2(&initial_state, &p_has_happened, 0.99, 'P');
-      static ProbTransition t2(&p_has_happened, &initial_state, 1.0, 'X');
+      static ProbTransition t3(&p_has_happened, &initial_state, 1.0, 'X');
 
       //register states and transitions in automaton
 

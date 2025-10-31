@@ -26,9 +26,9 @@ class RecurrenceBeforeRProperty : public ProbStatemachine {
       //transitions are registered automatically in the constructor
       static ProbTransition t1(&initial_state, &initial_state, 0.01, 'P');
       static ProbTransition t2(&initial_state, &p_holds, 0.99, 'P');
-      static ProbTransition t2(&p_holds, &initial_state, 1.0, 'X');
-      static ProbTransition t2(&initial_state, &r_reached1, 1.0, 'R');
-      static ProbTransition t2(&p_holds, &r_reached2, 1.0, 'R');
+      static ProbTransition t3(&p_holds, &initial_state, 1.0, 'X');
+      static ProbTransition t4(&initial_state, &r_reached1, 1.0, 'R');
+      static ProbTransition t5(&p_holds, &r_reached2, 1.0, 'R');
 
       //register states and transitions in automaton
 
