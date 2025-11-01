@@ -18,7 +18,7 @@ class PrecedenceBetweenQAndRProperty : public ProbStatemachine {
   public:
     PrecedenceBetweenQAndRProperty() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
       static State<ProbTransition> q_happened("Q happened", Verdict::VIOLATED);
       static State<ProbTransition> not_p_nor_s("Neither P nor S happened", Verdict::VIOLATED);
       static State<ProbTransition> s_happened("S happened", Verdict::SATISFIED);

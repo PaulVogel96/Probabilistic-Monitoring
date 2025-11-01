@@ -7,7 +7,7 @@ class ResponseBetweenQAndRProperty : public ProbStatemachine {
     ResponseBetweenQAndRProperty() : ProbStatemachine() {
       //static declaration of states
       static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
-      static State<ProbTransition> q_happened("Q happened", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> q_happened("Q happened", Verdict::SATISFIED);
       static State<ProbTransition> p_happened("P happened", Verdict::INCONCLUSIVE);
       static State<ProbTransition> r_without_s("R happened before S did", Verdict::VIOLATED);
 
@@ -18,7 +18,7 @@ class ResponseBetweenQAndRProperty : public ProbStatemachine {
       static ProbTransition t2(&q_happened, &initial_state, 1.0, 'R');
       static ProbTransition t3(&q_happened, &p_happened, 0.99, 'P');
       static ProbTransition t4(&q_happened, &q_happened, 0.01, 'P');
-      static ProbTransition t5(&p_happened, &q_happened, 1.0, 'S');
+      static ProbTransition t5(&p_happened, &initial_state, 1.0, 'S');
       static ProbTransition t6(&p_happened, &r_without_s, 1.0, 'R');
 
       //register states and transitions in automaton

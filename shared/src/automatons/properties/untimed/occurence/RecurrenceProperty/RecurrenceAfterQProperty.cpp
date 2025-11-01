@@ -26,7 +26,7 @@ class RecurrenceAfterQProperty : public ProbStatemachine {
       static ProbTransition t1(&initial_state, &q_happened, 1.0, 'Q');
       static ProbTransition t2(&q_happened, &initial_state, 0.01, 'P');
       static ProbTransition t3(&q_happened, &p_happened, 0.99, 'P');
-      static ProbTransition t4(&p_happened, &initial_state, 1.0, 'X');
+      static ProbTransition t4(&p_happened, &q_happened, 1.0, 'X');
 
       //register states and transitions in automaton
 

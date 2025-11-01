@@ -4,7 +4,7 @@
 
 /*
 In structure english we can formulate it as:
-"If, then in response S eventually holds before R holds"
+"If P, then in response S eventually holds"
 
 X indicates not P
 

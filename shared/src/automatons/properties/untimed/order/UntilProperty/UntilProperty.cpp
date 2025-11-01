@@ -25,7 +25,7 @@ class UntilProperty : public ProbStatemachine {
       static ProbTransition t1(&initial_state, &initial_state, 0.99, 'P');
       static ProbTransition t2(&initial_state, &not_p_holds, 0.01, 'P');
       static ProbTransition t3(&initial_state, &not_p_holds, 1.00, 'X');
-      static ProbTransition t3(&initial_state, &s_holds, 1.00, 'S');
+      static ProbTransition t4(&initial_state, &s_holds, 1.00, 'S');
 
       //register states and transitions in automaton
 

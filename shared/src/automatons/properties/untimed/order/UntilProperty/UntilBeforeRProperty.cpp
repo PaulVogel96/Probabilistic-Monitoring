@@ -12,11 +12,11 @@ X indicates not P
 Here, we model the uncertainty in the value of the event "P"
 There is a 0.01 chance for any P event to actually be not P 
 */
-class UntilProperty : public ProbStatemachine {
+class UntilBeforeRProperty : public ProbStatemachine {
   public:
-    UntilProperty() : ProbStatemachine() {
+    UntilBeforeRProperty() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> initial_state("Initial State (P)", Verdict::SATISFIED);
+      static State<ProbTransition> initial_state("Initial State (P)", Verdict::VIOLATED);
       static State<ProbTransition> s_or_r_holds("S OR R after P", Verdict::SATISFIED);
       static State<ProbTransition> not_p_holds("NOT_P", Verdict::VIOLATED);
 
@@ -25,8 +25,8 @@ class UntilProperty : public ProbStatemachine {
       static ProbTransition t1(&initial_state, &initial_state, 0.99, 'P');
       static ProbTransition t2(&initial_state, &not_p_holds, 0.01, 'P');
       static ProbTransition t3(&initial_state, &not_p_holds, 1.00, 'X');
-      static ProbTransition t3(&initial_state, &s_or_r_holds, 1.00, 'S');
-      static ProbTransition t3(&initial_state, &s_or_r_holds, 1.00, 'R');
+      static ProbTransition t4(&initial_state, &s_or_r_holds, 1.00, 'S');
+      static ProbTransition t5(&initial_state, &s_or_r_holds, 1.00, 'R');
 
       //register states and transitions in automaton
 

@@ -4,7 +4,7 @@
 
 /*
 In structure english we can formulate it as:
-"If, then in response S eventually holds before R holds"
+"If P, then in response S eventually holds before R holds"
 
 X indicates not P
 
@@ -15,7 +15,7 @@ class ResponseBeforeRProperty : public ProbStatemachine {
   public:
     ResponseBeforeRProperty() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
       static State<ProbTransition> p_happened("P happened before S", Verdict::INCONCLUSIVE);
       static State<ProbTransition> r_after_p("R happened after P", Verdict::VIOLATED);
       static State<ProbTransition> r_without_p("R happened", Verdict::SATISFIED);

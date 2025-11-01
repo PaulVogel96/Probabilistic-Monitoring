@@ -28,4 +28,4 @@ To do this, you have to:
 3. restart you IDE
 
 ## Tests
-Unit Tests can be executed by running the `Test.ino` sketch
+As the collective tests were too big to run on an Arduino at once, individual unit tests for different properties can be executed by running the various Test sketches.

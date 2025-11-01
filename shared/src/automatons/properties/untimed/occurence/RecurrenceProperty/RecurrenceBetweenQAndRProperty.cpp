@@ -14,9 +14,9 @@ R indicates that R holds
 Here, we model the uncertainty in the value of the event P
 There is a 0.01 chance for any P event to actually be not P
 */
-class RecurrenceProperty : public ProbStatemachine {
+class RecurrenceBetweenQAndRProperty : public ProbStatemachine {
   public:
-    RecurrenceProperty() : ProbStatemachine() {
+    RecurrenceBetweenQAndRProperty() : ProbStatemachine() {
       //static declaration of states
       static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
       static State<ProbTransition> q_happened("Q happened", Verdict::INCONCLUSIVE);

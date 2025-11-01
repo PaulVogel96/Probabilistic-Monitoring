@@ -6,8 +6,8 @@ class ResponseAfterQProperty : public ProbStatemachine {
   public:
     ResponseAfterQProperty() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> q_happened("Q happened", Verdict::INCONCLUSIVE);
+      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
+      static State<ProbTransition> q_happened("Q happened", Verdict::SATISFIED);
       static State<ProbTransition> p_happened("P happened", Verdict::INCONCLUSIVE);
 
       //static declaration of transitions
