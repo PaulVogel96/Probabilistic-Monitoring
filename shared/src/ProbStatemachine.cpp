@@ -107,10 +107,9 @@ void ProbStatemachine::changeStates(uint8_t trigger)
     this->states = newStates;
 }
 
-void ProbStatemachine::processEvents(String eventString)
-{
-    for(char trigger: eventString){
-        this->changeStates(trigger);
+void ProbStatemachine::processEvents(const std::vector<uint8_t>& events) {
+    for (auto symbol : events) {
+        changeStates(symbol);
     }
 }
 

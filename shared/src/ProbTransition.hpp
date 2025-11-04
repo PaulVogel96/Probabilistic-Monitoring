@@ -32,4 +32,4 @@ class ProbTransition
     uint8_t mask;
 };
 
-#endif /* ProbTransition_*/
+#endif

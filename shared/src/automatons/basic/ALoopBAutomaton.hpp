@@ -1,6 +1,11 @@
+#ifndef TwoStateLoopAutomaton_hpp
+#define TwoStateLoopAutomaton_hpp
+
 #include "../../State.hpp"
 #include "../../ProbTransition.hpp"
 #include "../../ProbStatemachine.hpp"
+#include "../../Events.hpp"
+#include "../../transitions/ExactEventsMatchTransition.hpp"
 
 class ALoopBAutomaton : public ProbStatemachine {
   public:
@@ -11,8 +16,8 @@ class ALoopBAutomaton : public ProbStatemachine {
 
       //static declaration of transitions
       //transitions are registered automatically in the constructor
-      static ProbTransition t1(&a, &b, 0.5, 'a');
-      static ProbTransition t2(&a, &a, 0.5, 'a');
+      static ExactEventsMatchTransition t1(&a, &b, 0.5, EVENT_P);
+      static ExactEventsMatchTransition t2(&a, &a, 0.5, EVENT_P);
 
       //register states and transitions in automaton
 
@@ -24,3 +29,4 @@ class ALoopBAutomaton : public ProbStatemachine {
       this->addState(&b);
     }
 };
+#endif 

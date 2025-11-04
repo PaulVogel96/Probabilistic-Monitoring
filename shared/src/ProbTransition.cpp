@@ -49,7 +49,7 @@ void ProbTransition::setMask(uint8_t c)
     this->mask = c;
 }
 
-uint8_t ProbTransition::getMask()
+uint8_t ProbTransition::getMask() const
 {
     return this->mask;
 }

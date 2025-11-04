@@ -28,4 +28,4 @@ template <class T> class State
     Verdict indicatedVerdict;
 };
 
-#endif /* state_hpp */
+#endif
