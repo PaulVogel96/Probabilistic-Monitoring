@@ -2,13 +2,13 @@
 #define ProbTransition_hpp
 
 #include "State.hpp"
-#include "event.hpp"
+#include "events.hpp"
 #include <stdio.h>
 
 class ProbTransition
 {
   public:
-    ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, char trigger);
+    ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, uint8_t mask);
     ~ProbTransition();
 
     void setSource(State<ProbTransition>* s);
@@ -17,21 +17,19 @@ class ProbTransition
     void setTarget(State<ProbTransition>* s);
     State<ProbTransition>* getTarget();
 
-    void setSync(event e);
-    event getSync();
-
     void setProbability(float probability);
     float getProbability();
 
-    void setTrigger(char c);
-    char getTrigger();
+    void setMask(uint8_t c);
+    uint8_t getMask() const;
+
+    virtual bool shouldFire(uint8_t symbol) const = 0;
 
   private:
     State<ProbTransition>* source;
     State<ProbTransition>* target;
-    event sync;
     float probability;
-    char trigger;
+    uint8_t mask;
 };
 
 #endif /* ProbTransition_*/

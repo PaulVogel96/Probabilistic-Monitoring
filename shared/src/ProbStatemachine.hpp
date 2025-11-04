@@ -21,7 +21,6 @@ class ProbStatemachine
     ~ProbStatemachine();
 
     State<ProbTransition>* getInitialState();
-    void setReached(event i);
 
     State<ProbTransition>* addState(State<ProbTransition>* name);
     State<ProbTransition>* getState(String name);
@@ -31,7 +30,7 @@ class ProbStatemachine
     std::map<Verdict, float> getVerdictProbabilities();
 
     void reset(String state);
-    void changeStates(char trigger);
+    void changeStates(uint8_t trigger);
     void processEvents(String eventString);
     
     State<ProbTransition>* getMostLikelyCurrentState();
