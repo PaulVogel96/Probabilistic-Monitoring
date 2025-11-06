@@ -3,7 +3,7 @@
 
 #include "../ProbTransition.hpp" 
 
-class ExactEventsMatchTransition : public ProbTransition {
+class ExactEventsActiveTransition : public ProbTransition {
     public:
         using ProbTransition::ProbTransition;
 
@@ -11,5 +11,4 @@ class ExactEventsMatchTransition : public ProbTransition {
             return (symbol == this->getMask());
         }
 };
-
-#endif /* ExactEventsMatchTransition_hpp*/
+#endif

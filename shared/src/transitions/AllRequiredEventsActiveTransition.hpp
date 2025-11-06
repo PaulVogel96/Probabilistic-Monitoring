@@ -11,5 +11,4 @@ class AllRequiredEventsActiveTransition : public ProbTransition {
             return (symbol & this->getMask()) == this->getMask();
         }
 };
-
-#endif /* AllRequiredEventsActiveTransition_hpp*/
+#endif

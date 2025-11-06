@@ -5,7 +5,7 @@
 #include "../../ProbTransition.hpp"
 #include "../../ProbStatemachine.hpp"
 #include "../../Events.hpp"
-#include "../../transitions/ExactEventsMatchTransition.hpp"
+#include "../../transitions/ExactEventsActiveTransition.hpp"
 
 class ABCSplitAutomaton : public ProbStatemachine {
   public:
@@ -14,8 +14,8 @@ class ABCSplitAutomaton : public ProbStatemachine {
       static State<ProbTransition> state_one("B", Verdict::SATISFIED);
       static State<ProbTransition> state_two("C", Verdict::VIOLATED);
 
-      static ExactEventsMatchTransition t1(&initial_state, &state_one, 0.5, EVENT_P);
-      static ExactEventsMatchTransition t2(&initial_state, &state_two, 0.5, EVENT_P);
+      static ExactEventsActiveTransition t1(&initial_state, &state_one, 0.5, EVENT_P);
+      static ExactEventsActiveTransition t2(&initial_state, &state_two, 0.5, EVENT_P);
 
       this->initialState = this->addState(&initial_state);
       this->states[this->initialState] = 1;
