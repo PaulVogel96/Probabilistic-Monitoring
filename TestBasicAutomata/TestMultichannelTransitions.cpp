@@ -7,12 +7,13 @@
 #include <transitions/AnyRequiredEventsInactiveTransition.hpp>
 #include <transitions/ExactEventsActiveTransition.hpp>
 #include <transitions/ExactEventsInactiveTransition.hpp>
+#include <transitions/MixedEventsConditionTransition.hpp>
 
 using namespace aunit;
 
 class TestMultichannelTransitions : public TestOnce {
   protected:
-  void setup() override { /* runs once */ }
+  void setup() override {}
   
   bool approxEqual(float a, float b, float epsilon = 0.0001) {
     return fabs(a - b) < epsilon;
@@ -408,4 +409,56 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_additiona
 
   //then
   assertTrue(result);
+}
+
+testF(TestMultichannelTransitions, MixedEventConditionTransition_fires) {
+  //given
+  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
+  State<ProbTransition> b("B", Verdict::SATISFIED);
+  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+
+  //when
+  bool result = t1.shouldFire(EVENT_P); //R is inactive
+
+  //then
+  assertTrue(result);
+}
+
+testF(TestMultichannelTransitions, MixedEventConditionTransition_doesnt_fire) {
+  //given
+  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
+  State<ProbTransition> b("B", Verdict::SATISFIED);
+  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+
+  //when
+  bool result = t1.shouldFire(EVENT_P | EVENT_R); //R is active
+
+  //then
+  assertFalse(result);
+}
+
+testF(TestMultichannelTransitions, MixedEventConditionTransition_fires_multiple_events) {
+  //given
+  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
+  State<ProbTransition> b("B", Verdict::SATISFIED);
+  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+
+  //when
+  bool result = t1.shouldFire(EVENT_P | EVENT_Q); //R is inactive
+
+  //then
+  assertTrue(result);
+}
+
+testF(TestMultichannelTransitions, MixedEventConditionTransition_doesnt_fire_multiple_events) {
+  //given
+  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
+  State<ProbTransition> b("B", Verdict::SATISFIED);
+  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+
+  //when
+  bool result = t1.shouldFire(EVENT_R | EVENT_Q | EVENT_S); //P is inactive
+
+  //then
+  assertFalse(result);
 }
