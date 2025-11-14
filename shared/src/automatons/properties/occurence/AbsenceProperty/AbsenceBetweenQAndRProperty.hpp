@@ -16,8 +16,8 @@ class AbsenceBetweenQAndRProperty : public ProbStatemachine {
 
       static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.00, EVENT_Q);
       static AllRequiredEventsActiveTransition t2(&q_happened, &p_after_q, 1.00, EVENT_P);
-      static AllRequiredEventsActiveTransition t2(&q_happened, &initial_state, 1.00, EVENT_R);
-      static AllRequiredEventsActiveTransition t3(&p_after_q, &r_after_q_and_p, 1.00, EVENT_R);
+      static AllRequiredEventsActiveTransition t3(&q_happened, &initial_state, 1.00, EVENT_R);
+      static AllRequiredEventsActiveTransition t4(&p_after_q, &r_after_q_and_p, 1.00, EVENT_R);
       
       this->initialState = this->addState(&initial_state);
       this->states[this->initialState] = 1;

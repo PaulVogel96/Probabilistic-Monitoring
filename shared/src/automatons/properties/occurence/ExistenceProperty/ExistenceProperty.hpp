@@ -12,7 +12,7 @@ class ExistenceProperty : public ProbStatemachine {
       static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
       static State<ProbTransition> p_has_happened("P happened", Verdict::SATISFIED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &initial_state, 1.0, EVENT_P);
+      static AllRequiredEventsActiveTransition t1(&initial_state, &p_has_happened, 1.0, EVENT_P);
 
       this->initialState = this->addState(&initial_state);
       this->states[this->initialState] = 1;
