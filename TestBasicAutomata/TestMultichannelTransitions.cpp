@@ -411,11 +411,11 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_additiona
   assertTrue(result);
 }
 
-testF(TestMultichannelTransitions, MixedEventConditionTransition_fires) {
+testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires) {
   //given
   State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
   State<ProbTransition> b("B", Verdict::SATISFIED);
-  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+  MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
   bool result = t1.shouldFire(EVENT_P); //R is inactive
@@ -424,11 +424,11 @@ testF(TestMultichannelTransitions, MixedEventConditionTransition_fires) {
   assertTrue(result);
 }
 
-testF(TestMultichannelTransitions, MixedEventConditionTransition_doesnt_fire) {
+testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire) {
   //given
   State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
   State<ProbTransition> b("B", Verdict::SATISFIED);
-  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+  MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
   bool result = t1.shouldFire(EVENT_P | EVENT_R); //R is active
@@ -437,11 +437,11 @@ testF(TestMultichannelTransitions, MixedEventConditionTransition_doesnt_fire) {
   assertFalse(result);
 }
 
-testF(TestMultichannelTransitions, MixedEventConditionTransition_fires_multiple_events) {
+testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires_multiple_events) {
   //given
   State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
   State<ProbTransition> b("B", Verdict::SATISFIED);
-  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+  MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
   bool result = t1.shouldFire(EVENT_P | EVENT_Q); //R is inactive
@@ -450,11 +450,11 @@ testF(TestMultichannelTransitions, MixedEventConditionTransition_fires_multiple_
   assertTrue(result);
 }
 
-testF(TestMultichannelTransitions, MixedEventConditionTransition_doesnt_fire_multiple_events) {
+testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire_multiple_events) {
   //given
   State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
   State<ProbTransition> b("B", Verdict::SATISFIED);
-  MixedEventConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
+  MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
   bool result = t1.shouldFire(EVENT_R | EVENT_Q | EVENT_S); //P is inactive

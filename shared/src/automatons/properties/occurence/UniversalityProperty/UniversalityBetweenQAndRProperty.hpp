@@ -19,14 +19,14 @@ class UniversalityBetweenQAndRProperty : public ProbStatemachine {
       static State<ProbTransition> not_p_happened_after_q("Not P happened after Q", Verdict::SATISFIED);
       static State<ProbTransition> r_happened_after_q_and_not_p("R happened after Q and P", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.00, EVENT_Q);
+      static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.0, EVENT_Q);
       static AllRequiredEventsActiveTransition t2(&q_happened, &initial_state, 1.0, EVENT_R);
-      static MixedEventConditionTransition t3(&q_happened, &p_happened_after_q, 1.0, EVENT_P, EVENT_R);
-      static AllRequiredEventsInactiveTransition t4(&q_happened, &not_p_happened_after_q, 0.01, EVENT_P | EVENT_R);
-      static AllRequiredEventsActiveTransition t5(&p_happened_after_q, &initial_state, 1.00, EVENT_R);
-      static AllRequiredEventsInactiveTransition t6(&p_happened_after_q, &not_p_happened_after_q, 1.0, EVENT_P);
-      static AllRequiredEventsActiveTransition t7(&not_p_happened_after_q, &r_happened_after_q_and_not_p, 1.00, EVENT_R);
-      
+      static MixedEventsConditionTransition t3(&q_happened, &p_happened_after_q, 1.0, EVENT_P, EVENT_R);
+      static AllRequiredEventsInactiveTransition t4(&q_happened, &not_p_happened_after_q, 1.0, EVENT_P | EVENT_R);
+      static AllRequiredEventsActiveTransition t5(&p_happened_after_q, &initial_state, 1.0, EVENT_R);
+      static AllRequiredEventsInactiveTransition t6(&p_happened_after_q, &not_p_happened_after_q, 1.0, EVENT_P | EVENT_R);
+      static AllRequiredEventsActiveTransition t7(&not_p_happened_after_q, &r_happened_after_q_and_not_p, 1.0, EVENT_R);
+
       this->initialState = this->addState(&initial_state);
       this->states[this->initialState] = 1;
       this->addState(&q_happened);

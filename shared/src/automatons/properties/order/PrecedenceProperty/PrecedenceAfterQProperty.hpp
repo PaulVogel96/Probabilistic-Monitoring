@@ -1,5 +1,5 @@
-#ifndef PrecedenceProperty_hpp
-#define PrecedenceProperty_hpp
+#ifndef PrecedenceAfterQProperty_hpp
+#define PrecedenceAfterQProperty_hpp
 
 #include "../../../../State.hpp"
 #include "../../../../transitions/AllRequiredEventsActiveTransition.hpp"

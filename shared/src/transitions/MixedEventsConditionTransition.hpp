@@ -3,9 +3,9 @@
 
 #include "../ProbTransition.hpp" 
 
-class MixedEventConditionTransition : public ProbTransition {
+class MixedEventsConditionTransition : public ProbTransition {
     public:
-        MixedEventConditionTransition(State<ProbTransition>* source,
+        MixedEventsConditionTransition(State<ProbTransition>* source,
                                   State<ProbTransition>* target,
                                   float probability,
                                   uint8_t activeMask,

@@ -16,7 +16,7 @@ class AbsenceBeforeRProperty : public ProbStatemachine {
       static State<ProbTransition> r_after_p("R happened after P", Verdict::VIOLATED);
 
       static AllRequiredEventsActiveTransition t1(&initial_state, &r_has_happened, 1.0, EVENT_R);
-      static MixedEventConditionTransition t2(&initial_state, &p_has_happened, 1.0, EVENT_P, EVENT_R);
+      static MixedEventsConditionTransition t2(&initial_state, &p_has_happened, 1.0, EVENT_P, EVENT_R);
       static AllRequiredEventsActiveTransition t3(&p_has_happened, &r_after_p, 1.0, EVENT_R);
 
       this->initialState = this->addState(&initial_state);

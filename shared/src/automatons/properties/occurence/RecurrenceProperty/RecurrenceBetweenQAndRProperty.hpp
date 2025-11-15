@@ -19,7 +19,7 @@ class RecurrenceBetweenQAndRProperty : public ProbStatemachine {
       static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.0, EVENT_Q);
       static AllRequiredEventsActiveTransition t2(&q_happened, &r_happened, 1.0, EVENT_R);
       static AllRequiredEventsActiveTransition t3(&q_happened, &p_happened, 1.0, EVENT_P);
-      static AllRequiredEventsInactiveTransition t4(&p_happened, &not_p_happened, 1.0, EVENT_P);
+      static AllRequiredEventsInactiveTransition t4(&p_happened, &not_p_happened, 1.0, EVENT_P | EVENT_R);
       static AllRequiredEventsActiveTransition t5(&not_p_happened, &r_happened, 1.0, EVENT_R);
       static AllRequiredEventsActiveTransition t6(&p_happened, &r_happened, 1.0, EVENT_R);
       static AllRequiredEventsActiveTransition t7(&r_happened, &q_happened, 1.0, EVENT_R);

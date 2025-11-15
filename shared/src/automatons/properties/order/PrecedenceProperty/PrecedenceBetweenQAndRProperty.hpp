@@ -21,10 +21,35 @@ class PrecedenceBetweenQAndRProperty : public ProbStatemachine {
 
       static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.0, EVENT_Q);
       static AllRequiredEventsActiveTransition t2(&q_happened, &initial_state, 1.0, EVENT_R);
-      static MixedEventConditionTransition t3(&q_happened, &s_happened, 1.0, EVENT_S, EVENT_R);
-      static AllRequiredEventsInactiveTransition t4(&q_happened, &not_p_nor_s, 1.0, EVENT_P | EVENT_R | EVENT_R);
+      static MixedEventsConditionTransition t3(&q_happened, &s_happened, 1.0, EVENT_S, EVENT_R);
+      static AllRequiredEventsInactiveTransition t4(&q_happened, &not_p_nor_s, 1.0, EVENT_P | EVENT_R | EVENT_S);
       static AllRequiredEventsActiveTransition t5(&not_p_nor_s, &p_before_s, 1.0, EVENT_P);
-      static AnyRequiredEventsActiveTransition t6(&p_before_s, &error, 1.0, EVENT_R | EVENT_S);
+      static MixedEventsConditionTransition t6(&not_p_nor_s, &s_happened, 1.0, EVENT_S, EVENT_P);
+      static MixedEventsConditionTransition t7(&not_p_nor_s, &initial_state, 1.0, EVENT_R, EVENT_P | EVENT_S);
+      static AllRequiredEventsActiveTransition t8(&s_happened, &initial_state, 1.0, EVENT_R);
+      static AnyRequiredEventsActiveTransition t9(&p_before_s, &error, 1.0, EVENT_R | EVENT_S);
+    // EVENT_NONE, 
+    // EVENT_NONE, 
+    // EVENT_Q, 
+    // EVENT_S, 
+    // EVENT_P, 
+    // EVENT_R, 
+    // EVENT_NONE, 
+    // EVENT_NONE, 
+    // EVENT_Q, 
+    // EVENT_R, 
+    // EVENT_NONE, 
+    // EVENT_NONE, 
+    // EVENT_Q, 
+    // EVENT_NONE, 
+    // EVENT_NONE, 
+    // EVENT_S, 
+    // EVENT_P, 
+    // EVENT_P, 
+    // EVENT_P, 
+    // EVENT_R, 
+    // EVENT_NONE, 
+    // EVENT_NONE
 
       this->initialState = this->addState(&initial_state);
       this->states[this->initialState] = 1;
