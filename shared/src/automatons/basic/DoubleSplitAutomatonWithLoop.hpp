@@ -10,31 +10,31 @@
 class DoubleSplitAutomatonWithLoop : public ProbStatemachine {
   public:
     DoubleSplitAutomatonWithLoop() : ProbStatemachine() {
-      static State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> b("B", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> c("C", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> d("D", Verdict::SATISFIED);
-      static State<ProbTransition> e("E", Verdict::VIOLATED);
-      static State<ProbTransition> f("F", Verdict::SATISFIED);
-      static State<ProbTransition> g("G", Verdict::VIOLATED);
+      auto* a = new State<ProbTransition>("A", Verdict::INCONCLUSIVE);
+      auto* b = new State<ProbTransition>("B", Verdict::INCONCLUSIVE);
+      auto* c = new State<ProbTransition>("C", Verdict::INCONCLUSIVE);
+      auto* d = new State<ProbTransition>("D", Verdict::SATISFIED);
+      auto* e = new State<ProbTransition>("E", Verdict::VIOLATED);
+      auto* f = new State<ProbTransition>("F", Verdict::SATISFIED);
+      auto* g = new State<ProbTransition>("G", Verdict::VIOLATED);
 
-      static ExactEventsActiveTransition t1(&a, &b, 0.3, EVENT_P);
-      static ExactEventsActiveTransition t2(&a, &c, 0.5, EVENT_P);
-      static ExactEventsActiveTransition t3(&a, &a, 0.2, EVENT_P);
-      static ExactEventsActiveTransition t4(&b, &d, 0.4, EVENT_Q);
-      static ExactEventsActiveTransition t5(&b, &e, 0.6, EVENT_Q);
-      static ExactEventsActiveTransition t6(&c, &f, 0.8, EVENT_R);
-      static ExactEventsActiveTransition t7(&c, &g, 0.2, EVENT_R);
+      auto* t1 = new ExactEventsActiveTransition(a, b, 0.3, EVENT_P);
+      auto* t2 = new ExactEventsActiveTransition(a, c, 0.5, EVENT_P);
+      auto* t3 = new ExactEventsActiveTransition(a, a, 0.2, EVENT_P);
+      auto* t4 = new ExactEventsActiveTransition(b, d, 0.4, EVENT_Q);
+      auto* t5 = new ExactEventsActiveTransition(b, e, 0.6, EVENT_Q);
+      auto* t6 = new ExactEventsActiveTransition(c, f, 0.8, EVENT_R);
+      auto* t7 = new ExactEventsActiveTransition(c, g, 0.2, EVENT_R);
 
-      this->initialState = this->addState(&a);
+      this->initialState = this->addState(a);
       this->states[this->initialState] = 1;
 
-      this->addState(&b);
-      this->addState(&c);
-      this->addState(&d);
-      this->addState(&e);
-      this->addState(&f);
-      this->addState(&g);
+      this->addState(b);
+      this->addState(c);
+      this->addState(d);
+      this->addState(e);
+      this->addState(f);
+      this->addState(g);
     }
 };
 #endif

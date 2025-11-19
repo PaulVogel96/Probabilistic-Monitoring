@@ -9,22 +9,22 @@
 class PrecedenceBeforeRProperty : public ProbStatemachine {
   public:
     PrecedenceBeforeRProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> before_p("S or R happened before P", Verdict::SATISFIED);
-      static State<ProbTransition> p_happened("S happened", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> after_p("S or R happened after P", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
+      auto* before_p = new State<ProbTransition>("S or R happened before P", Verdict::SATISFIED);
+      auto* p_happened = new State<ProbTransition>("S happened", Verdict::INCONCLUSIVE);
+      auto* after_p = new State<ProbTransition>("S or R happened after P", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &before_p, 1.0, EVENT_S);
-      static AllRequiredEventsActiveTransition t2(&initial_state, &before_p, 1.0, EVENT_R);
-      static AllRequiredEventsActiveTransition t3(&initial_state, &p_happened, 1.0, EVENT_P);
-      static AllRequiredEventsActiveTransition t4(&p_happened, &after_p, 1.0, EVENT_R);
-      static AllRequiredEventsActiveTransition t5(&p_happened, &after_p, 1.0, EVENT_S);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, before_p, 1.0, EVENT_S);
+      auto* t2 = new AllRequiredEventsActiveTransition(initial_state, before_p, 1.0, EVENT_R);
+      auto* t3 = new AllRequiredEventsActiveTransition(initial_state, p_happened, 1.0, EVENT_P);
+      auto* t4 = new AllRequiredEventsActiveTransition(p_happened, after_p, 1.0, EVENT_R);
+      auto* t5 = new AllRequiredEventsActiveTransition(p_happened, after_p, 1.0, EVENT_S);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&before_p);
-      this->addState(&p_happened);
-      this->addState(&after_p);
+      this->addState(before_p);
+      this->addState(p_happened);
+      this->addState(after_p);
     }
 };
 #endif

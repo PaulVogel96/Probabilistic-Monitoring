@@ -10,17 +10,17 @@
 class UntilBeforeRProperty : public ProbStatemachine {
   public:
     UntilBeforeRProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::VIOLATED);
-      static State<ProbTransition> s_or_r_holds("S or R after P", Verdict::SATISFIED);
-      static State<ProbTransition> not_p_holds("Not P", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::VIOLATED);
+      auto* s_or_r_holds = new State<ProbTransition>("S or R after P", Verdict::SATISFIED);
+      auto* not_p_holds = new State<ProbTransition>("Not P", Verdict::VIOLATED);
 
-      static AnyRequiredEventsActiveTransition t1(&initial_state, &s_or_r_holds, 1.0, EVENT_S | EVENT_R);
-      static AllRequiredEventsInactiveTransition t2(&initial_state, &not_p_holds, 1.0, EVENT_P | EVENT_S | EVENT_R);
+      auto* t1 = new AnyRequiredEventsActiveTransition(initial_state, s_or_r_holds, 1.0, EVENT_S | EVENT_R);
+      auto* t2 = new AllRequiredEventsInactiveTransition(initial_state, not_p_holds, 1.0, EVENT_P | EVENT_S | EVENT_R);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&s_or_r_holds);
-      this->addState(&not_p_holds);
+      this->addState(s_or_r_holds);
+      this->addState(not_p_holds);
     }
 };
 #endif

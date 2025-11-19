@@ -10,22 +10,21 @@
 class RecurrenceBeforeRProperty : public ProbStatemachine {
   public:
     RecurrenceBeforeRProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> p_holds("P happened", Verdict::SATISFIED);
-      static State<ProbTransition> r_reached1("R reached", Verdict::VIOLATED);
-      static State<ProbTransition> r_reached2("R reached", Verdict::SATISFIED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
+      auto* p_holds = new State<ProbTransition>("P happened", Verdict::SATISFIED);
+      auto* r_reached1 = new State<ProbTransition>("R reached", Verdict::VIOLATED);
+      auto* r_reached2 = new State<ProbTransition>("R reached", Verdict::SATISFIED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &p_holds, 1.0, EVENT_P);
-      static AllRequiredEventsInactiveTransition t2(&p_holds, &initial_state, 1.0, EVENT_P | EVENT_R);
-      static AllRequiredEventsActiveTransition t3(&initial_state, &r_reached1, 1.0, EVENT_R);
-      static AllRequiredEventsActiveTransition t4(&p_holds, &r_reached2, 1.0, EVENT_R);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_holds, 1.0, EVENT_P);
+      auto* t2 = new AllRequiredEventsInactiveTransition(p_holds, initial_state, 1.0, EVENT_P | EVENT_R);
+      auto* t3 = new AllRequiredEventsActiveTransition(initial_state, r_reached1, 1.0, EVENT_R);
+      auto* t4 = new AllRequiredEventsActiveTransition(p_holds, r_reached2, 1.0, EVENT_R);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&p_holds);
-      this->addState(&r_reached1);
-      this->addState(&r_reached2);
-//  automaton.processEvents({EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE});
+      this->addState(p_holds);
+      this->addState(r_reached1);
+      this->addState(r_reached2);
     }
 };
 #endif

@@ -9,17 +9,17 @@
 class AbsenceAfterQProperty : public ProbStatemachine {
   public:
     AbsenceAfterQProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> q_happened("Q happened", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> p_after_q("P happened after Q", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
+      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::INCONCLUSIVE);
+      auto* p_after_q = new State<ProbTransition>("P happened after Q", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.00, EVENT_Q);
-      static AllRequiredEventsActiveTransition t2(&q_happened, &p_after_q, 1.00, EVENT_P);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.00, EVENT_Q);
+      auto* t2 = new AllRequiredEventsActiveTransition(q_happened, p_after_q, 1.00, EVENT_P);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&q_happened);
-      this->addState(&p_after_q);
+      this->addState(q_happened);
+      this->addState(p_after_q);
     }
 };
 #endif

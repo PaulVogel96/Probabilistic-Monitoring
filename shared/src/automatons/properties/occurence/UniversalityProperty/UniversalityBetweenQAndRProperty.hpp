@@ -13,26 +13,26 @@ class UniversalityBetweenQAndRProperty : public ProbStatemachine {
   public:
     UniversalityBetweenQAndRProperty() : ProbStatemachine() {
       //static declaration of states
-      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
-      static State<ProbTransition> q_happened("Q happened", Verdict::SATISFIED);
-      static State<ProbTransition> p_happened_after_q("P happened after Q", Verdict::SATISFIED);
-      static State<ProbTransition> not_p_happened_after_q("Not P happened after Q", Verdict::SATISFIED);
-      static State<ProbTransition> r_happened_after_q_and_not_p("R happened after Q and P", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
+      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::SATISFIED);
+      auto* p_happened_after_q = new State<ProbTransition>("P happened after Q", Verdict::SATISFIED);
+      auto* not_p_happened_after_q = new State<ProbTransition>("Not P happened after Q", Verdict::SATISFIED);
+      auto* r_happened_after_q_and_not_p = new State<ProbTransition>("R happened after Q and P", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.0, EVENT_Q);
-      static AllRequiredEventsActiveTransition t2(&q_happened, &initial_state, 1.0, EVENT_R);
-      static MixedEventsConditionTransition t3(&q_happened, &p_happened_after_q, 1.0, EVENT_P, EVENT_R);
-      static AllRequiredEventsInactiveTransition t4(&q_happened, &not_p_happened_after_q, 1.0, EVENT_P | EVENT_R);
-      static AllRequiredEventsActiveTransition t5(&p_happened_after_q, &initial_state, 1.0, EVENT_R);
-      static AllRequiredEventsInactiveTransition t6(&p_happened_after_q, &not_p_happened_after_q, 1.0, EVENT_P | EVENT_R);
-      static AllRequiredEventsActiveTransition t7(&not_p_happened_after_q, &r_happened_after_q_and_not_p, 1.0, EVENT_R);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.0, EVENT_Q);
+      auto* t2 = new AllRequiredEventsActiveTransition(q_happened, initial_state, 1.0, EVENT_R);
+      auto* t3 = new MixedEventsConditionTransition(q_happened, p_happened_after_q, 1.0, EVENT_P, EVENT_R);
+      auto* t4 = new AllRequiredEventsInactiveTransition(q_happened, not_p_happened_after_q, 1.0, EVENT_P | EVENT_R);
+      auto* t5 = new AllRequiredEventsActiveTransition(p_happened_after_q, initial_state, 1.0, EVENT_R);
+      auto* t6 = new AllRequiredEventsInactiveTransition(p_happened_after_q, not_p_happened_after_q, 1.0, EVENT_P | EVENT_R);
+      auto* t7 = new AllRequiredEventsActiveTransition(not_p_happened_after_q, r_happened_after_q_and_not_p, 1.0, EVENT_R);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&q_happened);
-      this->addState(&p_happened_after_q);
-      this->addState(&not_p_happened_after_q);
-      this->addState(&r_happened_after_q_and_not_p);
+      this->addState(q_happened);
+      this->addState(p_happened_after_q);
+      this->addState(not_p_happened_after_q);
+      this->addState(r_happened_after_q_and_not_p);
     }
 };
 #endif

@@ -9,21 +9,21 @@
 class AbsenceBetweenQAndRProperty : public ProbStatemachine {
   public:
     AbsenceBetweenQAndRProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
-      static State<ProbTransition> q_happened("Q happened", Verdict::SATISFIED);
-      static State<ProbTransition> p_after_q("P happened after Q", Verdict::SATISFIED);
-      static State<ProbTransition> r_after_q_and_p("R happened after Q and P", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
+      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::SATISFIED);
+      auto* p_after_q = new State<ProbTransition>("P happened after Q", Verdict::SATISFIED);
+      auto* r_after_q_and_p = new State<ProbTransition>("R happened after Q and P", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.00, EVENT_Q);
-      static AllRequiredEventsActiveTransition t2(&q_happened, &p_after_q, 1.00, EVENT_P);
-      static AllRequiredEventsActiveTransition t3(&q_happened, &initial_state, 1.00, EVENT_R);
-      static AllRequiredEventsActiveTransition t4(&p_after_q, &r_after_q_and_p, 1.00, EVENT_R);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.00, EVENT_Q);
+      auto* t2 = new AllRequiredEventsActiveTransition(q_happened, p_after_q, 1.00, EVENT_P);
+      auto* t3 = new AllRequiredEventsActiveTransition(q_happened, initial_state, 1.00, EVENT_R);
+      auto* t4 = new AllRequiredEventsActiveTransition(p_after_q, r_after_q_and_p, 1.00, EVENT_R);
       
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&q_happened);
-      this->addState(&p_after_q);
-      this->addState(&r_after_q_and_p);
+      this->addState(q_happened);
+      this->addState(p_after_q);
+      this->addState(r_after_q_and_p);
     }
 };
 #endif

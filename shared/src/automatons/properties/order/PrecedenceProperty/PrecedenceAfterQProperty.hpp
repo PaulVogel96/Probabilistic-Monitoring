@@ -9,20 +9,20 @@
 class PrecedenceAfterQProperty : public ProbStatemachine {
   public:
     PrecedenceAfterQProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> q_happened("Q happened", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> s_happened("S happened", Verdict::SATISFIED);
-      static State<ProbTransition> p_happened("P happened", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
+      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::INCONCLUSIVE);
+      auto* s_happened = new State<ProbTransition>("S happened", Verdict::SATISFIED);
+      auto* p_happened = new State<ProbTransition>("P happened", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &q_happened, 1.0, EVENT_Q);
-      static AllRequiredEventsActiveTransition t2(&q_happened, &p_happened, 1.0, EVENT_P);
-      static AllRequiredEventsActiveTransition t3(&q_happened, &s_happened, 1.0, EVENT_S);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.0, EVENT_Q);
+      auto* t2 = new AllRequiredEventsActiveTransition(q_happened, p_happened, 1.0, EVENT_P);
+      auto* t3 = new AllRequiredEventsActiveTransition(q_happened, s_happened, 1.0, EVENT_S);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&p_happened);
-      this->addState(&s_happened);
-      this->addState(&q_happened);
+      this->addState(p_happened);
+      this->addState(s_happened);
+      this->addState(q_happened);
     }
 };
 #endif

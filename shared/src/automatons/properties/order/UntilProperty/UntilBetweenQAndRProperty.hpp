@@ -11,32 +11,32 @@
 class UntilBetweenQAndRProperty : public ProbStatemachine {
   public:
     UntilBetweenQAndRProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
-      static State<ProbTransition> q_holds("Q holds", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> p_holds("P holds", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> not_p_holds_before_p("P holds", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> not_p_holds_after_p("P holds", Verdict::VIOLATED);
-      static State<ProbTransition> s_holds("S holds", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> r_holds("R holds (but PS did not)", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
+      auto* q_holds = new State<ProbTransition>("Q holds", Verdict::INCONCLUSIVE);
+      auto* p_holds = new State<ProbTransition>("P holds", Verdict::INCONCLUSIVE);
+      auto* not_p_holds_before_p = new State<ProbTransition>("P holds", Verdict::INCONCLUSIVE);
+      auto* not_p_holds_after_p = new State<ProbTransition>("P holds", Verdict::VIOLATED);
+      auto* s_holds = new State<ProbTransition>("S holds", Verdict::INCONCLUSIVE);
+      auto* r_holds = new State<ProbTransition>("R holds (but PS did not)", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &q_holds, 1.0, EVENT_Q);
-      static AllRequiredEventsActiveTransition t2(&q_holds, &initial_state, 1.0, EVENT_R);
-      static AllRequiredEventsActiveTransition t3(&q_holds, &p_holds, 1.0, EVENT_P);
-      static AllRequiredEventsInactiveTransition t4(&q_holds, &not_p_holds_before_p, 1.0, EVENT_P | EVENT_R);
-      static AllRequiredEventsActiveTransition t5(&not_p_holds_before_p, &p_holds, 1.0, EVENT_P);
-      static AllRequiredEventsActiveTransition t7(&p_holds, &s_holds, 1.0, EVENT_S);
-      static AllRequiredEventsActiveTransition t8(&p_holds, &initial_state, 1.0, EVENT_R);
-      static AllRequiredEventsInactiveTransition t6(&p_holds, &not_p_holds_after_p, 1.0, EVENT_P | EVENT_S | EVENT_R);
-      static AllRequiredEventsActiveTransition t9(&s_holds, &initial_state, 1.0, EVENT_R);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_holds, 1.0, EVENT_Q);
+      auto* t2 = new AllRequiredEventsActiveTransition(q_holds, initial_state, 1.0, EVENT_R);
+      auto* t3 = new AllRequiredEventsActiveTransition(q_holds, p_holds, 1.0, EVENT_P);
+      auto* t4 = new AllRequiredEventsInactiveTransition(q_holds, not_p_holds_before_p, 1.0, EVENT_P | EVENT_R);
+      auto* t5 = new AllRequiredEventsActiveTransition(not_p_holds_before_p, p_holds, 1.0, EVENT_P);
+      auto* t6 = new AllRequiredEventsActiveTransition(p_holds, s_holds, 1.0, EVENT_S);
+      auto* t7 = new AllRequiredEventsActiveTransition(p_holds, initial_state, 1.0, EVENT_R);
+      auto* t8 = new AllRequiredEventsInactiveTransition(p_holds, not_p_holds_after_p, 1.0, EVENT_P | EVENT_S | EVENT_R);
+      auto* t9 = new AllRequiredEventsActiveTransition(s_holds, initial_state, 1.0, EVENT_R);
       
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&q_holds);
-      this->addState(&p_holds);
-      this->addState(&not_p_holds_after_p);
-      this->addState(&not_p_holds_before_p);
-      this->addState(&s_holds);
-      this->addState(&r_holds);
+      this->addState(q_holds);
+      this->addState(p_holds);
+      this->addState(not_p_holds_after_p);
+      this->addState(not_p_holds_before_p);
+      this->addState(s_holds);
+      this->addState(r_holds);
     }
 };
 #endif

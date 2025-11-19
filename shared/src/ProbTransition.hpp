@@ -8,10 +8,10 @@
 class ProbTransition
 {
   public:
-    ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, uint8_t mask);
+    ProbTransition(State* source, State* target, float probability, uint8_t mask);
     ~ProbTransition();
 
-    void setSource(State<ProbTransition>* s);
+    void setSource(State* s);
     State<ProbTransition>* getSource();
 
     void setTarget(State<ProbTransition>* s);

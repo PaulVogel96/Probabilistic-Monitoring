@@ -9,17 +9,17 @@
 class ResponseProperty : public ProbStatemachine {
   public:
     ResponseProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
-      static State<ProbTransition> p_happened("P happened", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> s_happened("S happened", Verdict::SATISFIED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
+      auto* p_happened = new State<ProbTransition>("P happened", Verdict::INCONCLUSIVE);
+      auto* s_happened = new State<ProbTransition>("S happened", Verdict::SATISFIED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &p_happened, 1.0, EVENT_P);
-      static AllRequiredEventsActiveTransition t2(&p_happened, &s_happened, 1.0, EVENT_S);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_happened, 1.0, EVENT_P);
+      auto* t2 = new AllRequiredEventsActiveTransition(p_happened, s_happened, 1.0, EVENT_S);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&p_happened);
-      this->addState(&s_happened);
+      this->addState(p_happened);
+      this->addState(s_happened);
     }
 };
 #endif

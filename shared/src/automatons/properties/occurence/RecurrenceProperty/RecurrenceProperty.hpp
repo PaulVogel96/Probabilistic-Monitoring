@@ -10,15 +10,15 @@
 class RecurrenceProperty : public ProbStatemachine {
   public:
     RecurrenceProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::VIOLATED);
-      static State<ProbTransition> p_has_happened("P happened", Verdict::SATISFIED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::VIOLATED);
+      auto* p_has_happened = new State<ProbTransition>("P happened", Verdict::SATISFIED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &p_has_happened, 1.0, EVENT_P);
-      static AllRequiredEventsInactiveTransition t2(&p_has_happened, &initial_state, 1.0, EVENT_P);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_has_happened, 1.0, EVENT_P);
+      auto* t2 = new AllRequiredEventsInactiveTransition(p_has_happened, initial_state, 1.0, EVENT_P);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&p_has_happened);
+      this->addState(p_has_happened);
     }
 };
 #endif

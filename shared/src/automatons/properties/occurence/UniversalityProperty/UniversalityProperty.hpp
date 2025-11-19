@@ -9,14 +9,14 @@
 class UniversalityProperty : public ProbStatemachine {
   public:
     UniversalityProperty() : ProbStatemachine() {
-      static State<ProbTransition> p("P", Verdict::SATISFIED);
-      static State<ProbTransition> not_p("NOT_P", Verdict::VIOLATED);
+      auto* p_holds = new State<ProbTransition>("P", Verdict::SATISFIED);
+      auto* not_p_holds = new State<ProbTransition>("NOT_P", Verdict::VIOLATED);
 
-      static ExactEventsInactiveTransition t1(&p, &not_p, 1.0, EVENT_P);
+      auto* t1 = new ExactEventsInactiveTransition(p_holds, not_p_holds, 1.0, EVENT_P);
 
-      this->initialState = this->addState(&p);
+      this->initialState = this->addState(p_holds);
       this->states[this->initialState] = 1;
-      this->addState(&not_p);
+      this->addState(not_p_holds);
     }
 };
 #endif

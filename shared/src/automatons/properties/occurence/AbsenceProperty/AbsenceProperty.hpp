@@ -9,14 +9,14 @@
 class AbsenceProperty : public ProbStatemachine {
   public:
     AbsenceProperty() : ProbStatemachine() {
-      static State<ProbTransition> initial_state("Initial State", Verdict::SATISFIED);
-      static State<ProbTransition> p_holds("P happened", Verdict::VIOLATED);
+      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
+      auto* p_holds = new State<ProbTransition>("P happened", Verdict::VIOLATED);
 
-      static AllRequiredEventsActiveTransition t1(&initial_state, &p_holds, 1.0, EVENT_P);
+      auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_holds, 1.0, EVENT_P);
 
-      this->initialState = this->addState(&initial_state);
+      this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
-      this->addState(&p_holds);
+      this->addState(p_holds);
     }
 };
 #endif

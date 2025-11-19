@@ -10,15 +10,14 @@
 class BasicABAutomaton : public ProbStatemachine {
   public:
     BasicABAutomaton() : ProbStatemachine() {
-      static State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-      static State<ProbTransition> b("B", Verdict::SATISFIED);
+      auto* a = new State<ProbTransition>("A", Verdict::INCONCLUSIVE);
+      auto* b = new State<ProbTransition>("B", Verdict::SATISFIED);
 
-      static ExactEventsActiveTransition t(&a, &b, 1.0, EVENT_P);
+      auto* t1 = new ExactEventsActiveTransition(a, b, 1.0, EVENT_P);
 
-      this->initialState = this->addState(&a);
+      this->initialState = this->addState(a);
       this->states[this->initialState] = 1;
-
-      this->addState(&b);
+      this->addState(b);
     }
 };
 #endif
