@@ -2,10 +2,10 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/basic/BasicABAutomaton.cpp>
-#include <automatons/basic/ABCSplitAutomaton.cpp>
-#include <automatons/basic/DoubleSplitAutomatonWithLoop.cpp>
-#include <automatons/basic/ALoopBAutomaton.cpp>
+#include <automatons/basic/BasicABAutomaton.hpp>
+#include <automatons/basic/ABCSplitAutomaton.hpp>
+#include <automatons/basic/DoubleSplitAutomatonWithLoop.hpp>
+#include <automatons/basic/ALoopBAutomaton.hpp>
 
 BasicABAutomaton automaton; 
 

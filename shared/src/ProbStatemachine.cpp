@@ -76,7 +76,7 @@ void ProbStatemachine::reset(String state)
     }
 }
 
-void ProbStatemachine::changeStates(char trigger)
+void ProbStatemachine::changeStates(uint8_t trigger)
 {
     std::map<State<ProbTransition>*, float> newStates = this->states;
     std::map<State<ProbTransition>*, float>& oldStates = this->states;
@@ -92,7 +92,7 @@ void ProbStatemachine::changeStates(char trigger)
             for (int t = 0; t < transitions.getSize(); t++)
             {
                 ProbTransition* transition = transitions[t];
-                if (transition->getTrigger() == trigger && transition->getTarget() != state)
+                if (transition->shouldFire(trigger) && transition->getTarget() != state)
                 {
                     newStates[transition->getTarget()] += (prob * transition->getProbability());
                     restprob -= (prob * transition->getProbability());
@@ -107,10 +107,9 @@ void ProbStatemachine::changeStates(char trigger)
     this->states = newStates;
 }
 
-void ProbStatemachine::processEvents(String eventString)
-{
-    for(char trigger: eventString){
-        this->changeStates(trigger);
+void ProbStatemachine::processEvents(const std::vector<uint8_t>& events) {
+    for (auto symbol : events) {
+        changeStates(symbol);
     }
 }
 

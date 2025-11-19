@@ -1,15 +1,15 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceProperty.cpp>
-#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceBeforeRProperty.cpp>
-#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceAfterQProperty.cpp>
-#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceBetweenQAndRProperty.cpp>
+#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceProperty.hpp>
+#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceBeforeRProperty.hpp>
+#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceAfterQProperty.hpp>
+#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 
 class TestRecurrenceProperty : public TestOnce {
   protected:
-  void setup() override { /* runs once */ }
+  void setup() override {}
   
   bool approxEquals(float a, float b, float epsilon = 0.001) {
     return fabs(a - b) < epsilon;
@@ -21,13 +21,13 @@ testF(TestRecurrenceProperty, RecurrenceProperty_satisfied) {
   RecurrenceProperty automaton;
 
   //when
-  automaton.processEvents("PXPXPXP");
+  automaton.processEvents({EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.99));
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 1.0));
   assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
-  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.01));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.00));
 }
 
 testF(TestRecurrenceProperty, RecurrenceProperty_violated) {
@@ -35,13 +35,13 @@ testF(TestRecurrenceProperty, RecurrenceProperty_violated) {
   RecurrenceProperty automaton;
 
   //when
-  automaton.processEvents("XXXX");
+  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
   assertTrue(results[Verdict::SATISFIED] == 0.0);
-  assertTrue(results[Verdict::VIOLATED] == 0.0);
-  assertTrue(results[Verdict::INCONCLUSIVE] == 1.0);
+  assertTrue(results[Verdict::VIOLATED] == 1.0);
+  assertTrue(results[Verdict::INCONCLUSIVE] == 0.0);
 }
 
 testF(TestRecurrenceProperty, RecurrenceBeforeRProperty_satisfied_when_P_before_R) {
@@ -49,11 +49,11 @@ testF(TestRecurrenceProperty, RecurrenceBeforeRProperty_satisfied_when_P_before_
   RecurrenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents("PPRXX");
+  automaton.processEvents({EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 1.00));
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 1.0));
   assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
@@ -63,7 +63,7 @@ testF(TestRecurrenceProperty, RecurrenceBeforeRProperty_inconclusive_when_no_P_o
   RecurrenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents("XXXXX");
+  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -77,21 +77,7 @@ testF(TestRecurrenceProperty, RecurrenceBeforeRProperty_satisfied_multiple_repet
   RecurrenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents("PXPXPRX");
-  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
-
-  //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.99));
-  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
-  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.01));
-}
-
-testF(TestRecurrenceProperty, RecurrenceAfterQProperty_satisfied_just_q) {
-  //given
-  RecurrenceAfterQProperty automaton;
-
-  //when
-  automaton.processEvents("XXQ0XX");
+  automaton.processEvents({EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -100,18 +86,32 @@ testF(TestRecurrenceProperty, RecurrenceAfterQProperty_satisfied_just_q) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
+testF(TestRecurrenceProperty, RecurrenceAfterQProperty_inconclusive_just_q) {
+  //given
+  RecurrenceAfterQProperty automaton;
+
+  //when
+  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE});
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+
+  //then
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.0));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 1.0));
+}
+
 testF(TestRecurrenceProperty, RecurrenceAfterQProperty_satisfied) {
   //given
   RecurrenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents("PPXQXPXPXP");
+  automaton.processEvents({EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
-  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.97));
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 1.0));
   assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
-  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.03));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
 testF(TestRecurrenceProperty, RecurrenceAfterQProperty_inconclusive_when_no_P_or_Q) {
@@ -119,7 +119,7 @@ testF(TestRecurrenceProperty, RecurrenceAfterQProperty_inconclusive_when_no_P_or
   RecurrenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents("XXXXX");
+  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -133,7 +133,26 @@ testF(TestRecurrenceProperty, RecurrenceBetweenQAndRProperty_satisfied) {
   RecurrenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents("XXQPRXXQRXXQPPPRXX");
+  automaton.processEvents({
+    EVENT_NONE, 
+    EVENT_NONE, 
+    EVENT_Q, 
+    EVENT_P, 
+    EVENT_R, 
+    EVENT_NONE, 
+    EVENT_NONE, 
+    EVENT_Q, 
+    EVENT_R, 
+    EVENT_NONE, 
+    EVENT_NONE, 
+    EVENT_Q, 
+    EVENT_P, 
+    EVENT_P, 
+    EVENT_P, 
+    EVENT_R, 
+    EVENT_NONE, 
+    EVENT_NONE
+  });
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -147,7 +166,7 @@ testF(TestRecurrenceProperty, RecurrenceBetweenQAndRProperty_inconclusive_no_eve
   RecurrenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents("XXXXXXX");
+  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -161,7 +180,7 @@ testF(TestRecurrenceProperty, RecurrenceBetweenQAndRProperty_violated) {
   RecurrenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents("XXQPXPXRXX");
+  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then

@@ -1,6 +1,6 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/basic/ALoopBAutomaton.cpp>
+#include <automatons/basic/ALoopBAutomaton.hpp>
 
 using namespace aunit;
 
@@ -20,10 +20,10 @@ testF(TestProbStatemachineFunctionality, TestProcessEventsEqualsMultipleChangeSt
   ALoopBAutomaton automaton2;
 
   //when
-  automaton1.changeStates('a');
-  automaton1.changeStates('a');
-  automaton1.changeStates('a');
-  automaton2.processEvents("aaa");
+  automaton1.changeStates(EVENT_P);
+  automaton1.changeStates(EVENT_P);
+  automaton1.changeStates(EVENT_P);
+  automaton2.processEvents({EVENT_P, EVENT_P, EVENT_P});
   std::map<String, float> results1 = automaton1.getStateProbabilities();
   std::map<String, float> results2 = automaton2.getStateProbabilities();
 

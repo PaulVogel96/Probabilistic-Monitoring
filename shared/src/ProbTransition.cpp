@@ -1,12 +1,12 @@
 #include "ProbTransition.hpp"
 
-ProbTransition::ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, char trigger)
+ProbTransition::ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, uint8_t mask)
 {
     this->source = source;
     this->source->addOutgoingTransition(this);
     this->target = target;
     this->probability = probability;
-    this->trigger = trigger;
+    this->mask = mask;
 }
 
 ProbTransition::~ProbTransition()
@@ -34,16 +34,6 @@ State<ProbTransition>* ProbTransition::getTarget()
     return this->target;
 };
 
-void ProbTransition::setSync(event e)
-{
-    this->sync = e;
-};
-
-event ProbTransition::getSync()
-{
-    return this->sync;
-}
-
 void ProbTransition::setProbability(float probability)
 {
     this->probability = probability;
@@ -54,12 +44,12 @@ float ProbTransition::getProbability()
     return this->probability;
 }
 
-void ProbTransition::setTrigger(char c)
+void ProbTransition::setMask(uint8_t c)
 {
-    this->trigger = c;
+    this->mask = c;
 }
 
-char ProbTransition::getTrigger()
+uint8_t ProbTransition::getMask() const
 {
-    return this->trigger;
+    return this->mask;
 }

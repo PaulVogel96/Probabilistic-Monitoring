@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/basic/BasicABAutomaton.cpp>
-#include <automatons/basic/ABCSplitAutomaton.cpp>
-#include <automatons/basic/DoubleSplitAutomatonWithLoop.cpp>
-#include <automatons/basic/ALoopBAutomaton.cpp>
+#include <automatons/basic/BasicABAutomaton.hpp>
+#include <automatons/basic/ABCSplitAutomaton.hpp>
+#include <automatons/basic/DoubleSplitAutomatonWithLoop.hpp>
+#include <automatons/basic/ALoopBAutomaton.hpp>
 
 using namespace aunit;
 
@@ -22,7 +22,7 @@ testF(TestVerdictProbabilities, BasicABAutomaton) {
   BasicABAutomaton automaton;
 
   //when
-  automaton.changeStates('a');
+  automaton.changeStates(EVENT_P);
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -37,7 +37,7 @@ testF(TestVerdictProbabilities, ABCSplitAutomaton) {
   ABCSplitAutomaton automaton;
 
   //when
-  automaton.changeStates('a');
+  automaton.changeStates(EVENT_P);
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -52,8 +52,7 @@ testF(TestVerdictProbabilities, ALoopBAutomaton) {
   ALoopBAutomaton automaton;
 
   //when
-  automaton.changeStates('a');
-  automaton.changeStates('a');
+  automaton.processEvents({EVENT_P, EVENT_P});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -67,10 +66,7 @@ testF(TestVerdictProbabilities, DoubleSplitAutomatonWithLoop) {
   //given
   DoubleSplitAutomatonWithLoop automaton;
 
-  automaton.changeStates('a');
-  automaton.changeStates('b');
-  automaton.changeStates('c');
-  automaton.changeStates('a');
+  automaton.processEvents({EVENT_P, EVENT_Q, EVENT_R, EVENT_P});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
