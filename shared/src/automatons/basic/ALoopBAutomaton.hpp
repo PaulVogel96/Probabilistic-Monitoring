@@ -10,8 +10,8 @@
 class ALoopBAutomaton : public ProbStatemachine {
   public:
     ALoopBAutomaton() : ProbStatemachine() {
-      auto* a = new State<ProbTransition>("A", Verdict::INCONCLUSIVE);
-      auto* b = new State<ProbTransition>("B", Verdict::SATISFIED);
+      auto* a = new State("A", Verdict::INCONCLUSIVE);
+      auto* b = new State("B", Verdict::SATISFIED);
 
       auto* t1 = new ExactEventsActiveTransition(a, b, 0.5, EVENT_P);
       auto* t2 = new ExactEventsActiveTransition(a, a, 0.5, EVENT_P);

@@ -1,6 +1,7 @@
 #include "ProbTransition.hpp"
+#include "State.hpp"
 
-ProbTransition::ProbTransition(State<ProbTransition>* source, State<ProbTransition>* target, float probability, uint8_t mask)
+ProbTransition::ProbTransition(State* source, State* target, float probability, uint8_t mask)
 {
     this->source = source;
     this->source->addOutgoingTransition(this);
@@ -13,23 +14,23 @@ ProbTransition::~ProbTransition()
 {
 }
 
-void ProbTransition::setSource(State<ProbTransition>* s)
+void ProbTransition::setSource(State* s)
 {
     this->source = s;
     s->addOutgoingTransition(this);
 };
 
-State<ProbTransition>* ProbTransition::getSource()
+State* ProbTransition::getSource()
 {
     return this->source;
 }
 
-void ProbTransition::setTarget(State<ProbTransition>* s)
+void ProbTransition::setTarget(State* s)
 {
     this->target = s;
 };
 
-State<ProbTransition>* ProbTransition::getTarget()
+State* ProbTransition::getTarget()
 {
     return this->target;
 };

@@ -13,11 +13,11 @@ class UniversalityBetweenQAndRProperty : public ProbStatemachine {
   public:
     UniversalityBetweenQAndRProperty() : ProbStatemachine() {
       //static declaration of states
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::SATISFIED);
-      auto* p_happened_after_q = new State<ProbTransition>("P happened after Q", Verdict::SATISFIED);
-      auto* not_p_happened_after_q = new State<ProbTransition>("Not P happened after Q", Verdict::SATISFIED);
-      auto* r_happened_after_q_and_not_p = new State<ProbTransition>("R happened after Q and P", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* q_happened = new State("Q happened", Verdict::SATISFIED);
+      auto* p_happened_after_q = new State("P happened after Q", Verdict::SATISFIED);
+      auto* not_p_happened_after_q = new State("Not P happened after Q", Verdict::SATISFIED);
+      auto* r_happened_after_q_and_not_p = new State("R happened after Q and P", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.0, EVENT_Q);
       auto* t2 = new AllRequiredEventsActiveTransition(q_happened, initial_state, 1.0, EVENT_R);

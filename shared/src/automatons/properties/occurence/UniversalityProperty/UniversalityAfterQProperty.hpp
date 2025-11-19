@@ -10,9 +10,9 @@
 class UniversalityAfterQProperty : public ProbStatemachine {
   public:
     UniversalityAfterQProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::SATISFIED);
-      auto* not_p_happened_after_q = new State<ProbTransition>("not P happened after Q", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* q_happened = new State("Q happened", Verdict::SATISFIED);
+      auto* not_p_happened_after_q = new State("not P happened after Q", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.00, EVENT_Q);
       auto* t2 = new AllRequiredEventsInactiveTransition(q_happened, not_p_happened_after_q, 1.00, EVENT_P);

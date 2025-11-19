@@ -5,34 +5,41 @@
 #include "State.hpp"
 #include "WString.h"
 
-ProbStatemachine::ProbStatemachine(State<ProbTransition>* initialState)
+ProbStatemachine::ProbStatemachine(State* initialState)
 {
     this->initialState = this->addState(initialState);
     this->states[this->initialState] = 1;
 };
 
 ProbStatemachine::ProbStatemachine(){
-    // do nothing
 };
 
 ProbStatemachine::~ProbStatemachine(){
-    // delete all states here?
+    for (auto& entry : states) {
+        State* s = entry.first;
+        s->deleteAllOutgoingTransitions();
+    }
+
+    for (auto& entry : states) {
+        delete entry.first;
+    }
+    states.clear();
 };
 
-State<ProbTransition>* ProbStatemachine::getInitialState()
+State* ProbStatemachine::getInitialState()
 {
     return this->initialState;
 }
 
-State<ProbTransition>* ProbStatemachine::addState(State<ProbTransition>* state)
+State* ProbStatemachine::addState(State* state)
 {
     this->statePointers.add(state);
     this->states.insert(std::make_pair(state, 0));
     return state;
 };
 
-void ProbStatemachine::removeState(State<ProbTransition>* state){
-    List<State<ProbTransition>*> states = this->statePointers;
+void ProbStatemachine::removeState(State* state){
+    List<State*> states = this->statePointers;
     for (int i = 0; i < states.getSize(); i++)
     {
         if (states[i]->getName() == state->getName())
@@ -44,9 +51,9 @@ void ProbStatemachine::removeState(State<ProbTransition>* state){
     this->states.erase(state);
 }
 
-State<ProbTransition>* ProbStatemachine::getState(String name)
+State* ProbStatemachine::getState(String name)
 {
-    List<State<ProbTransition>*> states = this->statePointers;
+    List<State*> states = this->statePointers;
     for (int i = 0; i < states.getSize(); i++)
     {
         if (states[i]->getName() == name)
@@ -57,7 +64,7 @@ State<ProbTransition>* ProbStatemachine::getState(String name)
     return NULL;
 }
 
-std::map<State<ProbTransition>*, float> ProbStatemachine::getCurrentStates()
+std::map<State*, float> ProbStatemachine::getCurrentStates()
 {
     return this->states;
 }
@@ -65,11 +72,11 @@ std::map<State<ProbTransition>*, float> ProbStatemachine::getCurrentStates()
 
 void ProbStatemachine::reset(String state)
 {
-    std::map<State<ProbTransition>*, float>& oldStates = this->states;
+    std::map<State*, float>& oldStates = this->states;
 
     for (auto it = oldStates.begin(); it != oldStates.end(); ++it)
     {
-        State<ProbTransition>* s = it->first;
+        State* s = it->first;
         float prob = it->second;
 
         this->states[s] = (s->getName() == state);
@@ -78,11 +85,11 @@ void ProbStatemachine::reset(String state)
 
 void ProbStatemachine::changeStates(uint8_t trigger)
 {
-    std::map<State<ProbTransition>*, float> newStates = this->states;
-    std::map<State<ProbTransition>*, float>& oldStates = this->states;
+    std::map<State*, float> newStates = this->states;
+    std::map<State*, float>& oldStates = this->states;
     for (auto it = oldStates.begin(); it != oldStates.end(); ++it)
     {
-        State<ProbTransition>* state = it->first;
+        State* state = it->first;
         float prob = it->second;
         float restprob = it->second;
         if (prob > 0)
@@ -113,9 +120,9 @@ void ProbStatemachine::processEvents(const std::vector<uint8_t>& events) {
     }
 }
 
-State<ProbTransition>* ProbStatemachine::getMostLikelyCurrentState()
+State* ProbStatemachine::getMostLikelyCurrentState()
 {
-    State<ProbTransition>* s = this->initialState;
+    State* s = this->initialState;
     float p = 0;
     for (auto it = this->states.begin(); it != this->states.end(); ++it)
     {
@@ -132,10 +139,10 @@ State<ProbTransition>* ProbStatemachine::getMostLikelyCurrentState()
 
 float ProbStatemachine::probToBeIn(String state)
 {
-    List<State<ProbTransition>*>& currStates = this->statePointers;
+    List<State*>& currStates = this->statePointers;
     for (int i = 0; i < currStates.getSize(); i++)
     {
-        State<ProbTransition>* s = currStates[i];
+        State* s = currStates[i];
         if (s->getName() == state)
             return this->states[s];
     }

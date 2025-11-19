@@ -10,10 +10,10 @@
 class RecurrenceBeforeRProperty : public ProbStatemachine {
   public:
     RecurrenceBeforeRProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
-      auto* p_holds = new State<ProbTransition>("P happened", Verdict::SATISFIED);
-      auto* r_reached1 = new State<ProbTransition>("R reached", Verdict::VIOLATED);
-      auto* r_reached2 = new State<ProbTransition>("R reached", Verdict::SATISFIED);
+      auto* initial_state = new State("Initial State", Verdict::INCONCLUSIVE);
+      auto* p_holds = new State("P happened", Verdict::SATISFIED);
+      auto* r_reached1 = new State("R reached", Verdict::VIOLATED);
+      auto* r_reached2 = new State("R reached", Verdict::SATISFIED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_holds, 1.0, EVENT_P);
       auto* t2 = new AllRequiredEventsInactiveTransition(p_holds, initial_state, 1.0, EVENT_P | EVENT_R);

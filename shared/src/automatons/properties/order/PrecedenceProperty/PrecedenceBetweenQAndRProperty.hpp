@@ -12,12 +12,12 @@
 class PrecedenceBetweenQAndRProperty : public ProbStatemachine {
   public:
     PrecedenceBetweenQAndRProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::VIOLATED);
-      auto* not_p_nor_s = new State<ProbTransition>("Neither P nor S happened", Verdict::VIOLATED);
-      auto* s_happened = new State<ProbTransition>("S happened", Verdict::SATISFIED);
-      auto* p_before_s = new State<ProbTransition>("P happened before S", Verdict::INCONCLUSIVE);
-      auto* error = new State<ProbTransition>("Error", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* q_happened = new State("Q happened", Verdict::VIOLATED);
+      auto* not_p_nor_s = new State("Neither P nor S happened", Verdict::VIOLATED);
+      auto* s_happened = new State("S happened", Verdict::SATISFIED);
+      auto* p_before_s = new State("P happened before S", Verdict::INCONCLUSIVE);
+      auto* error = new State("Error", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.0, EVENT_Q);
       auto* t2 = new AllRequiredEventsActiveTransition(q_happened, initial_state, 1.0, EVENT_R);

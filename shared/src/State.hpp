@@ -10,21 +10,26 @@
 
 using namespace std;
 
-template <class T> class State
+class ProbTransition;
+
+class State
 {
   public:
     State(String name, Verdict indicatedVerdict);
+    ~State();
+
     String getName();
     Verdict getIndicatedVerdict();
-    void addOutgoingTransition(T* t);
-    bool removeOutgoingTransition(T* t);
-    bool deleteOutgoingTransition(T* t);
+    void addOutgoingTransition(ProbTransition* t);
+    bool removeOutgoingTransition(ProbTransition* t);
+    bool deleteOutgoingTransition(ProbTransition* t);
+    void deleteAllOutgoingTransitions();
 
-    List<T*>& getOutgoingTransitions();
+    List<ProbTransition*>& getOutgoingTransitions();
 
   private:
     String name;
-    List<T*> outgoingTransitions;
+    List<ProbTransition*> outgoingTransitions;
     Verdict indicatedVerdict;
 };
 

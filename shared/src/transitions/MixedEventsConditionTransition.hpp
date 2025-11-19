@@ -5,8 +5,8 @@
 
 class MixedEventsConditionTransition : public ProbTransition {
     public:
-        MixedEventsConditionTransition(State<ProbTransition>* source,
-                                  State<ProbTransition>* target,
+        MixedEventsConditionTransition(State* source,
+                                  State* target,
                                   float probability,
                                   uint8_t activeMask,
                                   uint8_t inactiveMask)

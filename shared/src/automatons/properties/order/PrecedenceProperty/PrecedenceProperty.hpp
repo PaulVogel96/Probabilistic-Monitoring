@@ -10,9 +10,9 @@
 class PrecedenceProperty : public ProbStatemachine {
   public:
     PrecedenceProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
-      auto* p_happened = new State<ProbTransition>("P happened before S", Verdict::VIOLATED);
-      auto* s_happened = new State<ProbTransition>("S happened", Verdict::SATISFIED);
+      auto* initial_state = new State("Initial State", Verdict::INCONCLUSIVE);
+      auto* p_happened = new State("P happened before S", Verdict::VIOLATED);
+      auto* s_happened = new State("S happened", Verdict::SATISFIED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_happened, 1.0, EVENT_P);
       auto* t2 = new AllRequiredEventsActiveTransition(initial_state, s_happened, 1.0, EVENT_S);

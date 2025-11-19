@@ -22,8 +22,8 @@ class TestMultichannelTransitions : public TestOnce {
 
 testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_fires_when_all_required_events_are_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -35,8 +35,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_fires_when_
 
 testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fire_when_not_all_required_events_are_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
@@ -48,8 +48,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fi
 
 testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_fire_when_all_required_events_are_passed_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -61,8 +61,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_fire_w
 
 testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fire_when_not_all_required_events_are_passed_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -74,8 +74,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fi
 
 testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_additional_properties_do_not_matter) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -87,8 +87,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_additional_
 
 testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_fires_when_any_required_events_are_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -100,8 +100,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_fires_when_
 
 testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fire_when_none_of_required_events_are_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
@@ -113,8 +113,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fi
 
 testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_fire_when_any_required_events_are_passed_multiple_events_possible) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -126,8 +126,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_fire_w
 
 testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fire_when_none_of_the_required_events_are_passed_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -139,8 +139,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fi
 
 testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_additional_properties_do_not_matter) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -152,8 +152,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_additional_
 
 testF(TestMultichannelTransitions, ExactEventsActiveTransition_fires_when_required_events_are_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
@@ -165,8 +165,8 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_fires_when_requir
 
 testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_when_none_of_required_events_are_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
@@ -178,8 +178,8 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_whe
 
 testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_fire_when_exact_required_events_are_passed_multiple_events_possible) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -191,8 +191,8 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_fire_when_ex
 
 testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_when_none_of_the_required_events_are_passed_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -204,8 +204,8 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_whe
 
 testF(TestMultichannelTransitions, ExactEventsActiveTransition_properties_leads_to_not_firing) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -218,8 +218,8 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_properties_leads_
 
 testF(TestMultichannelTransitions, ExactEventsInactiveTransition_fires_when_required_events_are_not_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
@@ -231,8 +231,8 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_fires_when_requ
 
 testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_when_exact_events_are_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
@@ -244,8 +244,8 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_w
 
 testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_fire_when_exact_required_events_are_inactive_multiple_events_possible) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -257,8 +257,8 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_fire_when_
 
 testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_when_only_of_the_required_events_is_inactive_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -270,8 +270,8 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_w
 
 testF(TestMultichannelTransitions, ExactEventsInactiveTransition_additional_events_leads_to_not_firing) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -283,8 +283,8 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_additional_even
 
 testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_fires_when_all_required_events_are_inactive_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -296,8 +296,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_fires_whe
 
 testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_fire_when_required_inactive_event_is_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -309,8 +309,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_
 
 testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_fire_when_all_required_events_are_passed_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -322,8 +322,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_fire
 
 testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_fire_when_not_all_required_events_are_inactive_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -335,8 +335,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_
 
 testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_additional_properties_can_be_inactive) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -348,8 +348,8 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_additiona
 
 testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_fires_when_any_of_the_required_events_are_inactive_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -361,8 +361,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_fires_whe
 
 testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_not_fire_when_required_inactive_event_is_passed_single_event) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -374,8 +374,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_not_
 
 testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire_when_any_of_required_events_are_inactive_but_not_all_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -387,8 +387,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire
 
 testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire_when_all_required_events_are_inactive_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
@@ -400,8 +400,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire
 
 testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_additional_properties_can_be_inactive) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
@@ -413,8 +413,8 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_additiona
 
 testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
@@ -426,8 +426,8 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires) {
 
 testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
@@ -439,8 +439,8 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire) {
 
 testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
@@ -452,8 +452,8 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires_multiple
 
 testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire_multiple_events) {
   //given
-  State<ProbTransition> a("A", Verdict::INCONCLUSIVE);
-  State<ProbTransition> b("B", Verdict::SATISFIED);
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when

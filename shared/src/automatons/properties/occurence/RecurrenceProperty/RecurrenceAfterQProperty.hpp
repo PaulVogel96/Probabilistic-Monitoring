@@ -10,9 +10,9 @@
 class RecurrenceAfterQProperty : public ProbStatemachine {
   public:
     RecurrenceAfterQProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
-      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::INCONCLUSIVE);
-      auto* p_happened = new State<ProbTransition>("P happened", Verdict::SATISFIED);
+      auto* initial_state = new State("Initial State", Verdict::INCONCLUSIVE);
+      auto* q_happened = new State("Q happened", Verdict::INCONCLUSIVE);
+      auto* p_happened = new State("P happened", Verdict::SATISFIED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.0, EVENT_Q);
       auto* t2 = new AllRequiredEventsActiveTransition(q_happened, p_happened, 1.0, EVENT_P);

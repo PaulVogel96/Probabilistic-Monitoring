@@ -9,8 +9,8 @@
 class AbsenceProperty : public ProbStatemachine {
   public:
     AbsenceProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* p_holds = new State<ProbTransition>("P happened", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* p_holds = new State("P happened", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_holds, 1.0, EVENT_P);
 

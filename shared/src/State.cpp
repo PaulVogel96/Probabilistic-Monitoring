@@ -1,39 +1,42 @@
 #include "State.hpp"
 #include "ProbTransition.hpp"
 
-template <class T> State<T>::State(String name, Verdict indicatedVerdict)
+State::State(String name, Verdict indicatedVerdict)
 {
     this->name = name;
     this->indicatedVerdict = indicatedVerdict;
 }
 
-template <class T> String State<T>::getName()
+State::~State(){
+};
+
+String State::getName()
 {
     return this->name;
 }
 
-template <class T> Verdict State<T>::getIndicatedVerdict()
+Verdict State::getIndicatedVerdict()
 {
     return this->indicatedVerdict;
 }
 
-template <class T> void State<T>::addOutgoingTransition(T* t)
+void State::addOutgoingTransition(ProbTransition* t)
 {
     this->outgoingTransitions.add(t);
 };
 
 
-template <class T> List<T*>& State<T>::getOutgoingTransitions()
+List<ProbTransition*>& State::getOutgoingTransitions()
 {
     return this->outgoingTransitions;
 };
 
-template <class T> bool State<T>::removeOutgoingTransition(T* t)
+bool State::removeOutgoingTransition(ProbTransition* t)
 {
     int numTransitions = this->outgoingTransitions.getSize();
     for (int i = 0; i < numTransitions; i++)
     {
-        T* tr = outgoingTransitions[i];
+        ProbTransition* tr = outgoingTransitions[i];
         if (tr == t)
         {
             this->outgoingTransitions.remove(i);
@@ -43,4 +46,9 @@ template <class T> bool State<T>::removeOutgoingTransition(T* t)
     return false;
 };
 
-template class State<ProbTransition>;
+void State::deleteAllOutgoingTransitions() {
+    for (int i = 0; i < outgoingTransitions.getSize(); i++){
+        delete outgoingTransitions[i];
+    }
+    outgoingTransitions.clear();
+}

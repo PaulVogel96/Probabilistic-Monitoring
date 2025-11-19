@@ -10,13 +10,13 @@
 class DoubleSplitAutomatonWithLoop : public ProbStatemachine {
   public:
     DoubleSplitAutomatonWithLoop() : ProbStatemachine() {
-      auto* a = new State<ProbTransition>("A", Verdict::INCONCLUSIVE);
-      auto* b = new State<ProbTransition>("B", Verdict::INCONCLUSIVE);
-      auto* c = new State<ProbTransition>("C", Verdict::INCONCLUSIVE);
-      auto* d = new State<ProbTransition>("D", Verdict::SATISFIED);
-      auto* e = new State<ProbTransition>("E", Verdict::VIOLATED);
-      auto* f = new State<ProbTransition>("F", Verdict::SATISFIED);
-      auto* g = new State<ProbTransition>("G", Verdict::VIOLATED);
+      auto* a = new State("A", Verdict::INCONCLUSIVE);
+      auto* b = new State("B", Verdict::INCONCLUSIVE);
+      auto* c = new State("C", Verdict::INCONCLUSIVE);
+      auto* d = new State("D", Verdict::SATISFIED);
+      auto* e = new State("E", Verdict::VIOLATED);
+      auto* f = new State("F", Verdict::SATISFIED);
+      auto* g = new State("G", Verdict::VIOLATED);
 
       auto* t1 = new ExactEventsActiveTransition(a, b, 0.3, EVENT_P);
       auto* t2 = new ExactEventsActiveTransition(a, c, 0.5, EVENT_P);

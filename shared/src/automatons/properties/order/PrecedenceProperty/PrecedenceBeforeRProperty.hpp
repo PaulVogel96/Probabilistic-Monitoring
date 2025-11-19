@@ -9,10 +9,10 @@
 class PrecedenceBeforeRProperty : public ProbStatemachine {
   public:
     PrecedenceBeforeRProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
-      auto* before_p = new State<ProbTransition>("S or R happened before P", Verdict::SATISFIED);
-      auto* p_happened = new State<ProbTransition>("S happened", Verdict::INCONCLUSIVE);
-      auto* after_p = new State<ProbTransition>("S or R happened after P", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::INCONCLUSIVE);
+      auto* before_p = new State("S or R happened before P", Verdict::SATISFIED);
+      auto* p_happened = new State("S happened", Verdict::INCONCLUSIVE);
+      auto* after_p = new State("S or R happened after P", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, before_p, 1.0, EVENT_S);
       auto* t2 = new AllRequiredEventsActiveTransition(initial_state, before_p, 1.0, EVENT_R);

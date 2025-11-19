@@ -10,8 +10,8 @@
 class BasicABAutomaton : public ProbStatemachine {
   public:
     BasicABAutomaton() : ProbStatemachine() {
-      auto* a = new State<ProbTransition>("A", Verdict::INCONCLUSIVE);
-      auto* b = new State<ProbTransition>("B", Verdict::SATISFIED);
+      auto* a = new State("A", Verdict::INCONCLUSIVE);
+      auto* b = new State("B", Verdict::SATISFIED);
 
       auto* t1 = new ExactEventsActiveTransition(a, b, 1.0, EVENT_P);
 

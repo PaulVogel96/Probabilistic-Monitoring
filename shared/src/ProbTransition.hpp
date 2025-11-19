@@ -1,9 +1,10 @@
 #ifndef ProbTransition_hpp
 #define ProbTransition_hpp
 
-#include "State.hpp"
 #include "events.hpp"
 #include <stdio.h>
+
+class State;
 
 class ProbTransition
 {
@@ -12,10 +13,10 @@ class ProbTransition
     ~ProbTransition();
 
     void setSource(State* s);
-    State<ProbTransition>* getSource();
+    State* getSource();
 
-    void setTarget(State<ProbTransition>* s);
-    State<ProbTransition>* getTarget();
+    void setTarget(State* s);
+    State* getTarget();
 
     void setProbability(float probability);
     float getProbability();
@@ -26,8 +27,8 @@ class ProbTransition
     virtual bool shouldFire(uint8_t symbol) const = 0;
 
   private:
-    State<ProbTransition>* source;
-    State<ProbTransition>* target;
+    State* source;
+    State* target;
     float probability;
     uint8_t mask;
 };

@@ -9,8 +9,8 @@
 class ExistenceProperty : public ProbStatemachine {
   public:
     ExistenceProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
-      auto* p_has_happened = new State<ProbTransition>("P happened", Verdict::SATISFIED);
+      auto* initial_state = new State("Initial State", Verdict::INCONCLUSIVE);
+      auto* p_has_happened = new State("P happened", Verdict::SATISFIED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_has_happened, 1.0, EVENT_P);
 

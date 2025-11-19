@@ -10,9 +10,9 @@
 class ABCSplitAutomaton : public ProbStatemachine {
   public:
     ABCSplitAutomaton() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("A", Verdict::INCONCLUSIVE);
-      auto* state_one = new State<ProbTransition>("B", Verdict::SATISFIED);
-      auto* state_two = new State<ProbTransition>("C", Verdict::VIOLATED);
+      auto* initial_state = new State("A", Verdict::INCONCLUSIVE);
+      auto* state_one = new State("B", Verdict::SATISFIED);
+      auto* state_two = new State("C", Verdict::VIOLATED);
 
       auto* t1 = new ExactEventsActiveTransition(initial_state, state_one, 0.5, EVENT_P);
       auto* t2 = new ExactEventsActiveTransition(initial_state, state_two, 0.5, EVENT_P);

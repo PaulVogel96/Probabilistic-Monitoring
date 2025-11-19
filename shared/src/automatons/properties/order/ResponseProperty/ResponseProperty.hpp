@@ -9,9 +9,9 @@
 class ResponseProperty : public ProbStatemachine {
   public:
     ResponseProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* p_happened = new State<ProbTransition>("P happened", Verdict::INCONCLUSIVE);
-      auto* s_happened = new State<ProbTransition>("S happened", Verdict::SATISFIED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* p_happened = new State("P happened", Verdict::INCONCLUSIVE);
+      auto* s_happened = new State("S happened", Verdict::SATISFIED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, p_happened, 1.0, EVENT_P);
       auto* t2 = new AllRequiredEventsActiveTransition(p_happened, s_happened, 1.0, EVENT_S);

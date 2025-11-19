@@ -1,6 +1,8 @@
 #ifndef events_hpp
 #define events_hpp
 
+#include <stdint.h>
+
 constexpr uint8_t EVENT_NONE = 0; //00000000 
 constexpr uint8_t EVENT_P = 1 << 0; //00000001
 constexpr uint8_t EVENT_S = 1 << 1; //00000010

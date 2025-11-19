@@ -10,10 +10,10 @@
 class AbsenceBeforeRProperty : public ProbStatemachine {
   public:
     AbsenceBeforeRProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
-      auto* r_has_happened = new State<ProbTransition>("R happened", Verdict::SATISFIED);
-      auto* p_has_happened = new State<ProbTransition>("P happened", Verdict::INCONCLUSIVE);
-      auto* r_after_p = new State<ProbTransition>("R happened after P", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::INCONCLUSIVE);
+      auto* r_has_happened = new State("R happened", Verdict::SATISFIED);
+      auto* p_has_happened = new State("P happened", Verdict::INCONCLUSIVE);
+      auto* r_after_p = new State("R happened after P", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, r_has_happened, 1.0, EVENT_R);
       auto* t2 = new MixedEventsConditionTransition(initial_state, p_has_happened, 1.0, EVENT_P, EVENT_R);

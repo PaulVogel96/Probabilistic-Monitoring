@@ -9,8 +9,8 @@
 class UniversalityProperty : public ProbStatemachine {
   public:
     UniversalityProperty() : ProbStatemachine() {
-      auto* p_holds = new State<ProbTransition>("P", Verdict::SATISFIED);
-      auto* not_p_holds = new State<ProbTransition>("NOT_P", Verdict::VIOLATED);
+      auto* p_holds = new State("P", Verdict::SATISFIED);
+      auto* not_p_holds = new State("NOT_P", Verdict::VIOLATED);
 
       auto* t1 = new ExactEventsInactiveTransition(p_holds, not_p_holds, 1.0, EVENT_P);
 

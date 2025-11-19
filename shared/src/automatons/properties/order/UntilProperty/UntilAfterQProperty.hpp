@@ -10,10 +10,10 @@
 class UntilAfterQProperty : public ProbStatemachine {
   public:
     UntilAfterQProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* q_holds = new State<ProbTransition>("Q", Verdict::INCONCLUSIVE);
-      auto* s_holds = new State<ProbTransition>("S", Verdict::SATISFIED);
-      auto* error = new State<ProbTransition>("Error State", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* q_holds = new State("Q", Verdict::INCONCLUSIVE);
+      auto* s_holds = new State("S", Verdict::SATISFIED);
+      auto* error = new State("Error State", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_holds, 1.00, EVENT_Q);
       auto* t2 = new AllRequiredEventsActiveTransition(q_holds, s_holds, 1.00, EVENT_S);

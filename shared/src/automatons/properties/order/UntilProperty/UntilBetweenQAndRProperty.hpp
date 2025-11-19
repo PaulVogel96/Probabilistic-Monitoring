@@ -11,13 +11,13 @@
 class UntilBetweenQAndRProperty : public ProbStatemachine {
   public:
     UntilBetweenQAndRProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* q_holds = new State<ProbTransition>("Q holds", Verdict::INCONCLUSIVE);
-      auto* p_holds = new State<ProbTransition>("P holds", Verdict::INCONCLUSIVE);
-      auto* not_p_holds_before_p = new State<ProbTransition>("P holds", Verdict::INCONCLUSIVE);
-      auto* not_p_holds_after_p = new State<ProbTransition>("P holds", Verdict::VIOLATED);
-      auto* s_holds = new State<ProbTransition>("S holds", Verdict::INCONCLUSIVE);
-      auto* r_holds = new State<ProbTransition>("R holds (but PS did not)", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* q_holds = new State("Q holds", Verdict::INCONCLUSIVE);
+      auto* p_holds = new State("P holds", Verdict::INCONCLUSIVE);
+      auto* not_p_holds_before_p = new State("P holds", Verdict::INCONCLUSIVE);
+      auto* not_p_holds_after_p = new State("P holds", Verdict::VIOLATED);
+      auto* s_holds = new State("S holds", Verdict::INCONCLUSIVE);
+      auto* r_holds = new State("R holds (but PS did not)", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_holds, 1.0, EVENT_Q);
       auto* t2 = new AllRequiredEventsActiveTransition(q_holds, initial_state, 1.0, EVENT_R);

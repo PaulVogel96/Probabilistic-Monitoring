@@ -10,9 +10,9 @@
 class UntilBeforeRProperty : public ProbStatemachine {
   public:
     UntilBeforeRProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::VIOLATED);
-      auto* s_or_r_holds = new State<ProbTransition>("S or R after P", Verdict::SATISFIED);
-      auto* not_p_holds = new State<ProbTransition>("Not P", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::VIOLATED);
+      auto* s_or_r_holds = new State("S or R after P", Verdict::SATISFIED);
+      auto* not_p_holds = new State("Not P", Verdict::VIOLATED);
 
       auto* t1 = new AnyRequiredEventsActiveTransition(initial_state, s_or_r_holds, 1.0, EVENT_S | EVENT_R);
       auto* t2 = new AllRequiredEventsInactiveTransition(initial_state, not_p_holds, 1.0, EVENT_P | EVENT_S | EVENT_R);

@@ -9,9 +9,9 @@
 class AbsenceAfterQProperty : public ProbStatemachine {
   public:
     AbsenceAfterQProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::INCONCLUSIVE);
-      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::INCONCLUSIVE);
-      auto* p_after_q = new State<ProbTransition>("P happened after Q", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::INCONCLUSIVE);
+      auto* q_happened = new State("Q happened", Verdict::INCONCLUSIVE);
+      auto* p_after_q = new State("P happened after Q", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.00, EVENT_Q);
       auto* t2 = new AllRequiredEventsActiveTransition(q_happened, p_after_q, 1.00, EVENT_P);

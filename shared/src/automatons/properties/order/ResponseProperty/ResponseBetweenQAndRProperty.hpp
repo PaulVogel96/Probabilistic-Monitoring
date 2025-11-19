@@ -9,10 +9,10 @@
 class ResponseBetweenQAndRProperty : public ProbStatemachine {
   public:
     ResponseBetweenQAndRProperty() : ProbStatemachine() {
-      auto* initial_state = new State<ProbTransition>("Initial State", Verdict::SATISFIED);
-      auto* q_happened = new State<ProbTransition>("Q happened", Verdict::SATISFIED);
-      auto* p_happened = new State<ProbTransition>("P happened", Verdict::INCONCLUSIVE);
-      auto* r_without_s = new State<ProbTransition>("R happened before S did", Verdict::VIOLATED);
+      auto* initial_state = new State("Initial State", Verdict::SATISFIED);
+      auto* q_happened = new State("Q happened", Verdict::SATISFIED);
+      auto* p_happened = new State("P happened", Verdict::INCONCLUSIVE);
+      auto* r_without_s = new State("R happened before S did", Verdict::VIOLATED);
 
       auto* t1 = new AllRequiredEventsActiveTransition(initial_state, q_happened, 1.0, EVENT_Q);
       auto* t2 = new AllRequiredEventsActiveTransition(q_happened, initial_state, 1.0, EVENT_R);

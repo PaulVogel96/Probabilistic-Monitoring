@@ -1,7 +1,10 @@
 #ifndef ProbStatemachine_hpp
 #define ProbStatemachine_hpp
+
+#include "Arduino.h"
 #include "List.hpp"
 #include "ProbTransition.hpp"
+#include "Verdict.hpp"
 #include "StandardCplusplus.h"
 #include <map>
 #include <stdio.h>
@@ -15,17 +18,17 @@ using namespace std;
 class ProbStatemachine
 {
   public:
-    ProbStatemachine(State<ProbTransition>* initialState);
+    ProbStatemachine(State* initialState);
     ProbStatemachine();
 
     ~ProbStatemachine();
 
-    State<ProbTransition>* getInitialState();
+    State* getInitialState();
 
-    State<ProbTransition>* addState(State<ProbTransition>* name);
-    State<ProbTransition>* getState(String name);
-    void removeState(State<ProbTransition>* state);
-    std::map<State<ProbTransition>*, float> getCurrentStates();
+    State* addState(State* name);
+    State* getState(String name);
+    void removeState(State* state);
+    std::map<State*, float> getCurrentStates();
     std::map<String, float> getStateProbabilities();
     std::map<Verdict, float> getVerdictProbabilities();
 
@@ -33,16 +36,16 @@ class ProbStatemachine
     void changeStates(uint8_t trigger);
     void processEvents(const vector<uint8_t>& events);
     
-    State<ProbTransition>* getMostLikelyCurrentState();
+    State* getMostLikelyCurrentState();
     float probToBeIn(String state);
 
   protected:
-    std::map<State<ProbTransition>*, float> states;
-    State<ProbTransition>* initialState;
+    std::map<State*, float> states;
+    State* initialState;
 
   private:
     bool switchState();
-    List<State<ProbTransition>*> statePointers;
+    List<State*> statePointers;
 };
 
 #endif /* ProbStatemachine_hpp */
