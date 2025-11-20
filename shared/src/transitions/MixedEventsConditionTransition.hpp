@@ -14,7 +14,10 @@ class MixedEventsConditionTransition : public ProbTransition {
           activeMask(activeMask), 
           inactiveMask(inactiveMask) {}
 
-        bool shouldFire(uint8_t symbol) const override {
+        bool evaluate(uint8_t symbol) const override {
+            if (symbol & EVENTS_MISSING) {
+                return (this->getMask() & EVENTS_MISSING) != 0;
+            }
             bool allActive = (symbol & activeMask) == activeMask;
             bool allInactive = (symbol & inactiveMask) == 0;
             return allActive && allInactive;

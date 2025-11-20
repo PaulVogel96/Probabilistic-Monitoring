@@ -24,7 +24,7 @@ class ProbTransition
     void setMask(uint8_t c);
     uint8_t getMask() const;
 
-    virtual bool shouldFire(uint8_t symbol) const = 0;
+    virtual bool evaluate(uint8_t symbol) const = 0;
 
   private:
     State* source;

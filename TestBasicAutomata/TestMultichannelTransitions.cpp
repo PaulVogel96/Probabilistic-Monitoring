@@ -27,7 +27,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_fires_when_
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertTrue(result);
@@ -40,7 +40,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fi
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertFalse(result);
@@ -53,7 +53,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_fire_w
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_Q);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q);
 
   //then
   assertTrue(result);
@@ -66,7 +66,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fi
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertFalse(result);
@@ -79,7 +79,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_additional_
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
 
   //then
   assertTrue(result);
@@ -92,7 +92,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_fires_when_
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertTrue(result);
@@ -105,7 +105,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fi
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertFalse(result);
@@ -118,7 +118,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_fire_w
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertTrue(result);
@@ -131,7 +131,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fi
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_S);
+  bool result = t1.evaluate(EVENT_S);
 
   //then
   assertFalse(result);
@@ -144,7 +144,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_additional_
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
 
   //then
   assertTrue(result);
@@ -157,7 +157,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_fires_when_requir
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_Q);
+  bool result = t1.evaluate(EVENT_Q);
 
   //then
   assertTrue(result);
@@ -170,7 +170,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_whe
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertFalse(result);
@@ -183,7 +183,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_fire_when_ex
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_Q);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q);
 
   //then
   assertTrue(result);
@@ -196,7 +196,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_whe
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_S);
+  bool result = t1.evaluate(EVENT_S);
 
   //then
   assertFalse(result);
@@ -209,7 +209,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_properties_leads_
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
 
   //then
   assertFalse(result);
@@ -223,7 +223,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_fires_when_requ
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_S);
+  bool result = t1.evaluate(EVENT_S);
 
   //then
   assertTrue(result);
@@ -236,7 +236,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_w
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_Q);
+  bool result = t1.evaluate(EVENT_Q);
 
   //then
   assertFalse(result);
@@ -249,7 +249,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_fire_when_
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_S | EVENT_R);
+  bool result = t1.evaluate(EVENT_S | EVENT_R);
 
   //then
   assertTrue(result);
@@ -262,7 +262,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_w
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertFalse(result);
@@ -275,7 +275,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_additional_even
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
 
   //then
   assertFalse(result);
@@ -288,7 +288,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_fires_whe
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_Q | EVENT_R | EVENT_S); //Only P is not active
+  bool result = t1.evaluate(EVENT_Q | EVENT_R | EVENT_S); //Only P is not active
 
   //then
   assertTrue(result);
@@ -301,7 +301,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertFalse(result);
@@ -314,7 +314,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_fire
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_S | EVENT_R);
+  bool result = t1.evaluate(EVENT_S | EVENT_R);
 
   //then
   assertTrue(result);
@@ -327,7 +327,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_R | EVENT_S);
 
   //then
   assertFalse(result);
@@ -340,7 +340,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_additiona
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_S);
+  bool result = t1.evaluate(EVENT_S);
 
   //then
   assertTrue(result);
@@ -353,7 +353,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_fires_whe
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_Q | EVENT_R | EVENT_S); //Only P is not active
+  bool result = t1.evaluate(EVENT_Q | EVENT_R | EVENT_S); //Only P is not active
 
   //then
   assertTrue(result);
@@ -366,7 +366,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_not_
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_P);
+  bool result = t1.evaluate(EVENT_P);
 
   //then
   assertFalse(result);
@@ -379,7 +379,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_Q | EVENT_S | EVENT_R); //only p is inactive
+  bool result = t1.evaluate(EVENT_Q | EVENT_S | EVENT_R); //only p is inactive
 
   //then
   assertTrue(result);
@@ -392,7 +392,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.shouldFire(EVENT_R | EVENT_S); //P and Q inactive
+  bool result = t1.evaluate(EVENT_R | EVENT_S); //P and Q inactive
 
   //then
   assertTrue(result);
@@ -405,7 +405,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_additiona
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.shouldFire(EVENT_S); //Q and R also inactive
+  bool result = t1.evaluate(EVENT_S); //Q and R also inactive
 
   //then
   assertTrue(result);
@@ -418,7 +418,7 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires) {
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.shouldFire(EVENT_P); //R is inactive
+  bool result = t1.evaluate(EVENT_P); //R is inactive
 
   //then
   assertTrue(result);
@@ -431,7 +431,7 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire) {
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_R); //R is active
+  bool result = t1.evaluate(EVENT_P | EVENT_R); //R is active
 
   //then
   assertFalse(result);
@@ -444,7 +444,7 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires_multiple
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.shouldFire(EVENT_P | EVENT_Q); //R is inactive
+  bool result = t1.evaluate(EVENT_P | EVENT_Q); //R is inactive
 
   //then
   assertTrue(result);
@@ -457,8 +457,45 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire_mu
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.shouldFire(EVENT_R | EVENT_Q | EVENT_S); //P is inactive
+  bool result = t1.evaluate(EVENT_R | EVENT_Q | EVENT_S); //P is inactive
 
   //then
   assertFalse(result);
 }
+
+testF(TestMultichannelTransitions, EVENTS_MISSING_triggers_explicit_transitions) {
+  //given
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
+  AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENTS_MISSING);
+
+  //when
+  bool result = t1.evaluate(EVENTS_MISSING); //P is inactive
+
+  //then
+  assertTrue(result);
+}
+
+testF(TestMultichannelTransitions, EVENTS_MISSING_triggers_no_other_transitions) {
+  //given
+  State a("A", Verdict::INCONCLUSIVE);
+  State b("B", Verdict::SATISFIED);
+  AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
+  AllRequiredEventsInactiveTransition t2(&a, &b, 1.0, EVENT_P);
+  AnyRequiredEventsActiveTransition t3(&a, &b, 1.0, EVENT_P);
+  AnyRequiredEventsInactiveTransition t4(&a, &b, 1.0, EVENT_P);
+  ExactEventsActiveTransition t5(&a, &b, 1.0, EVENT_P);
+  ExactEventsInactiveTransition t6(&a, &b, 1.0, EVENT_P);
+  MixedEventsConditionTransition t7(&a, &b, 1.0, EVENT_P, EVENT_Q);
+
+  //when
+  //then
+  assertFalse(t1.evaluate(EVENTS_MISSING));
+  assertFalse(t2.evaluate(EVENTS_MISSING));
+  assertFalse(t3.evaluate(EVENTS_MISSING));
+  assertFalse(t4.evaluate(EVENTS_MISSING));
+  assertFalse(t5.evaluate(EVENTS_MISSING));
+  assertFalse(t6.evaluate(EVENTS_MISSING));
+  assertFalse(t7.evaluate(EVENTS_MISSING));
+}
+
