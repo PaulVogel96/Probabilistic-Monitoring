@@ -53,12 +53,11 @@ void ProbStatemachine::removeState(State* state){
 
 State* ProbStatemachine::getState(String name)
 {
-    List<State*> states = this->statePointers;
-    for (int i = 0; i < states.getSize(); i++)
+    for (int i = 0; i < this->statePointers.getSize(); i++)
     {
-        if (states[i]->getName() == name)
+        if (this->statePointers[i]->getName() == name)
         {
-            return states[i];
+            return this->statePointers[i];
         }
     }
     return NULL;
