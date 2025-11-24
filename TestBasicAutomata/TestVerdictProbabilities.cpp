@@ -22,7 +22,7 @@ testF(TestVerdictProbabilities, BasicABAutomaton) {
   BasicABAutomaton automaton;
 
   //when
-  automaton.changeStates(EVENT_P);
+  automaton.changeStates(EVENT_P, 0);
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -37,7 +37,7 @@ testF(TestVerdictProbabilities, ABCSplitAutomaton) {
   ABCSplitAutomaton automaton;
 
   //when
-  automaton.changeStates(EVENT_P);
+  automaton.changeStates(EVENT_P, 0);
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -52,7 +52,7 @@ testF(TestVerdictProbabilities, ALoopBAutomaton) {
   ALoopBAutomaton automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P});
+  automaton.processEvents({EVENT_P, EVENT_P}, {0, 1});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -66,7 +66,7 @@ testF(TestVerdictProbabilities, DoubleSplitAutomatonWithLoop) {
   //given
   DoubleSplitAutomatonWithLoop automaton;
 
-  automaton.processEvents({EVENT_P, EVENT_Q, EVENT_R, EVENT_P});
+  automaton.processEvents({EVENT_P, EVENT_Q, EVENT_R, EVENT_P}, {0, 1, 2, 3});
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then

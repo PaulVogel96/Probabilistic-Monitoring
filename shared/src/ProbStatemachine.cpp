@@ -82,7 +82,7 @@ void ProbStatemachine::reset(String state)
     }
 }
 
-void ProbStatemachine::changeStates(uint8_t trigger)
+void ProbStatemachine::changeStates(uint8_t trigger, uint32_t timestamp)
 {
     std::map<State*, float> newStates = this->states;
     std::map<State*, float>& oldStates = this->states;
@@ -113,10 +113,30 @@ void ProbStatemachine::changeStates(uint8_t trigger)
     this->states = newStates;
 }
 
-void ProbStatemachine::processEvents(const std::vector<uint8_t>& events) {
-    for (auto symbol : events) {
-        changeStates(symbol);
+void ProbStatemachine::processEvents(const std::vector<uint8_t>& events, const std::vector<uint32_t>& timestamps) {
+    //expect events to be the same size as timestamps
+    for(int i = 0; i < events.size(); i++){
+        changeStates(events[i], timestamps[i]);
     }
+}
+
+void ProbStatemachine::setOccurenceOfAt(uint8_t events, uint32_t timestamp){
+    if((events & EVENT_P) != 0){
+        lastEventOcurrences[EVENT_P] = timestamp;
+    }
+    if((events & EVENT_Q) != 0){
+        lastEventOcurrences[EVENT_Q] = timestamp;
+    }
+    if((events & EVENT_R) != 0){
+        lastEventOcurrences[EVENT_R] = timestamp;
+    }
+    if((events & EVENT_S) != 0){
+        lastEventOcurrences[EVENT_S] = timestamp;
+    }
+}
+
+uint32_t ProbStatemachine::getLastOccurenceOf(uint8_t event){
+    return lastEventOcurrences[event];
 }
 
 State* ProbStatemachine::getMostLikelyCurrentState()
