@@ -1,5 +1,6 @@
-#include <map>
 #include <AUnit.h>
+
+#include <State.hpp>
 #include <automatons/basic/ALoopBAutomaton.hpp>
 #include <transitions/AllRequiredEventsActiveTransition.hpp>
 #include <transitions/AllRequiredEventsInactiveTransition.hpp>
@@ -27,7 +28,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_fires_when_
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -40,7 +41,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fi
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -53,7 +54,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_fire_w
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_Q);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -66,7 +67,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_does_not_fi
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -79,7 +80,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsActiveTransition_additional_
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -92,7 +93,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_fires_when_
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -105,7 +106,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fi
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -118,7 +119,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_fire_w
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -131,7 +132,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_does_not_fi
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_S);
+  bool result = t1.evaluate(EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -144,7 +145,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsActiveTransition_additional_
   AnyRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -157,7 +158,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_fires_when_requir
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_Q);
+  bool result = t1.evaluate(EVENT_Q, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -170,7 +171,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_whe
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -183,7 +184,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_fire_when_ex
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_Q);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -196,7 +197,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_does_not_fire_whe
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_S);
+  bool result = t1.evaluate(EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -209,7 +210,7 @@ testF(TestMultichannelTransitions, ExactEventsActiveTransition_properties_leads_
   ExactEventsActiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -223,7 +224,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_fires_when_requ
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_S);
+  bool result = t1.evaluate(EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -236,7 +237,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_w
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_Q);
+  bool result = t1.evaluate(EVENT_Q, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -249,7 +250,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_fire_when_
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_S | EVENT_R);
+  bool result = t1.evaluate(EVENT_S | EVENT_R, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -262,7 +263,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_does_not_fire_w
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -275,7 +276,7 @@ testF(TestMultichannelTransitions, ExactEventsInactiveTransition_additional_even
   ExactEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_Q | EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -288,7 +289,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_fires_whe
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_Q | EVENT_R | EVENT_S); //Only P is not active
+  bool result = t1.evaluate(EVENT_Q | EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>()); //Only P is not active
 
   //then
   assertTrue(result);
@@ -301,7 +302,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -314,7 +315,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_fire
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_S | EVENT_R);
+  bool result = t1.evaluate(EVENT_S | EVENT_R, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -327,7 +328,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_does_not_
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_R | EVENT_S);
+  bool result = t1.evaluate(EVENT_P | EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -340,7 +341,7 @@ testF(TestMultichannelTransitions, AllRequiredEventsInactiveTransition_additiona
   AllRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_S);
+  bool result = t1.evaluate(EVENT_S, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertTrue(result);
@@ -353,7 +354,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_fires_whe
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_Q | EVENT_R | EVENT_S); //Only P is not active
+  bool result = t1.evaluate(EVENT_Q | EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>()); //Only P is not active
 
   //then
   assertTrue(result);
@@ -366,7 +367,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_not_
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_P);
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>());
 
   //then
   assertFalse(result);
@@ -379,7 +380,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_Q | EVENT_S | EVENT_R); //only p is inactive
+  bool result = t1.evaluate(EVENT_Q | EVENT_S | EVENT_R, {0}, new std::map<uint8_t, uint32_t>()); //only p is inactive
 
   //then
   assertTrue(result);
@@ -392,7 +393,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_does_fire
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P | EVENT_Q);
 
   //when
-  bool result = t1.evaluate(EVENT_R | EVENT_S); //P and Q inactive
+  bool result = t1.evaluate(EVENT_R | EVENT_S, {0}, new std::map<uint8_t, uint32_t>()); //P and Q inactive
 
   //then
   assertTrue(result);
@@ -405,7 +406,7 @@ testF(TestMultichannelTransitions, AnyRequiredEventsInactiveTransition_additiona
   AnyRequiredEventsInactiveTransition t1(&a, &b, 1.0, EVENT_P);
 
   //when
-  bool result = t1.evaluate(EVENT_S); //Q and R also inactive
+  bool result = t1.evaluate(EVENT_S, {0}, new std::map<uint8_t, uint32_t>()); //Q and R also inactive
 
   //then
   assertTrue(result);
@@ -418,7 +419,7 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires) {
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.evaluate(EVENT_P); //R is inactive
+  bool result = t1.evaluate(EVENT_P, {0}, new std::map<uint8_t, uint32_t>()); //R is inactive
 
   //then
   assertTrue(result);
@@ -431,7 +432,7 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire) {
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_R); //R is active
+  bool result = t1.evaluate(EVENT_P | EVENT_R, {0}, new std::map<uint8_t, uint32_t>()); //R is active
 
   //then
   assertFalse(result);
@@ -444,7 +445,7 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_fires_multiple
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.evaluate(EVENT_P | EVENT_Q); //R is inactive
+  bool result = t1.evaluate(EVENT_P | EVENT_Q, {0}, new std::map<uint8_t, uint32_t>()); //R is inactive
 
   //then
   assertTrue(result);
@@ -457,7 +458,7 @@ testF(TestMultichannelTransitions, MixedEventsConditionTransition_doesnt_fire_mu
   MixedEventsConditionTransition t1(&a, &b, 1.0, EVENT_P, EVENT_R);
 
   //when
-  bool result = t1.evaluate(EVENT_R | EVENT_Q | EVENT_S); //P is inactive
+  bool result = t1.evaluate(EVENT_R | EVENT_Q | EVENT_S, {0}, new std::map<uint8_t, uint32_t>()); //P is inactive
 
   //then
   assertFalse(result);
@@ -470,7 +471,7 @@ testF(TestMultichannelTransitions, EVENTS_MISSING_triggers_explicit_transitions)
   AllRequiredEventsActiveTransition t1(&a, &b, 1.0, EVENTS_MISSING);
 
   //when
-  bool result = t1.evaluate(EVENTS_MISSING); //P is inactive
+  bool result = t1.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()); //P is inactive
 
   //then
   assertTrue(result);
@@ -490,12 +491,12 @@ testF(TestMultichannelTransitions, EVENTS_MISSING_triggers_no_other_transitions)
 
   //when
   //then
-  assertFalse(t1.evaluate(EVENTS_MISSING));
-  assertFalse(t2.evaluate(EVENTS_MISSING));
-  assertFalse(t3.evaluate(EVENTS_MISSING));
-  assertFalse(t4.evaluate(EVENTS_MISSING));
-  assertFalse(t5.evaluate(EVENTS_MISSING));
-  assertFalse(t6.evaluate(EVENTS_MISSING));
-  assertFalse(t7.evaluate(EVENTS_MISSING));
+  assertFalse(t1.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()));
+  assertFalse(t2.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()));
+  assertFalse(t3.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()));
+  assertFalse(t4.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()));
+  assertFalse(t5.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()));
+  assertFalse(t6.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()));
+  assertFalse(t7.evaluate(EVENTS_MISSING, {0}, new std::map<uint8_t, uint32_t>()));
 }
 

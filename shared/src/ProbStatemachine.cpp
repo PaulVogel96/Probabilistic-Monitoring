@@ -98,7 +98,7 @@ void ProbStatemachine::changeStates(uint8_t trigger, uint32_t timestamp)
             for (int t = 0; t < transitions.getSize(); t++)
             {
                 ProbTransition* transition = transitions[t];
-                if (transition->evaluate(trigger) && transition->getTarget() != state)
+                if (transition->evaluate(trigger, timestamp, &this->lastEventOcurrences) && transition->getTarget() != state)
                 {
                     newStates[transition->getTarget()] += (prob * transition->getProbability());
                     restprob -= (prob * transition->getProbability());
