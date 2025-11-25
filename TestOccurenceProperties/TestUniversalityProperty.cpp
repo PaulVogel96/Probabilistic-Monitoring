@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityProperty.hpp>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityBeforeRProperty.hpp>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityAfterQProperty.hpp>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityBeforeRProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityAfterQProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 

@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/order/PrecedenceProperty/PrecedenceProperty.hpp>
-#include <automatons/properties/order/PrecedenceProperty/PrecedenceBeforeRProperty.hpp>
-#include <automatons/properties/order/PrecedenceProperty/PrecedenceAfterQProperty.hpp>
-#include <automatons/properties/order/PrecedenceProperty/PrecedenceBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/order/PrecedenceProperty/PrecedenceProperty.hpp>
+#include <automatons/properties/untimed/order/PrecedenceProperty/PrecedenceBeforeRProperty.hpp>
+#include <automatons/properties/untimed/order/PrecedenceProperty/PrecedenceAfterQProperty.hpp>
+#include <automatons/properties/untimed/order/PrecedenceProperty/PrecedenceBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 

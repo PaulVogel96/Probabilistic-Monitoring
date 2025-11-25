@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceProperty.hpp>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceBeforeRProperty.hpp>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceAfterQProperty.hpp>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceBeforeRProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceAfterQProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 

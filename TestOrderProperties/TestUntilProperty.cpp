@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/order/UntilProperty/UntilProperty.hpp>
-#include <automatons/properties/order/UntilProperty/UntilBeforeRProperty.hpp>
-#include <automatons/properties/order/UntilProperty/UntilAfterQProperty.hpp>
-#include <automatons/properties/order/UntilProperty/UntilBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilBeforeRProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilAfterQProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 

@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceProperty.hpp>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceBeforeRProperty.hpp>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceAfterQProperty.hpp>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceBeforeRProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceAfterQProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 

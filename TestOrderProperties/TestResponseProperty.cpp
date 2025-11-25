@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/order/ResponseProperty/ResponseProperty.hpp>
-#include <automatons/properties/order/ResponseProperty/ResponseBeforeRProperty.hpp>
-#include <automatons/properties/order/ResponseProperty/ResponseAfterQProperty.hpp>
-#include <automatons/properties/order/ResponseProperty/ResponseBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/order/ResponseProperty/ResponseProperty.hpp>
+#include <automatons/properties/untimed/order/ResponseProperty/ResponseBeforeRProperty.hpp>
+#include <automatons/properties/untimed/order/ResponseProperty/ResponseAfterQProperty.hpp>
+#include <automatons/properties/untimed/order/ResponseProperty/ResponseBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 
