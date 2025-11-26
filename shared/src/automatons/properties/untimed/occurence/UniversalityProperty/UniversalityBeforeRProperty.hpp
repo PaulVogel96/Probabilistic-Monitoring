@@ -2,10 +2,10 @@
 #define UniversalityBeforeRProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsInactiveTransition.hpp"
-#include "../../../../../transitions/MixedEventsConditionTransition.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
-#include "../../../../../transitions/ExactEventsInactiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsInactiveTransition.hpp"
+#include "../../../../../transitions/untimed/MixedEventsConditionTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/ExactEventsInactiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"Before R, it is always the case that P holds"

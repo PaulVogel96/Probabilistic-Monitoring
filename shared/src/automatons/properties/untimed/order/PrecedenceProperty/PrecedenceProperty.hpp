@@ -2,7 +2,7 @@
 #define PrecedenceProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 

@@ -4,7 +4,7 @@
 #include "StandardCplusplus.h"
 #include <map>
 
-#include "../ProbTransition.hpp" 
+#include "../../ProbTransition.hpp" 
 
 class ExactEventsActiveTransition : public ProbTransition {
     public:

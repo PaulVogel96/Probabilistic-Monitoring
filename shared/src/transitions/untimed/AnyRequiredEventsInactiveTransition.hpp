@@ -1,12 +1,12 @@
-#ifndef ExactEventsDoesNotMatchTransition_hpp
-#define ExactEventsDoesNotMatchTransition_hpp
+#ifndef AnyRequiredEventInactiveTransition_hpp
+#define AnyRequiredEventInactiveTransition_hpp
 
 #include "StandardCplusplus.h"
 #include <map>
 
-#include "../ProbTransition.hpp" 
+#include "../../ProbTransition.hpp" 
 
-class ExactEventsInactiveTransition : public ProbTransition {
+class AnyRequiredEventsInactiveTransition : public ProbTransition {
     public:
         using ProbTransition::ProbTransition;
 
@@ -14,8 +14,7 @@ class ExactEventsInactiveTransition : public ProbTransition {
             if (symbol & EVENTS_MISSING) {
                 return (this->getMask() & EVENTS_MISSING) != 0;
             }
-            uint8_t missing = getMask() & static_cast<uint8_t>(~symbol);
-            return missing == getMask();
+            return (symbol & this->getMask()) != this->getMask();
         }
 };
 #endif

@@ -2,7 +2,7 @@
 #define ResponseBetweenQAndRProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //Between Q and R, if P holds, in response S eventually holds

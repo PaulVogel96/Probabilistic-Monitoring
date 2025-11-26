@@ -2,7 +2,7 @@
 #define ResponseBeforeRProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"Before R holds, If P holds, then in response S eventually holds"

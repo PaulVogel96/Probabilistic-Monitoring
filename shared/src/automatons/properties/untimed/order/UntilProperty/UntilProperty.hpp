@@ -2,8 +2,8 @@
 #define UntilProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
-#include "../../../../../transitions/AllRequiredEventsInactiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsInactiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"P holds until S holds"

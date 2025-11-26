@@ -2,7 +2,7 @@
 #define AbsenceProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"Globally, It is never the case that P holds"

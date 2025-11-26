@@ -2,7 +2,7 @@
 #define AbsenceAfterQProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"It is never the case that P holds after Q holds"

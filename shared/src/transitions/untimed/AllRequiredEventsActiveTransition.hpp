@@ -1,12 +1,12 @@
-#ifndef AllRequiredEventsInactiveTransition_hpp
-#define AllRequiredEventsInactiveTransition_hpp
+#ifndef AllRequiredEventsActiveTransition_hpp
+#define AllRequiredEventsActiveTransition_hpp
 
 #include "StandardCplusplus.h"
 #include <map>
 
-#include "../ProbTransition.hpp" 
+#include "../../ProbTransition.hpp" 
 
-class AllRequiredEventsInactiveTransition : public ProbTransition {
+class AllRequiredEventsActiveTransition : public ProbTransition {
     public:
         using ProbTransition::ProbTransition;
 
@@ -14,7 +14,7 @@ class AllRequiredEventsInactiveTransition : public ProbTransition {
             if (symbol & EVENTS_MISSING) {
                 return (this->getMask() & EVENTS_MISSING) != 0;
             }
-            return (symbol & this->getMask()) == 0;
+            return (symbol & this->getMask()) == this->getMask();
         }
 };
 #endif

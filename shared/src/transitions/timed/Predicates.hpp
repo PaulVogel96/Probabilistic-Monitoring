@@ -12,8 +12,17 @@ bool pred_R_lt10(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents)
         return false; 
     }
     uint32_t dtR = now - it->second;
-
     return dtR < 10000;
 }
 
+
+bool pred_P_did_not_happen_for_10s(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents)
+{
+    auto it = lastEvents->find(EVENT_P);
+    if (it == lastEvents->end()) {
+        return false; 
+    }
+    uint32_t dtR = now - it->second;
+    return dtR >= 10000;
+}
 #endif

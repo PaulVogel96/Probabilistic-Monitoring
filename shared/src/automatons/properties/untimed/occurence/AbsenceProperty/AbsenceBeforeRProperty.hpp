@@ -3,8 +3,8 @@
 
 #include "../../../../../State.hpp"
 #include "../../../../../ProbStatemachine.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
-#include "../../../../../transitions/MixedEventsConditionTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/MixedEventsConditionTransition.hpp"
 
 //"It is never the case that P holds before R holds"
 class AbsenceBeforeRProperty : public ProbStatemachine {

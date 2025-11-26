@@ -2,13 +2,13 @@
 
 #include <State.hpp>
 #include <automatons/basic/ALoopBAutomaton.hpp>
-#include <transitions/AllRequiredEventsActiveTransition.hpp>
-#include <transitions/AllRequiredEventsInactiveTransition.hpp>
-#include <transitions/AnyRequiredEventsActiveTransition.hpp>
-#include <transitions/AnyRequiredEventsInactiveTransition.hpp>
-#include <transitions/ExactEventsActiveTransition.hpp>
-#include <transitions/ExactEventsInactiveTransition.hpp>
-#include <transitions/MixedEventsConditionTransition.hpp>
+#include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
+#include <transitions/untimed/AllRequiredEventsInactiveTransition.hpp>
+#include <transitions/untimed/AnyRequiredEventsActiveTransition.hpp>
+#include <transitions/untimed/AnyRequiredEventsInactiveTransition.hpp>
+#include <transitions/untimed/ExactEventsActiveTransition.hpp>
+#include <transitions/untimed/ExactEventsInactiveTransition.hpp>
+#include <transitions/untimed/MixedEventsConditionTransition.hpp>
 
 using namespace aunit;
 

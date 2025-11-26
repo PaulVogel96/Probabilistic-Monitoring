@@ -2,7 +2,7 @@
 #define PrecedenceAfterQProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"After Q holds, if P holds then it must be that case that S holds before P"

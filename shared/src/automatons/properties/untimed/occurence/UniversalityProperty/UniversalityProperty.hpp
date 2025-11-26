@@ -2,7 +2,7 @@
 #define UniversalityProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/ExactEventsInactiveTransition.hpp"
+#include "../../../../../transitions/untimed/ExactEventsInactiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"It is always the case that P holds"

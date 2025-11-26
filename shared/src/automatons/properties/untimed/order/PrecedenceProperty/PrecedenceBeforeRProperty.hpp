@@ -2,7 +2,7 @@
 #define PrecedenceBeforeRProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"Before R holds, if P holds then it must be that case that S holds before P"

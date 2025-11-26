@@ -4,7 +4,7 @@
 #include "StandardCplusplus.h"
 #include <map>
 
-#include "../ProbTransition.hpp" 
+#include "../../ProbTransition.hpp" 
 
 class MixedEventsConditionTransition : public ProbTransition {
     public:

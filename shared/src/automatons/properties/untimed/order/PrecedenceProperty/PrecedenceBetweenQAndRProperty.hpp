@@ -2,10 +2,10 @@
 #define PrecedenceBetweenQAndRProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
-#include "../../../../../transitions/AllRequiredEventsInactiveTransition.hpp"
-#include "../../../../../transitions/AnyRequiredEventsActiveTransition.hpp"
-#include "../../../../../transitions/MixedEventsConditionTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsInactiveTransition.hpp"
+#include "../../../../../transitions/untimed/AnyRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/MixedEventsConditionTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"Between Q holds and R holds, if P holds then it must be that case that S holds before P"

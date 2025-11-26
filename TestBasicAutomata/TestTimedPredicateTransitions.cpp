@@ -2,9 +2,8 @@
 #include <AUnit.h>
 
 #include <State.hpp>
-#include <transitions/AnyRequiredEventsActiveTransition.hpp>
-#include <transitions/TimedPredicateTransition.hpp>
-#include <transitions/Predicates.hpp>
+#include <transitions/timed/TimedAnyRequiredEventsActiveTransition.hpp>
+#include <transitions/timed/Predicates.hpp>
 
 using namespace aunit;
 
@@ -21,8 +20,7 @@ testF(TestTimedPredicateTransitions, Test_R_two_seconds_before) {
     //given
     State a("A", Verdict::INCONCLUSIVE);
     State b("B", Verdict::SATISFIED);
-    AnyRequiredEventsActiveTransition innerTransition(&a, &b, 1.0, EVENT_P);
-    TimedPredicateTransition outerTransition(&innerTransition, pred_R_lt10);
+    TimedAnyRequiredEventsActiveTransition outerTransition(&a, &b, 1.0, EVENT_P, pred_R_lt10);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
     
@@ -37,8 +35,7 @@ testF(TestTimedPredicateTransitions, Test_R_twelve_seconds_before) {
     //given
     State a("A", Verdict::INCONCLUSIVE);
     State b("B", Verdict::SATISFIED);
-    AnyRequiredEventsActiveTransition innerTransition(&a, &b, 1.0, EVENT_P);
-    TimedPredicateTransition outerTransition(&innerTransition, pred_R_lt10);
+    TimedAnyRequiredEventsActiveTransition outerTransition(&a, &b, 1.0, EVENT_P, pred_R_lt10);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
     

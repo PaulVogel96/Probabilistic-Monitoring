@@ -2,8 +2,8 @@
 #define ExistenceBeforeRProperty_hpp
 
 #include "../../../../../State.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
-#include "../../../../../transitions/AllRequiredEventsInactiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsInactiveTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //"Before R holds, it is eventually the case that P holds"

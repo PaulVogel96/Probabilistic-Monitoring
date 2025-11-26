@@ -11,8 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// compiles with  Arduino AVR Boards version 1.8.2
-
 using namespace std;
 
 class ProbStatemachine
@@ -44,11 +42,10 @@ class ProbStatemachine
   protected:
     std::map<State*, float> states;
     State* initialState;
+    std::map<uint8_t, uint32_t> lastEventOcurrences;
 
   private:
-    bool switchState();
     List<State*> statePointers;
-    std::map<uint8_t, uint32_t> lastEventOcurrences;
 };
 
 #endif /* ProbStatemachine_hpp */

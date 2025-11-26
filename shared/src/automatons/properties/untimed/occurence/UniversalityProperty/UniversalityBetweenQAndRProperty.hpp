@@ -3,9 +3,9 @@
 
 #include "../../../../../State.hpp"
 #include "../../../../../ProbTransition.hpp"
-#include "../../../../../transitions/AllRequiredEventsActiveTransition.hpp"
-#include "../../../../../transitions/AllRequiredEventsInactiveTransition.hpp"
-#include "../../../../../transitions/MixedEventsConditionTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../../transitions/untimed/AllRequiredEventsInactiveTransition.hpp"
+#include "../../../../../transitions/untimed/MixedEventsConditionTransition.hpp"
 #include "../../../../../ProbStatemachine.hpp"
 
 //Between Q and R, it is always the case that P holds
