@@ -111,6 +111,7 @@ void ProbStatemachine::changeStates(uint8_t trigger, uint32_t timestamp)
         }
     }
     this->states = newStates;
+    this->setOccurenceOfAt(trigger, timestamp);
 }
 
 void ProbStatemachine::processEvents(const std::vector<uint8_t>& events, const std::vector<uint32_t>& timestamps) {

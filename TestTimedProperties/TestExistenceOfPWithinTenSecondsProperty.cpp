@@ -50,7 +50,7 @@ testF(TestExistenceOfPWithinTenSecondsProperty, Property_violated_P_12_seconds_a
   ExistenceOfPWithinTenSecondsProperty automaton;
 
   //when
-  std::vector<uint8_t> events = {EVENT_P, EVENT_NONE, EVENT_Q, EVENT_R, EVENT_NONE, EVENT_Q};
+  std::vector<uint8_t> events = {EVENT_P, EVENT_NONE, EVENT_Q, EVENT_R, EVENT_NONE, EVENT_Q, EVENT_S};
   std::vector<uint32_t> timestamps = {0, 2000, 4000, 6000, 8000, 10000, 12000};
   automaton.processEvents(events, timestamps);
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
