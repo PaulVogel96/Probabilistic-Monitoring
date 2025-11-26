@@ -14,6 +14,15 @@ class TestPrecedenceProperty : public TestOnce {
   bool approxEquals(float a, float b, float epsilon = 0.001) {
     return fabs(a - b) < epsilon;
   }
+
+  std::vector<uint32_t> generateIrrelevantTestingTimestamps(int lenght){
+    std::vector<uint32_t> testingTimestamps;
+    for (size_t i = 0; i < lenght; i++)
+    {
+      testingTimestamps.push_back(i);
+    }
+    return testingTimestamps;
+  }
 };
 
 testF(TestPrecedenceProperty, PrecedenceProperty_satisfied) {
@@ -21,7 +30,8 @@ testF(TestPrecedenceProperty, PrecedenceProperty_satisfied) {
   PrecedenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_S, EVENT_P, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_S, EVENT_P, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -35,7 +45,8 @@ testF(TestPrecedenceProperty, PrecedenceProperty_violated) {
   PrecedenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_S, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_S, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -49,7 +60,8 @@ testF(TestPrecedenceProperty, PrecedenceProperty_inconclusive) {
   PrecedenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -63,7 +75,8 @@ testF(TestPrecedenceProperty, PrecedenceBeforeRProperty_satisfied_when_SP_before
   PrecedenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_S, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_S, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -77,7 +90,8 @@ testF(TestPrecedenceProperty, PrecedenceBeforeRProperty_inconclusive_when_no_SP_
   PrecedenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -91,7 +105,8 @@ testF(TestPrecedenceProperty, PrecedenceBeforeRProperty_satisfied_multiple_repet
   PrecedenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_S, EVENT_P, EVENT_S, EVENT_P, EVENT_R, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_S, EVENT_P, EVENT_S, EVENT_P, EVENT_R, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -105,7 +120,8 @@ testF(TestPrecedenceProperty, PrecedenceBeforeRProperty_violated_no_S_before_PR)
   PrecedenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -119,7 +135,8 @@ testF(TestPrecedenceProperty, PrecedenceAfterQProperty_inconclusive_just_q) {
   PrecedenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -133,7 +150,8 @@ testF(TestPrecedenceProperty, PrecedenceAfterQProperty_satisfied) {
   PrecedenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_S, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_S, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -147,7 +165,8 @@ testF(TestPrecedenceProperty, PrecedenceAfterQProperty_inconclusive_when_no_P_or
   PrecedenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -161,7 +180,8 @@ testF(TestPrecedenceProperty, PrecedenceAfterQProperty_inconclusive_when_no_P_or
   PrecedenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -175,7 +195,7 @@ testF(TestPrecedenceProperty, PrecedenceBetweenQAndRProperty_satisfied) {
   PrecedenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({
+  const std::vector<uint8_t>& events = {
     EVENT_NONE, 
     EVENT_NONE, 
     EVENT_Q, 
@@ -198,7 +218,8 @@ testF(TestPrecedenceProperty, PrecedenceBetweenQAndRProperty_satisfied) {
     EVENT_R, 
     EVENT_NONE, 
     EVENT_NONE
-  });
+  };
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -212,7 +233,8 @@ testF(TestPrecedenceProperty, PrecedenceBetweenQAndRProperty_satisfied_no_Q_or_R
   PrecedenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -226,7 +248,8 @@ testF(TestPrecedenceProperty, PrecedenceBetweenQAndRProperty_violated_no_S) {
   PrecedenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then

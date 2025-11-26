@@ -14,6 +14,15 @@ class TestExistenceProperty : public TestOnce {
   bool approxEquals(float a, float b, float epsilon = 0.001) {
     return fabs(a - b) < epsilon;
   }
+
+  std::vector<uint32_t> generateIrrelevantTestingTimestamps(int lenght){
+    std::vector<uint32_t> testingTimestamps;
+    for (size_t i = 0; i < lenght; i++)
+    {
+      testingTimestamps.push_back(i);
+    }
+    return testingTimestamps;
+  }
 };
 
 testF(TestExistenceProperty, ExistenceProperty_satisfied) {
@@ -21,7 +30,8 @@ testF(TestExistenceProperty, ExistenceProperty_satisfied) {
   ExistenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -35,7 +45,8 @@ testF(TestExistenceProperty, ExistenceProperty_never_satisfied) {
   ExistenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -49,7 +60,8 @@ testF(TestExistenceProperty, ExistenceBeforeRProperty_satisfied_when_P_before_R)
   ExistenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -63,7 +75,8 @@ testF(TestExistenceProperty, ExistenceBeforeRProperty_satisfied_when_no_P_or_R) 
   ExistenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -77,7 +90,8 @@ testF(TestExistenceProperty, ExistenceBeforeRProperty_inconclusive) {
   ExistenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE, EVENT_P});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -91,7 +105,8 @@ testF(TestExistenceProperty, ExistenceAfterQProperty_satisfied_when_not_only_P_a
   ExistenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -105,7 +120,8 @@ testF(TestExistenceProperty, ExistenceAfterQProperty_violated_when_not_P_after_Q
   ExistenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -119,7 +135,8 @@ testF(TestExistenceProperty, ExistenceAfterQProperty_satisfied_when_no_P_or_Q) {
   ExistenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -133,7 +150,7 @@ testF(TestExistenceProperty, ExistenceBetweenQAndRProperty_satisfied) {
   ExistenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({
+  std::vector<uint8_t> events = {
     EVENT_NONE, 
     EVENT_NONE, 
     EVENT_Q, 
@@ -153,7 +170,8 @@ testF(TestExistenceProperty, ExistenceBetweenQAndRProperty_satisfied) {
     EVENT_R, 
     EVENT_NONE, 
     EVENT_NONE
-  });
+  };
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -167,7 +185,8 @@ testF(TestExistenceProperty, ExistenceBetweenQAndRProperty_satisfied_no_events) 
   ExistenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -181,7 +200,8 @@ testF(TestExistenceProperty, ExistenceBetweenQAndRProperty_violated) {
   ExistenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_P, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_P, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
