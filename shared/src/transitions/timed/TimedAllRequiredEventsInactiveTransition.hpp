@@ -4,21 +4,24 @@
 #include "StandardCplusplus.h"
 #include <map>
 
-#include "../../ProbTransition.hpp" 
+#include "../../ProbTransition.hpp"
+#include "predicates/TimePredicateWrapper.hpp"
 
 class TimedAllRequiredEventsInactiveTransition : public ProbTransition {
     public:
-        bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents);
+        bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, void* ctx);
+        void* predicateCtx;
 
         TimedAllRequiredEventsInactiveTransition(
             State* source, 
             State* target,
             float probability, 
             uint8_t mask,
-            bool (*predicate)(uint32_t, const std::map<uint8_t, uint32_t>* lastEvents)
+            TimePredicateWrapper* wrapper
         )
         : ProbTransition(source, target, probability, mask),
-        predicate(predicate)
+        predicate(TimePredicateWrapper::call),
+        predicateCtx(wrapper)
         {
 
         }
@@ -34,7 +37,7 @@ class TimedAllRequiredEventsInactiveTransition : public ProbTransition {
             if (!eventInactive){
                 return false;
             }
-            return predicate(now, lastEvents);
+            return predicate(now, lastEvents, predicateCtx);
         }
 };
 #endif
