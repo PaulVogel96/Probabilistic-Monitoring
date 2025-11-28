@@ -6,11 +6,11 @@
 
 #include "../../ProbTransition.hpp" 
 
-class TimedMixedEventsConfitionTransition : public ProbTransition {
+class TimedMixedEventsConditionTransition : public ProbTransition {
     public:
         bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents);
 
-        TimedMixedEventsConfitionTransition(
+        TimedMixedEventsConditionTransition(
             State* source, 
             State* target,
             float probability,

@@ -134,6 +134,15 @@ void ProbStatemachine::setOccurenceOfAt(uint8_t events, uint32_t timestamp){
     if((events & EVENT_S) != 0){
         lastEventOcurrences[EVENT_S] = timestamp;
     }
+    if((events & EVENT_N) != 0){
+        lastEventOcurrences[EVENT_N] = timestamp;
+    }
+    if((events & EVENT_X) != 0){
+        lastEventOcurrences[EVENT_X] = timestamp;
+    }
+    if((events & EVENT_Y) != 0){
+        lastEventOcurrences[EVENT_Y] = timestamp;
+    }
 }
 
 uint32_t ProbStatemachine::getLastOccurenceOf(uint8_t event){

@@ -1,16 +1,16 @@
-#ifndef TimedAllrequiredEventsActiveTransition_hpp
-#define TimedAllrequiredEventsActiveTransition_hpp
+#ifndef TimedAllRequiredEventsActiveTransition_hpp
+#define TimedAllRequiredEventsActiveTransition_hpp
 
 #include "StandardCplusplus.h"
 #include <map>
 
 #include "../../ProbTransition.hpp" 
 
-class TimedAllrequiredEventsActiveTransition : public ProbTransition {
+class TimedAllRequiredEventsActiveTransition : public ProbTransition {
     public:
         bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents);
 
-        TimedAllrequiredEventsActiveTransition(
+        TimedAllRequiredEventsActiveTransition(
             State* source, 
             State* target,
             float probability, 
@@ -34,7 +34,6 @@ class TimedAllrequiredEventsActiveTransition : public ProbTransition {
             if (!eventInactive){
                 return false;
             }
-
             return predicate(now, lastEvents);
         }
 };

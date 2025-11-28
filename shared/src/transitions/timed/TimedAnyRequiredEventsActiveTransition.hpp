@@ -34,7 +34,6 @@ class TimedAnyRequiredEventsActiveTransition : public ProbTransition {
             if (!eventInactive){
                 return false;
             }
-
             return predicate(now, lastEvents);
         }
 };

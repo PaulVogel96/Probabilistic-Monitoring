@@ -3,12 +3,11 @@
 
 #include "../../../State.hpp"
 #include "../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
-#include "../../../transitions/untimed/AllRequiredEventsInactiveTransition.hpp"
 #include "../../../transitions/timed/TimedAllrequiredEventsInactiveTransition.hpp"
 #include "../../../transitions/timed/Predicates.hpp"
 #include "../../../ProbStatemachine.hpp"
 
-//"It is eventually the case that P holds"
+//"At least one p within ≤ 10 s"
 class ExistenceOfPWithinTenSecondsProperty : public ProbStatemachine {
   public:
     ExistenceOfPWithinTenSecondsProperty() : ProbStatemachine() {
