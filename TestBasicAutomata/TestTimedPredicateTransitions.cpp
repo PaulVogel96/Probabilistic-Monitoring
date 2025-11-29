@@ -3,7 +3,7 @@
 
 #include <State.hpp>
 #include <transitions/timed/TimedAnyRequiredEventsActiveTransition.hpp>
-#include <transitions/timed/Predicates.hpp>
+#include <transitions/timed/predicates/TimePredicateWrapper.hpp>
 
 using namespace aunit;
 
@@ -20,7 +20,8 @@ testF(TestTimedPredicateTransitions, Test_R_two_seconds_before) {
     //given
     State a("A", Verdict::INCONCLUSIVE);
     State b("B", Verdict::SATISFIED);
-    TimedAnyRequiredEventsActiveTransition outerTransition(&a, &b, 1.0, EVENT_P, pred_R_lt10);
+    TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS, 10000}};
+    TimedAnyRequiredEventsActiveTransition outerTransition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
     
@@ -35,7 +36,8 @@ testF(TestTimedPredicateTransitions, Test_R_twelve_seconds_before) {
     //given
     State a("A", Verdict::INCONCLUSIVE);
     State b("B", Verdict::SATISFIED);
-    TimedAnyRequiredEventsActiveTransition outerTransition(&a, &b, 1.0, EVENT_P, pred_R_lt10);
+    TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS, 10000}};
+    TimedAnyRequiredEventsActiveTransition outerTransition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
     

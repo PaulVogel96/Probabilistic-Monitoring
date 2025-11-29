@@ -48,7 +48,6 @@ void loop() {
       Serial.print(", Event: ");
       Serial.print(event);
       automaton.changeStates(event, timestamp);
-      automaton.setOccurenceOfAt(event, timestamp);
       events_processed += 1;
 
       //log state

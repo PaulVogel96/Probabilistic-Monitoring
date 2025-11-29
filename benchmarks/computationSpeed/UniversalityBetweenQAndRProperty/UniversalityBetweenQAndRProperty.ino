@@ -41,11 +41,13 @@ void loop() {
       }
 
       uint8_t event = events_to_process[events_processed];
+      uint32_t timestamp = millis();
+
       Serial.print("Timestep: ");
       Serial.print(events_processed);
       Serial.print(", Event: ");
       Serial.print(event);
-      automaton.changeStates(event);
+      automaton.changeStates(event, timestamp);
       events_processed += 1;
 
       //log state

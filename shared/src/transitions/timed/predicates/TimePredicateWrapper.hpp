@@ -4,13 +4,16 @@
 #include "TimePredicate.hpp"
 
 struct TimePredicateWrapper {
-    TimePredicate pred;
+    TimePredicate predicate;
+
+    TimePredicateWrapper(const TimePredicate& pred)
+        : predicate(pred) {}
 
     static bool call(uint32_t now,
                      const std::map<uint8_t, uint32_t>* lastEvents,
                      void* ctx)
     {
-        return static_cast<TimePredicateWrapper*>(ctx)->pred(now, lastEvents);
+        return static_cast<TimePredicateWrapper*>(ctx)->predicate(now, lastEvents);
     }
 };
 #endif
