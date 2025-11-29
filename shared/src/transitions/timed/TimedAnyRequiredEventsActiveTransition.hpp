@@ -1,5 +1,5 @@
-#ifndef TimedAnyRequiredEventsInactiveTransition_hpp
-#define TimedAnyRequiredEventsInactiveTransition_hpp
+#ifndef TimedAnyRequiredEventsActiveTransition_hpp
+#define TimedAnyRequiredEventsActiveTransition_hpp
 
 #include "StandardCplusplus.h"
 #include <map>
