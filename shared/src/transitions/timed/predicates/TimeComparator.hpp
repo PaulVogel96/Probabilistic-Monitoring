@@ -6,7 +6,9 @@ enum class TimeComparator {
     LESS_EQUAL,
     GREATER,
     GREATER_EQUAL,
-    EQUAL
+    EQUAL,
+    BETWEEN,
+    NOT_BETWEEN
 };
 
 #endif
