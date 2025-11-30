@@ -9,7 +9,7 @@
 
 class TimedExactEventsInactiveTransition : public ProbTransition {
     public:
-        bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, void* ctx);
+        bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, const std::map<uint8_t, bool>* eventsSeen, void* ctx);
         void* predicateCtx;
 
         TimedExactEventsInactiveTransition(
@@ -26,7 +26,7 @@ class TimedExactEventsInactiveTransition : public ProbTransition {
 
         }
         
-        bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents) const override
+        bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, const std::map<uint8_t, bool>* eventsSeen) const override
         {
             bool eventInactive;
             if (symbol & EVENTS_MISSING) {
@@ -39,7 +39,7 @@ class TimedExactEventsInactiveTransition : public ProbTransition {
                 return false;
             }
 
-            return predicate(now, lastEvents, predicateCtx);
+            return predicate(now, lastEvents, eventsSeen, predicateCtx);
         }
 };
 #endif

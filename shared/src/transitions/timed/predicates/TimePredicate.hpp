@@ -12,8 +12,8 @@ struct TimePredicate {
     uint32_t first_threshold;
     uint32_t second_threshold; //Only used for BETWEEN & NOT_BETWEEN Comparisons
 
-    bool operator()(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents) const {
-        return generic_time_predicate(now, lastEvents, eventType, comparator, first_threshold);
+    bool operator()(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, const std::map<uint8_t, bool>* eventsSeen) const {
+        return generic_time_predicate(now, lastEvents, eventsSeen, eventType, comparator, first_threshold, second_threshold);
     }
 };
 #endif

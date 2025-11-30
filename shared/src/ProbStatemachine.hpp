@@ -43,8 +43,11 @@ class ProbStatemachine
     std::map<State*, float> states;
     State* initialState;
     std::map<uint8_t, uint32_t> lastEventOcurrences;
+    std::map<uint8_t, bool> eventSeen;
 
   private:
+    void initializeEventsUnseen();
+    void initializeLastEventOccurences();
     List<State*> statePointers;
 };
 

@@ -27,7 +27,7 @@ class ProbTransition
     void setMask(uint8_t c);
     uint8_t getMask() const;
 
-    virtual bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents) const = 0;
+    virtual bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, const std::map<uint8_t, bool>* eventsSeen) const = 0;
 
   private:
     State* source;

@@ -20,9 +20,11 @@ testF(TestTimePredicates, predicate_less_than_true) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertTrue(result);
@@ -33,9 +35,11 @@ testF(TestTimePredicates, predicate_less_than_false) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertFalse(result);
@@ -46,9 +50,11 @@ testF(TestTimePredicates, predicate_less_equal_true_less) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS_EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertTrue(result);
@@ -59,9 +65,11 @@ testF(TestTimePredicates, predicate_less_equal_true_equal) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS_EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertTrue(result);
@@ -72,9 +80,11 @@ testF(TestTimePredicates, predicate_less_equal_false) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS_EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertFalse(result);
@@ -85,9 +95,11 @@ testF(TestTimePredicates, predicate_equal_too_low) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertFalse(result);
@@ -98,9 +110,11 @@ testF(TestTimePredicates, predicate_equal_true) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertTrue(result);
@@ -111,9 +125,11 @@ testF(TestTimePredicates, predicate_equal_too_high) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertFalse(result);
@@ -124,9 +140,11 @@ testF(TestTimePredicates, predicate_greater_equal_false) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER_EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertFalse(result);
@@ -137,9 +155,11 @@ testF(TestTimePredicates, predicate_greater_equal_true_equal) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER_EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertTrue(result);
@@ -150,9 +170,11 @@ testF(TestTimePredicates, predicate_greater_equal_true_greater) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER_EQUAL, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertTrue(result);
@@ -163,9 +185,11 @@ testF(TestTimePredicates, predicate_greater_false_lower) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(9999, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertFalse(result);
@@ -176,9 +200,11 @@ testF(TestTimePredicates, predicate_greater_false_equal) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10000, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertFalse(result);
@@ -189,9 +215,11 @@ testF(TestTimePredicates, predicate_greater_true) {
   TimePredicateWrapper* pred = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER, 10000}};
   std::map<uint8_t, uint32_t> lastEventOccurences;
   lastEventOccurences[EVENT_R] = 0;
+  std::map<uint8_t, bool> eventSeen;
+  eventSeen[EVENT_R] = true;
 
   //when
-  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, pred);
+  bool result = TimePredicateWrapper::call(10001, &lastEventOccurences, &eventSeen, pred);
 
   //then
   assertTrue(result);

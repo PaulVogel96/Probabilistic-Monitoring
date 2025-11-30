@@ -3,6 +3,7 @@
 
 #include "../../../State.hpp"
 #include "../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../transitions/timed/TimedAllRequiredEventsActiveTransition.hpp"
 #include "../../../transitions/timed/TimedAllRequiredEventsInactiveTransition.hpp"
 #include "../../../transitions/timed/TimedMatchEverythingTransition.hpp"
 #include "../../../transitions/timed/predicates/TimePredicateWrapper.hpp"
@@ -16,13 +17,23 @@ class ResponseOfRAfterPWithinThreeSecondsProperty : public ProbStatemachine {
       auto* p_held = new State("P Held", Verdict::INCONCLUSIVE);
       auto* r_did_not_hold = new State("S did not hold after P", Verdict::VIOLATED);
 
-      auto* r_happened = new AllRequiredEventsActiveTransition(initial_state, p_held, 1.0, EVENT_P);
+      auto* p_happened = new AllRequiredEventsActiveTransition(initial_state, p_held, 1.0, EVENT_P);
 
-      TimePredicateWrapper* predicate = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::BETWEEN, 1000, 3000}};
-      auto* r_did_not_hold = new TimedAllRequiredEventsInactiveTransition(p_held, r_did_not_hold, 1.0, EVENT_R, predicate);
+      auto* success = new TimedAllRequiredEventsActiveTransition(
+          p_held,
+          initial_state,
+          1.0,
+          EVENT_R,
+          new TimePredicateWrapper{ TimePredicate{EVENT_P, TimeComparator::BETWEEN, 1000, 3000} }
+      );
 
-      TimePredicateWrapper* predicate_two = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER, 3000}};
-      auto* time_window_over = new TimedMatchEverythingTransition(p_held, initial_state, 1.0, predicate_two);
+      auto* violation = new TimedAllRequiredEventsInactiveTransition(
+          p_held,
+          r_did_not_hold,
+          1.0,
+          EVENT_R,
+          new TimePredicateWrapper{ TimePredicate{EVENT_P, TimeComparator::GREATER, 3000}}
+      );
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;

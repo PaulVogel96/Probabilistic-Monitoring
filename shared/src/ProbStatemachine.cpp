@@ -9,9 +9,13 @@ ProbStatemachine::ProbStatemachine(State* initialState)
 {
     this->initialState = this->addState(initialState);
     this->states[this->initialState] = 1;
+    this->initializeEventsUnseen();
+    this->initializeLastEventOccurences();
 };
 
 ProbStatemachine::ProbStatemachine(){
+    this->initializeEventsUnseen();
+    this->initializeLastEventOccurences();
 };
 
 ProbStatemachine::~ProbStatemachine(){
@@ -98,7 +102,7 @@ void ProbStatemachine::changeStates(uint8_t trigger, uint32_t timestamp)
             for (int t = 0; t < transitions.getSize(); t++)
             {
                 ProbTransition* transition = transitions[t];
-                if (transition->evaluate(trigger, timestamp, &this->lastEventOcurrences) && transition->getTarget() != state)
+                if (transition->evaluate(trigger, timestamp, &this->lastEventOcurrences, &this->eventSeen) && transition->getTarget() != state)
                 {
                     newStates[transition->getTarget()] += (prob * transition->getProbability());
                     restprob -= (prob * transition->getProbability());
@@ -123,24 +127,31 @@ void ProbStatemachine::processEvents(const std::vector<uint8_t>& events, const s
 
 void ProbStatemachine::setOccurenceOfAt(uint8_t events, uint32_t timestamp){
     if((events & EVENT_P) != 0){
+        eventSeen[EVENT_P] = true;
         lastEventOcurrences[EVENT_P] = timestamp;
     }
     if((events & EVENT_Q) != 0){
+        eventSeen[EVENT_Q] = true;
         lastEventOcurrences[EVENT_Q] = timestamp;
     }
     if((events & EVENT_R) != 0){
+        eventSeen[EVENT_R] = true;
         lastEventOcurrences[EVENT_R] = timestamp;
     }
     if((events & EVENT_S) != 0){
+        eventSeen[EVENT_S] = true;
         lastEventOcurrences[EVENT_S] = timestamp;
     }
     if((events & EVENT_N) != 0){
+        eventSeen[EVENT_N] = true;
         lastEventOcurrences[EVENT_N] = timestamp;
     }
     if((events & EVENT_X) != 0){
+        eventSeen[EVENT_X] = true;
         lastEventOcurrences[EVENT_X] = timestamp;
     }
     if((events & EVENT_Y) != 0){
+        eventSeen[EVENT_Y] = true;
         lastEventOcurrences[EVENT_Y] = timestamp;
     }
 }
@@ -201,4 +212,25 @@ std::map<Verdict, float> ProbStatemachine::getVerdictProbabilities() {
         }
     }
     return results;
+}
+
+void ProbStatemachine::initializeEventsUnseen(){
+    eventSeen[EVENT_P] = false;
+    eventSeen[EVENT_Q] = false;
+    eventSeen[EVENT_R] = false;
+    eventSeen[EVENT_S] = false;
+    eventSeen[EVENT_N] = false;
+    eventSeen[EVENT_X] = false;
+    eventSeen[EVENT_Y] = false;
+}
+
+void ProbStatemachine::initializeLastEventOccurences()
+{
+    lastEventOcurrences[EVENT_P] = 0;
+    lastEventOcurrences[EVENT_Q] = 0;
+    lastEventOcurrences[EVENT_R] = 0;
+    lastEventOcurrences[EVENT_S] = 0;
+    lastEventOcurrences[EVENT_N] = 0;
+    lastEventOcurrences[EVENT_X] = 0;
+    lastEventOcurrences[EVENT_Y] = 0;
 }

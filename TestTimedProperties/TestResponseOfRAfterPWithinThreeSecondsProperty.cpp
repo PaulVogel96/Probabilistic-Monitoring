@@ -1,0 +1,78 @@
+#include <map>
+#include <AUnit.h>
+#include <automatons/properties/timed/ResponseOfRAfterPWithinThreeSecondsProperty.hpp>
+
+using namespace aunit;
+
+class TestResponseOfRAfterPWithinThreeSecondsProperty : public TestOnce {
+  protected:
+  void setup() override {}
+  
+  bool approxEquals(float a, float b, float epsilon = 0.001) {
+    return fabs(a - b) < epsilon;
+  }
+};
+
+testF(TestResponseOfRAfterPWithinThreeSecondsProperty, Property_satisfied) {
+  //given
+  ResponseOfRAfterPWithinThreeSecondsProperty automaton;
+
+  //when
+  std::vector<uint8_t> events = {EVENT_P, EVENT_S, EVENT_P, EVENT_R, EVENT_X, EVENT_P, EVENT_S, EVENT_R};
+  std::vector<uint32_t> timestamps = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000};
+  automaton.processEvents(events, timestamps);
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+
+  //then
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 1.0));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
+}
+
+testF(TestResponseOfRAfterPWithinThreeSecondsProperty, Property_inconclusive) {
+  //given
+  ResponseOfRAfterPWithinThreeSecondsProperty automaton;
+
+  //when
+  std::vector<uint8_t> events = {EVENT_P};
+  std::vector<uint32_t> timestamps = {0};
+  automaton.processEvents(events, timestamps);
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+
+  //then
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.0));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 1.0));
+}
+
+testF(TestResponseOfRAfterPWithinThreeSecondsProperty, Property_violated) {
+  //given
+  ResponseOfRAfterPWithinThreeSecondsProperty automaton;
+
+  //when
+  std::vector<uint8_t> events = {EVENT_P, EVENT_N};
+  std::vector<uint32_t> timestamps = {0, 4000};
+  automaton.processEvents(events, timestamps);
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+
+  //then
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.0));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 1.0));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
+}
+
+testF(TestResponseOfRAfterPWithinThreeSecondsProperty, Property_violated_longer_trace) {
+  //given
+  ResponseOfRAfterPWithinThreeSecondsProperty automaton;
+
+  //when
+  std::vector<uint8_t> events = {EVENT_P, EVENT_S, EVENT_P, EVENT_Q, EVENT_X, EVENT_S, EVENT_S};
+  std::vector<uint32_t> timestamps = {0, 1000, 2000, 3000, 4000, 5000, 6000};
+  automaton.processEvents(events, timestamps);
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+
+  //then
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 0.0));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 1.0));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
+}

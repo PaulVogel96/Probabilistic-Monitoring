@@ -9,7 +9,7 @@
 
 class TimedMixedEventsConditionTransition : public ProbTransition {
     public:
-        bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, void* ctx);
+        bool (*predicate)(uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, const std::map<uint8_t, bool>* eventsSeen, void* ctx);
         void* predicateCtx;
 
         TimedMixedEventsConditionTransition(
@@ -28,7 +28,7 @@ class TimedMixedEventsConditionTransition : public ProbTransition {
         {
         }
         
-        bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents) const override
+        bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, const std::map<uint8_t, bool>* eventsSeen) const override
         {
             if ((symbol & activeMask) != activeMask) {
                 return false;
@@ -36,7 +36,7 @@ class TimedMixedEventsConditionTransition : public ProbTransition {
             if ((symbol & inactiveMask) != 0) {
                 return false;
             }
-            return predicate(now, lastEvents, predicateCtx);
+            return predicate(now, lastEvents, eventsSeen, predicateCtx);
         }
 
     private:

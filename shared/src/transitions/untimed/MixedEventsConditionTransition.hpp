@@ -17,7 +17,7 @@ class MixedEventsConditionTransition : public ProbTransition {
           activeMask(activeMask), 
           inactiveMask(inactiveMask) {}
 
-        bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents) const override {
+        bool evaluate(uint8_t symbol, uint32_t now, const std::map<uint8_t, uint32_t>* lastEvents, const std::map<uint8_t, bool>* eventsSeen) const override {
             if (symbol & EVENTS_MISSING) {
                 return (this->getMask() & EVENTS_MISSING) != 0;
             }

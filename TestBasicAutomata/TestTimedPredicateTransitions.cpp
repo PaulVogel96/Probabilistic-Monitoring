@@ -31,9 +31,11 @@ testF(TestTimedPredicateTransitions, AllRequiredEventsActive_fires_when_event_an
     TimedAllRequiredEventsActiveTransition transition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -47,9 +49,11 @@ testF(TestTimedPredicateTransitions, AllRequiredEventsActive_does_not_fire_when_
     TimedAllRequiredEventsActiveTransition transition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -63,9 +67,11 @@ testF(TestTimedPredicateTransitions, AllRequiredEventsActive_does_not_fire_when_
     TimedAllRequiredEventsActiveTransition transition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -79,9 +85,11 @@ testF(TestTimedPredicateTransitions, AllRequiredEventsInactive_fires_when_event_
     TimedAllRequiredEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_Q, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -95,9 +103,11 @@ testF(TestTimedPredicateTransitions, AllRequiredEventsInactive_does_not_fire_whe
     TimedAllRequiredEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -111,9 +121,11 @@ testF(TestTimedPredicateTransitions, AllRequiredEventsInactive_does_not_fire_whe
     TimedAllRequiredEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_Q, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -127,9 +139,11 @@ testF(TestTimedPredicateTransitions, AnyRequiredEventsActive_fires_when_event_an
     TimedAnyRequiredEventsActiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_Q, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_Q, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_Q, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -143,9 +157,11 @@ testF(TestTimedPredicateTransitions, AnyRequiredEventsActive_does_not_fire_when_
     TimedAnyRequiredEventsActiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_S, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -159,9 +175,11 @@ testF(TestTimedPredicateTransitions, AnyRequiredEventsActive_does_not_fire_when_
     TimedAnyRequiredEventsActiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_N, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -175,9 +193,11 @@ testF(TestTimedPredicateTransitions, AnyRequiredEventsInactive_fires_when_event_
     TimedAnyRequiredEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_Q, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_Q, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_Q, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -191,9 +211,11 @@ testF(TestTimedPredicateTransitions, AnyRequiredEventsInactive_does_not_fire_whe
     TimedAnyRequiredEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_S, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P | EVENT_S, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P | EVENT_S, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -207,9 +229,11 @@ testF(TestTimedPredicateTransitions, AnyRequiredEventsInactive_does_not_fire_whe
     TimedAnyRequiredEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_N, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -223,9 +247,11 @@ testF(TestTimedPredicateTransitions, ExactRequiredEventsActive_fires_when_event_
     TimedExactEventsActiveTransition transition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -239,9 +265,11 @@ testF(TestTimedPredicateTransitions, ExactRequiredEventsActive_does_not_fire_whe
     TimedExactEventsActiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_S, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -255,9 +283,11 @@ testF(TestTimedPredicateTransitions, ExactEventsActive_does_not_fire_when_event_
     TimedExactEventsActiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_N, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P | EVENT_N, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P | EVENT_N, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -271,9 +301,11 @@ testF(TestTimedPredicateTransitions, ExactRequiredEventsInactive_fires_when_even
     TimedExactEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -287,9 +319,11 @@ testF(TestTimedPredicateTransitions, ExactRequiredEventsInactive_does_not_fire_w
     TimedExactEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_S, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P | EVENT_Q, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P | EVENT_Q, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -303,9 +337,11 @@ testF(TestTimedPredicateTransitions, ExactEventsInactive_does_not_fire_when_even
     TimedExactEventsInactiveTransition transition(&a, &b, 1.0, EVENT_P | EVENT_N, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_X, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -319,9 +355,12 @@ testF(TestTimedPredicateTransitions, MatchEverything_fires_when_predicate_correc
     TimedMatchEverythingTransition transition(&a, &b, 1.0, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
+
     //when
-    bool result = transition.evaluate(EVENT_NONE, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_NONE, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -335,9 +374,11 @@ testF(TestTimedPredicateTransitions, MatchEverything_does_not_fire_when_predicat
     TimedMatchEverythingTransition transition(&a, &b, 1.0, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_NONE, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_NONE, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -351,9 +392,11 @@ testF(TestTimedPredicateTransitions, MixedEventsCondition_fires_when_event_and_p
     TimedMixedEventsConditionTransition transition(&a, &b, 1.0, EVENT_P, EVENT_R, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertTrue(result);
@@ -367,9 +410,11 @@ testF(TestTimedPredicateTransitions, MixedEventsCondition_does_not_fire_when_eve
     TimedMixedEventsConditionTransition transition(&a, &b, 1.0, EVENT_P, EVENT_S, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P | EVENT_S, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P | EVENT_S, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
@@ -383,9 +428,11 @@ testF(TestTimedPredicateTransitions, MixedEventsCondition_does_not_fire_when_eve
     TimedMixedEventsConditionTransition transition(&a, &b, 1.0, EVENT_P, EVENT_N, pred);
     std::map<uint8_t, uint32_t> lastEvents;
     lastEvents[EVENT_R] = 0;
+    std::map<uint8_t, bool> eventSeen;
+    eventSeen[EVENT_R] = true;
     
     //when
-    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents);
+    bool result = transition.evaluate(EVENT_P, 2000, &lastEvents, &eventSeen);
 
     //then
     assertFalse(result);
