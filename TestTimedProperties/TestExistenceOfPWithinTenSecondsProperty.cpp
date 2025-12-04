@@ -92,3 +92,37 @@ testF(TestExistenceOfPWithinTenSecondsProperty, Property_satisfied_P_exactly_10s
   assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
+
+testF(TestExistenceOfPWithinTenSecondsProperty, Property_switches_from_satisfied_to_violated_and_back) {
+  //given
+  ExistenceOfPWithinTenSecondsProperty automaton;
+
+  //when
+  std::vector<uint8_t> events = {EVENT_P, EVENT_X};
+  std::vector<uint32_t> timestamps = {0, 10000};
+  automaton.processEvents(events, timestamps);
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+
+  //then  
+  assertTrue(approxEquals(results[Verdict::SATISFIED], 1.0));
+  assertTrue(approxEquals(results[Verdict::VIOLATED], 0.0));
+  assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
+
+  //when 
+  automaton.changeStates(EVENT_Q, 10001);
+  std::map<Verdict, float> results2 = automaton.getVerdictProbabilities();
+  
+  //then
+  assertTrue(approxEquals(results2[Verdict::SATISFIED], 0.0));
+  assertTrue(approxEquals(results2[Verdict::VIOLATED], 1.0));
+  assertTrue(approxEquals(results2[Verdict::INCONCLUSIVE], 0.0));
+
+  //when
+  automaton.changeStates(EVENT_P, 10002);
+  std::map<Verdict, float> results3 = automaton.getVerdictProbabilities();
+
+  //then  
+  assertTrue(approxEquals(results3[Verdict::SATISFIED], 1.0));
+  assertTrue(approxEquals(results3[Verdict::VIOLATED], 0.0));
+  assertTrue(approxEquals(results3[Verdict::INCONCLUSIVE], 0.0));
+} 

@@ -22,6 +22,7 @@ class AbsenceOfNAfterQWithinThreeSecondsProperty : public ProbStatemachine {
       auto* q_has_happened = new AllRequiredEventsActiveTransition(initial_state, q_holds, 1.0, EVENT_Q);
       auto* n_did_not_happen = new TimedMatchEverythingTransition(q_holds, initial_state, 1.0, pred_q_gt_3s);
       auto* n_did_happen = new TimedAllRequiredEventsActiveTransition(q_holds, n_holds, 1.0, EVENT_N, pred_q_lt_eq_3s);
+      auto* q_again = new AllRequiredEventsActiveTransition(n_holds, q_holds, 1.0, EVENT_Q);
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;

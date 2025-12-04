@@ -2,11 +2,11 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/properties/timed/RecurrenceOfPWithinTwentySecondsProperty.hpp>
+#include <automatons/properties/timed/ExistenceOfPWithinTwentySecondsProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
 
-RecurrenceOfPWithinTwentySecondsProperty automaton;
+ExistenceOfPWithinTwentySecondsProperty automaton;
 std::vector<uint8_t> events_to_process = {EVENT_P, EVENT_S, EVENT_P};
 int events_processed = 0;
 

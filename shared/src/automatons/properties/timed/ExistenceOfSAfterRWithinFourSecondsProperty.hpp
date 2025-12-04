@@ -22,6 +22,7 @@ class ExistenceOfSAfterRWithinFourSecondsProperty : public ProbStatemachine {
       auto* r_has_happened = new AllRequiredEventsActiveTransition(initial_state, r_holds, 1.0, EVENT_R);
       auto* s_has_happened = new TimedAllRequiredEventsActiveTransition(r_holds, initial_state, 1.0, EVENT_S, pred_r_lt_eq_4s);
       auto* s_has_not_happened = new TimedMatchEverythingTransition(r_holds, s_not_holds, 1.0, pred_r_gt_4s);
+      auto* r_again = new AllRequiredEventsActiveTransition(s_not_holds, r_holds, 1.0, EVENT_R);
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;

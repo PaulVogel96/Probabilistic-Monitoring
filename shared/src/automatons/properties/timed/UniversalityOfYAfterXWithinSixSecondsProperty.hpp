@@ -19,9 +19,10 @@ class UniversalityOfYAfterXWithinSixSecondsProperty : public ProbStatemachine {
       TimePredicateWrapper* pred_x_gt_6s = new TimePredicateWrapper{TimePredicate{EVENT_X, TimeComparator::GREATER, 6000}};
       TimePredicateWrapper* pred_x_lt_6s = new TimePredicateWrapper{TimePredicate{EVENT_X, TimeComparator::LESS_EQUAL, 6000}};
 
-      auto* r_has_happened = new AllRequiredEventsActiveTransition(initial_state, x_holds, 1.0, EVENT_X);
+      auto* x_has_happened = new AllRequiredEventsActiveTransition(initial_state, x_holds, 1.0, EVENT_X);
       auto* y_has_held = new TimedMatchEverythingTransition(x_holds, initial_state, 1.0, pred_x_gt_6s);
       auto* y_has_not_held = new TimedAllRequiredEventsInactiveTransition(x_holds, y_not_holds, 1.0, EVENT_Y, pred_x_lt_6s);
+      auto* x_again = new AllRequiredEventsActiveTransition(y_not_holds, x_holds, 1.0, EVENT_X);
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
