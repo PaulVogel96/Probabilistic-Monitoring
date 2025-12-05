@@ -10,7 +10,7 @@ event_map = {
     'y': "EVENT_Y",
 }
 
-csv_file = "benchmarks/handlingUncertainty/coupledTraces/coupled_trace.csv"
+csv_file = "handlingUncertainty/coupledTraces/coupled_trace_baseline.csv"
 vector_name = "events_to_process"
 
 vector_entries = []
@@ -26,5 +26,5 @@ with open(csv_file, newline='') as f:
             active_events.append("EVENT_NONE")
         vector_entries.append(" | ".join(active_events))
 
-vector_string = f"std::vector<uint8_t> {vector_name} = {{ {', '.join(vector_entries)} }};"
+vector_string = f"const uint8_t {vector_name}[] PROGMEM = {{ {', '.join(vector_entries)} }};"
 print(vector_string)
