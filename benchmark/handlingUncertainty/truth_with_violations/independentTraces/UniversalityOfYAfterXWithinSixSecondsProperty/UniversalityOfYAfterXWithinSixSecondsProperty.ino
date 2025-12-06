@@ -5,7 +5,7 @@
 #include <automatons/properties/timed/UniversalityOfYAfterXWithinSixSecondsProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
-#include <independent_trace_baseline.hpp>
+#include <traces/independent_truth_with_violations.hpp>
 
 UniversalityOfYAfterXWithinSixSecondsProperty automaton;
 int events_processed = 0;
@@ -14,11 +14,12 @@ std::map<Verdict, float> verdictProbabilities;
 void setup() {
   Serial.begin(9600);
   Serial.flush();
+  Serial.println("ts,violated");
 }
 
 void loop() {
   if (events_processed < 3603) {
-    uint8_t event = pgm_read_byte(&independent_trace_baseline[events_processed]);
+    uint8_t event = pgm_read_byte(&independent_truth_with_violations[events_processed]);
     uint32_t timestamp = events_processed * 1000UL;
     
     automaton.changeStates(event, timestamp);
