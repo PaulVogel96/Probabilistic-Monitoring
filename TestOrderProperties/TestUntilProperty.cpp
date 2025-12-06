@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/order/UntilProperty/UntilProperty.hpp>
-#include <automatons/properties/order/UntilProperty/UntilBeforeRProperty.hpp>
-#include <automatons/properties/order/UntilProperty/UntilAfterQProperty.hpp>
-#include <automatons/properties/order/UntilProperty/UntilBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilBeforeRProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilAfterQProperty.hpp>
+#include <automatons/properties/untimed/order/UntilProperty/UntilBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 
@@ -14,6 +14,15 @@ class TestUntilProperty : public TestOnce {
   bool approxEquals(float a, float b, float epsilon = 0.01) {
     return fabs(a - b) < epsilon;
   }
+  
+  std::vector<uint32_t> generateIrrelevantTestingTimestamps(int lenght){
+    std::vector<uint32_t> testingTimestamps;
+    for (size_t i = 0; i < lenght; i++)
+    {
+      testingTimestamps.push_back(i);
+    }
+    return testingTimestamps;
+  }
 };
 
 testF(TestUntilProperty, UntilProperty_satisfied) {
@@ -21,7 +30,8 @@ testF(TestUntilProperty, UntilProperty_satisfied) {
   UntilProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_S, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_S, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -35,7 +45,8 @@ testF(TestUntilProperty, UntilProperty_inconclusive) {
   UntilProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_P, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_P, EVENT_P, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -49,7 +60,8 @@ testF(TestUntilProperty, UntilBeforeRProperty_satisfied_when_PS_before_R) {
   UntilBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_S, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_P, EVENT_S, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -63,7 +75,8 @@ testF(TestUntilProperty, UntilBeforeRProperty_violated_when_no_SP_or_R) {
   UntilBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -77,7 +90,8 @@ testF(TestUntilProperty, UntilBeforeRProperty_satisfied_multiple_repetitions) {
   UntilBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_S, EVENT_R, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_S, EVENT_R, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -91,7 +105,8 @@ testF(TestUntilProperty, UntilAfterQProperty_violated_just_q) {
   UntilAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -105,7 +120,8 @@ testF(TestUntilProperty, UntilAfterQProperty_satisfied) {
   UntilAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_S, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_S, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -119,7 +135,8 @@ testF(TestUntilProperty, UntilAfterQProperty_satisfied_when_no_P_or_S_or_Q) {
   UntilAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -133,7 +150,8 @@ testF(TestUntilProperty, UntilAfterQProperty_inconclusive_when_no_S) {
   UntilAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -147,7 +165,7 @@ testF(TestUntilProperty, UntilBetweenQAndRProperty_satisfied) {
   UntilBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({
+  const std::vector<uint8_t>& events = {
     EVENT_NONE, 
     EVENT_NONE, 
     EVENT_Q, 
@@ -168,7 +186,8 @@ testF(TestUntilProperty, UntilBetweenQAndRProperty_satisfied) {
     EVENT_R, 
     EVENT_NONE, 
     EVENT_NONE
-  });
+  };
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -182,7 +201,7 @@ testF(TestUntilProperty, UntilBetweenQAndRProperty_satisfied_no_Q) {
   UntilBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({
+  const std::vector<uint8_t>& events = {
     EVENT_NONE, 
     EVENT_NONE, 
     EVENT_NONE, 
@@ -198,7 +217,8 @@ testF(TestUntilProperty, UntilBetweenQAndRProperty_satisfied_no_Q) {
     EVENT_P, 
     EVENT_S, 
     EVENT_NONE
-  });
+  };
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -212,7 +232,8 @@ testF(TestUntilProperty, UntilBetweenQAndRProperty_violated_P_interrupted_before
   UntilBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_NONE, EVENT_S, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_NONE, EVENT_S, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -227,7 +248,8 @@ testF(TestUntilProperty, UntilBetweenQAndRProperty_satisfied_no_S) {
   UntilBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then

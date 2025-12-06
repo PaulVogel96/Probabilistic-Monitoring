@@ -3,7 +3,7 @@
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
 #include <automatons/basic/ABCSplitAutomaton.hpp>
-#include <transitions/AllRequiredEventsActiveTransition.hpp>
+#include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 
 ABCSplitAutomaton automaton;
 std::vector<uint8_t> events_to_process = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_NONE};
@@ -41,11 +41,13 @@ void loop() {
       }
 
       uint8_t event = events_to_process[events_processed];
+      uint32_t timestamp = millis();
+
       Serial.print("Timestep: ");
       Serial.print(events_processed);
       Serial.print(", Event: ");
       Serial.print(event);
-      automaton.changeStates(event);
+      automaton.changeStates(event, timestamp);
       events_processed += 1;
 
       //log state

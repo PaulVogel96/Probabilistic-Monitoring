@@ -5,7 +5,7 @@
 #include "../../ProbTransition.hpp"
 #include "../../ProbStatemachine.hpp"
 #include "../../Events.hpp"
-#include "../../transitions/ExactEventsActiveTransition.hpp"
+#include "../../transitions/untimed/ExactEventsActiveTransition.hpp"
 
 class ALoopBAutomaton : public ProbStatemachine {
   public:

@@ -1,19 +1,28 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceProperty.hpp>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceBeforeRProperty.hpp>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceAfterQProperty.hpp>
-#include <automatons/properties/occurence/RecurrenceProperty/RecurrenceBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceBeforeRProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceAfterQProperty.hpp>
+#include <automatons/properties/untimed/occurence/RecurrenceProperty/RecurrenceBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 
 class TestRecurrenceProperty : public TestOnce {
   protected:
-  void setup() override {}
-  
-  bool approxEquals(float a, float b, float epsilon = 0.001) {
-    return fabs(a - b) < epsilon;
-  }
+    void setup() override {}
+    
+    bool approxEquals(float a, float b, float epsilon = 0.001) {
+      return fabs(a - b) < epsilon;
+    }
+
+    std::vector<uint32_t> generateIrrelevantTestingTimestamps(int lenght){
+      std::vector<uint32_t> testingTimestamps;
+      for (size_t i = 0; i < lenght; i++)
+      {
+        testingTimestamps.push_back(i);
+      }
+      return testingTimestamps;
+    }
 };
 
 testF(TestRecurrenceProperty, RecurrenceProperty_satisfied) {
@@ -21,7 +30,8 @@ testF(TestRecurrenceProperty, RecurrenceProperty_satisfied) {
   RecurrenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -35,7 +45,8 @@ testF(TestRecurrenceProperty, RecurrenceProperty_violated) {
   RecurrenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -49,7 +60,8 @@ testF(TestRecurrenceProperty, RecurrenceBeforeRProperty_satisfied_when_P_before_
   RecurrenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -63,7 +75,8 @@ testF(TestRecurrenceProperty, RecurrenceBeforeRProperty_inconclusive_when_no_P_o
   RecurrenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -77,7 +90,8 @@ testF(TestRecurrenceProperty, RecurrenceBeforeRProperty_satisfied_multiple_repet
   RecurrenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -91,7 +105,8 @@ testF(TestRecurrenceProperty, RecurrenceAfterQProperty_inconclusive_just_q) {
   RecurrenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -105,7 +120,8 @@ testF(TestRecurrenceProperty, RecurrenceAfterQProperty_satisfied) {
   RecurrenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P});
+  const std::vector<uint8_t>& events = {EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -119,7 +135,8 @@ testF(TestRecurrenceProperty, RecurrenceAfterQProperty_inconclusive_when_no_P_or
   RecurrenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -133,7 +150,7 @@ testF(TestRecurrenceProperty, RecurrenceBetweenQAndRProperty_satisfied) {
   RecurrenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({
+  const std::vector<uint8_t>& events = {
     EVENT_NONE, 
     EVENT_NONE, 
     EVENT_Q, 
@@ -152,7 +169,8 @@ testF(TestRecurrenceProperty, RecurrenceBetweenQAndRProperty_satisfied) {
     EVENT_R, 
     EVENT_NONE, 
     EVENT_NONE
-  });
+  };
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -166,7 +184,8 @@ testF(TestRecurrenceProperty, RecurrenceBetweenQAndRProperty_inconclusive_no_eve
   RecurrenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -180,7 +199,8 @@ testF(TestRecurrenceProperty, RecurrenceBetweenQAndRProperty_violated) {
   RecurrenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE});
+  const std::vector<uint8_t>& events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then

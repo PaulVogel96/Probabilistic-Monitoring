@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceProperty.hpp>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceBeforeRProperty.hpp>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceAfterQProperty.hpp>
-#include <automatons/properties/occurence/AbsenceProperty/AbsenceBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceBeforeRProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceAfterQProperty.hpp>
+#include <automatons/properties/untimed/occurence/AbsenceProperty/AbsenceBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 
@@ -14,6 +14,15 @@ class TestAbsenceProperty : public TestOnce {
   bool approxEquals(float a, float b, float epsilon = 0.001) {
     return fabs(a - b) < epsilon;
   }
+  
+  std::vector<uint32_t> generateIrrelevantTestingTimestamps(int lenght){
+    std::vector<uint32_t> testingTimestamps;
+    for (size_t i = 0; i < lenght; i++)
+    {
+      testingTimestamps.push_back(i);
+    }
+    return testingTimestamps;
+  }
 };
 
 testF(TestAbsenceProperty, AbsenceProperty_satisfied) {
@@ -21,7 +30,8 @@ testF(TestAbsenceProperty, AbsenceProperty_satisfied) {
   AbsenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_R, EVENT_S, EVENT_Q});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_R, EVENT_S, EVENT_Q};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -35,7 +45,8 @@ testF(TestAbsenceProperty, AbsenceProperty_violated) {
   AbsenceProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -49,7 +60,8 @@ testF(TestAbsenceProperty, AbsenceBeforeRProperty_satisfied_when_P_after_R) {
   AbsenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_R, EVENT_P, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_R, EVENT_P, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -63,7 +75,8 @@ testF(TestAbsenceProperty, AbsenceBeforeRProperty_satisfied_when_no_P_or_R) {
   AbsenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -77,7 +90,8 @@ testF(TestAbsenceProperty, AbsenceBeforeRProperty_violated) {
   AbsenceBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -91,7 +105,8 @@ testF(TestAbsenceProperty, AbsenceAfterQProperty_violated_when_P_after_Q) {
   AbsenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -105,7 +120,8 @@ testF(TestAbsenceProperty, AbsenceAfterQProperty_inconclusive_when_no_P_after_Q)
   AbsenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_Q, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_Q, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -119,7 +135,8 @@ testF(TestAbsenceProperty, AbsenceAfterQProperty_inconclusive_when_no_P_or_Q) {
   AbsenceAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -133,7 +150,8 @@ testF(TestAbsenceProperty, AbsenceBetweenQAndRProperty_satisfied) {
   AbsenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_P, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_P, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -147,7 +165,8 @@ testF(TestAbsenceProperty, AbsenceBetweenQAndRProperty_satisfied_no_events) {
   AbsenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -161,7 +180,8 @@ testF(TestAbsenceProperty, AbsenceBetweenQAndRProperty_violated) {
   AbsenceBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
