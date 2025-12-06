@@ -1,8 +1,0 @@
-- finish basic properties
-- unit test basic properties
-- Implement multiple instances property checking
-- write basic sender .ino's for basic properties
-- Benchmark speed of basic properties
-- Multi-Channel property viewpoint
-- develop an idea how to write benchmarks
-- investigate AbsenceBeforeRProperty_satisfied_when_no_P_or_R Test (shouldn't low probability transitions fire?)

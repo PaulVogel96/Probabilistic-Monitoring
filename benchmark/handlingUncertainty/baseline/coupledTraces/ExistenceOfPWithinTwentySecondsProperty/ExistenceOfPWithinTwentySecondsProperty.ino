@@ -5,7 +5,8 @@
 #include <automatons/properties/timed/ExistenceOfPWithinTwentySecondsProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
-#include <coupled_trace_baseline.hpp>
+#include <traces/coupled_baseline.hpp>
+
 
 ExistenceOfPWithinTwentySecondsProperty automaton;
 int events_processed = 0;
@@ -18,7 +19,7 @@ void setup() {
 
 void loop() {
   if (events_processed < 3603) {
-    uint8_t event = pgm_read_byte(&coupled_trace_baseline[events_processed]);
+    uint8_t event = pgm_read_byte(&coupled_baseline[events_processed]);
     uint32_t timestamp = events_processed * 1000UL;
     
     automaton.changeStates(event, timestamp);

@@ -10,8 +10,8 @@ event_map = {
     'y': "EVENT_Y",
 }
 
-csv_file = "handlingUncertainty/coupledTraces/coupled_trace_baseline.csv"
-vector_name = "events_to_process"
+csv_file = "independent_truth_with_violations.csv"
+vector_name = "independent_truth_with_violations"
 
 vector_entries = []
 
