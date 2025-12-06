@@ -11,8 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// compiles with  Arduino AVR Boards version 1.8.2
-
 using namespace std;
 
 class ProbStatemachine
@@ -33,8 +31,10 @@ class ProbStatemachine
     std::map<Verdict, float> getVerdictProbabilities();
 
     void reset(String state);
-    void changeStates(uint8_t trigger);
-    void processEvents(const vector<uint8_t>& events);
+    void changeStates(uint8_t trigger, uint32_t timestamp);
+    void processEvents(const vector<uint8_t>& events, const vector<uint32_t>& timestamps);
+    void setOccurenceOfAt(uint8_t events, uint32_t timestamp);
+    uint32_t getLastOccurenceOf(uint8_t events);
     
     State* getMostLikelyCurrentState();
     float probToBeIn(String state);
@@ -42,9 +42,12 @@ class ProbStatemachine
   protected:
     std::map<State*, float> states;
     State* initialState;
+    std::map<uint8_t, uint32_t> lastEventOcurrences;
+    std::map<uint8_t, bool> eventSeen;
 
   private:
-    bool switchState();
+    void initializeEventsUnseen();
+    void initializeLastEventOccurences();
     List<State*> statePointers;
 };
 

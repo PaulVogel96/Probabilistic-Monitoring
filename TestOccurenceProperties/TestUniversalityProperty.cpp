@@ -1,9 +1,9 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityProperty.hpp>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityBeforeRProperty.hpp>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityAfterQProperty.hpp>
-#include <automatons/properties/occurence/UniversalityProperty/UniversalityBetweenQAndRProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityBeforeRProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityAfterQProperty.hpp>
+#include <automatons/properties/untimed/occurence/UniversalityProperty/UniversalityBetweenQAndRProperty.hpp>
 
 using namespace aunit;
 
@@ -14,6 +14,15 @@ class TestUniversalityProperty : public TestOnce {
   bool approxEquals(float a, float b, float epsilon = 0.001) {
     return fabs(a - b) < epsilon;
   }
+  
+  std::vector<uint32_t> generateIrrelevantTestingTimestamps(int lenght){
+    std::vector<uint32_t> testingTimestamps;
+    for (size_t i = 0; i < lenght; i++)
+    {
+      testingTimestamps.push_back(i);
+    }
+    return testingTimestamps;
+  }
 };
 
 testF(TestUniversalityProperty, UniversalityProperty_satisfied) {
@@ -21,7 +30,8 @@ testF(TestUniversalityProperty, UniversalityProperty_satisfied) {
   UniversalityProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P});
+  std::vector<uint8_t> events = {EVENT_P, EVENT_P, EVENT_P, EVENT_P, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -35,7 +45,8 @@ testF(TestUniversalityProperty, UniversalityProperty_violated) {
   UniversalityProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -49,7 +60,8 @@ testF(TestUniversalityProperty, UniversalityBeforeRProperty_satisfied_when_P_bef
   UniversalityBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_P, EVENT_P, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -63,7 +75,8 @@ testF(TestUniversalityProperty, UniversalityBeforeRProperty_inconclusive_when_no
   UniversalityBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -77,7 +90,8 @@ testF(TestUniversalityProperty, UniversalityBeforeRProperty_violated) {
   UniversalityBeforeRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_P, EVENT_NONE, EVENT_P, EVENT_R, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -91,7 +105,8 @@ testF(TestUniversalityProperty, UniversalityAfterQProperty_violated_when_not_onl
   UniversalityAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_P, EVENT_NONE, EVENT_P};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -105,7 +120,8 @@ testF(TestUniversalityProperty, UniversalityAfterQProperty_violated_when_not_P_a
   UniversalityAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_P, EVENT_P, EVENT_NONE, EVENT_Q, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -119,7 +135,8 @@ testF(TestUniversalityProperty, UniversalityAfterQProperty_satisfied_when_no_P_o
   UniversalityAfterQProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -133,7 +150,7 @@ testF(TestUniversalityProperty, UniversalityBetweenQAndRProperty_satisfied) {
   UniversalityBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({
+  std::vector<uint8_t> events = {
     EVENT_NONE, 
     EVENT_NONE, 
     EVENT_Q, 
@@ -152,7 +169,8 @@ testF(TestUniversalityProperty, UniversalityBetweenQAndRProperty_satisfied) {
     EVENT_R, 
     EVENT_NONE, 
     EVENT_NONE
-  });
+  };
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -166,7 +184,8 @@ testF(TestUniversalityProperty, UniversalityBetweenQAndRProperty_satisfied_no_ev
   UniversalityBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
@@ -180,7 +199,8 @@ testF(TestUniversalityProperty, UniversalityBetweenQAndRProperty_violated) {
   UniversalityBetweenQAndRProperty automaton;
 
   //when
-  automaton.processEvents({EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE});
+  std::vector<uint8_t> events = {EVENT_NONE, EVENT_NONE, EVENT_Q, EVENT_NONE, EVENT_P, EVENT_NONE, EVENT_R, EVENT_NONE, EVENT_NONE};
+  automaton.processEvents(events, generateIrrelevantTestingTimestamps(events.size()));
   std::map<Verdict, float> results = automaton.getVerdictProbabilities();
 
   //then
