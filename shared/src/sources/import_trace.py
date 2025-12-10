@@ -10,8 +10,8 @@ event_map = {
     'y': "EVENT_Y",
 }
 
-csv_file = "proportional_missing/coupled_truth.tessla.iid.mr0.05.csv"
-vector_name = "coupled_proportional_missing_iid_mr_0_05"
+csv_file = "proportional_missing/seed2099/coupled_truth.tessla.iid.mr0.05.csv"
+vector_name = "coupled_proportional_missing_seed2099_iid_mr_0_05"
 
 vector_entries = []
 
