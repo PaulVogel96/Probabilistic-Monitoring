@@ -1,10 +1,10 @@
 import csv
 
 files = {
-    "pred_P1": "proportional_missing/coupled/iid_mr_0_1/P1/result.csv",
-    "pred_P2": "proportional_missing/coupled/iid_mr_0_1/P2/result.csv",
-    "pred_P3": "proportional_missing/coupled/iid_mr_0_1/P3/result.csv",
-    "pred_P4": "proportional_missing/coupled/iid_mr_0_1/P4/result.csv"
+    "pred_P1": "proportional_missing/coupled/seed2025/iid_mr_0_1/P1/result.csv",
+    "pred_P2": "proportional_missing/coupled/seed2025/iid_mr_0_1/P2/result.csv",
+    "pred_P3": "proportional_missing/coupled/seed2025/iid_mr_0_1/P3/result.csv",
+    "pred_P4": "proportional_missing/coupled/seed2025/iid_mr_0_1/P4/result.csv"
 }
 
 merged = {}
@@ -21,7 +21,7 @@ for prop, fname in files.items():
 timestamps = sorted(merged.keys())
 
 with open("merged_violation_iid_mr_0_1.csv", "w", newline='') as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, quoting=csv.QUOTE_ALL)
     writer.writerow(["time","pred_P1","pred_P2","pred_P3","pred_P4"])
     for t in timestamps:
         writer.writerow([

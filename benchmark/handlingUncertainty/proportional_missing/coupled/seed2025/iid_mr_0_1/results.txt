@@ -1,0 +1,39 @@
+P1:
+  TP: 0
+  FP: 171
+  FN: 6
+  TN: 3426
+  Precision: 0.0
+  Recall: 0.0
+  F1: 0.0
+  IoU: 0.0
+
+P2:
+  TP: 0
+  FP: 445
+  FN: 18
+  TN: 3140
+  Precision: 0.0
+  Recall: 0.0
+  F1: 0.0
+  IoU: 0.0
+
+P3:
+  TP: 12
+  FP: 120
+  FN: 0
+  TN: 3471
+  Precision: 0.0909
+  Recall: 1.0
+  F1: 0.1667
+  IoU: 0.0909
+
+P4:
+  TP: 31
+  FP: 15
+  FN: 5
+  TN: 3552
+  Precision: 0.6739
+  Recall: 0.8611
+  F1: 0.7561
+  IoU: 0.6078
