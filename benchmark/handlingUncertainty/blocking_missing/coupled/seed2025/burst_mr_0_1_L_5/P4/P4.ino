@@ -2,12 +2,12 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/properties/timed/MutualExclusionOfPAndSProperty.hpp>
+#include <automatons/properties/timed/probabilistic/MutualExclusionOfPAndSProbabilisticProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
 #include <traces/blocking_missing/seed2025/coupled_blocking_missing_seed2025_mr0_1_L_5.hpp>
 
-MutualExclusionOfPAndSProperty automaton;
+MutualExclusionOfPAndSProbabilisticProperty automaton;
 int events_processed = 0;
 std::map<Verdict, float> verdictProbabilities;
 

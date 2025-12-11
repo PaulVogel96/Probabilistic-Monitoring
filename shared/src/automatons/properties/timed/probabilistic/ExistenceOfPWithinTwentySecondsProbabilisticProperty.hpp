@@ -21,6 +21,8 @@ class ExistenceOfPWithinTwentySecondsProbabilisticProperty : public ProbStatemac
       new TimedAllRequiredEventsInactiveTransition(p_holds, p_did_not_hold, 1.0, EVENT_P, pred_20s_no_p);
       new TimedAllRequiredEventsInactiveTransition(initial_state, p_did_not_hold, 1.0, EVENT_P, pred_20s_no_p);
       new AllRequiredEventsActiveTransition(initial_state, p_holds, 0.0921, EVENTS_MISSING); //interpret missing events as p with probability
+      new AllRequiredEventsActiveTransition(p_did_not_hold, p_holds, 1.0, EVENT_P);
+
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;

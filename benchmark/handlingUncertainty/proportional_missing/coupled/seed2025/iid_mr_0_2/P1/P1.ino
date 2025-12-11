@@ -2,17 +2,17 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/properties/timed/ExistenceOfPWithinTwentySecondsProperty.hpp>
+#include <automatons/properties/timed/probabilistic/ExistenceOfPWithinTwentySecondsProbabilisticProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
 #include <traces/proportional_missing/seed2025/coupled_proportional_missing_seed2025_iid_mr_0_2.hpp>
 
-ExistenceOfPWithinTwentySecondsProperty automaton;
+ExistenceOfPWithinTwentySecondsProbabilisticProperty automaton;
 int events_processed = 0;
 std::map<Verdict, float> verdictProbabilities;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(230400);
   Serial.flush();
   Serial.println("ts,violated");
 }
@@ -26,6 +26,7 @@ void loop() {
 
     verdictProbabilities = automaton.getVerdictProbabilities();
     Serial.println(String(events_processed) + ", " + String(isVerdictViolated(verdictProbabilities)));
+    delay(20);
 
     events_processed += 1;
   }

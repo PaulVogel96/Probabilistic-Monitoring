@@ -2,12 +2,12 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/properties/timed/ResponseOfRAfterPWithinThreeSecondsProperty.hpp>
+#include <automatons/properties/timed/probabilistic/ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
-#include <traces/proportional_missing/coupled_proportional_missing_iid_mr_0_2.hpp>
+#include <traces/proportional_missing/seed2025/coupled_proportional_missing_seed2025_iid_mr_0_2.hpp>
 
-ResponseOfRAfterPWithinThreeSecondsProperty automaton;
+ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty automaton;
 int events_processed = 0;
 std::map<Verdict, float> verdictProbabilities;
 
@@ -19,14 +19,15 @@ void setup() {
 
 void loop() {
   if (events_processed < 3603) {
-    uint8_t event = pgm_read_byte(&coupled_proportional_missing_iid_mr_0_2[events_processed]);
+    uint8_t event = pgm_read_byte(&coupled_proportional_missing_seed2025_iid_mr_0_2[events_processed]);
     uint32_t timestamp = events_processed * 1000UL;
     
     automaton.changeStates(event, timestamp);
 
     verdictProbabilities = automaton.getVerdictProbabilities();
     Serial.println(String(events_processed) + ", " + String(isVerdictViolated(verdictProbabilities)));
-
+    delay(20);
+    
     events_processed += 1;
   }
 }

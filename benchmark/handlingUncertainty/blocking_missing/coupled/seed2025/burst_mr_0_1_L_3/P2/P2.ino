@@ -2,12 +2,12 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/properties/timed/ResponseOfRAfterPWithinThreeSecondsProperty.hpp>
+#include <automatons/properties/timed/probabilistic/ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
 #include <traces/blocking_missing/seed2025/coupled_blocking_missing_seed2025_mr0_1_L_3.hpp>
 
-ResponseOfRAfterPWithinThreeSecondsProperty automaton;
+ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty automaton;
 int events_processed = 0;
 std::map<Verdict, float> verdictProbabilities;
 

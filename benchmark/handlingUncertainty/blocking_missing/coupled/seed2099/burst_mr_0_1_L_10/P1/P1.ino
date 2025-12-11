@@ -2,12 +2,12 @@
 #include <State.hpp>
 #include <ProbTransition.hpp>
 #include <ProbStatemachine.hpp>
-#include <automatons/properties/timed/ExistenceOfPWithinTwentySecondsProperty.hpp>
+#include <automatons/properties/timed/probabilistic/ExistenceOfPWithinTwentySecondsProbabilisticProperty.hpp>
 #include <transitions/untimed/AllRequiredEventsActiveTransition.hpp>
 #include <Utils.hpp>
 #include <traces/blocking_missing/seed2099/coupled_blocking_missing_seed2099_mr0_1_L_10.hpp>
 
-ExistenceOfPWithinTwentySecondsProperty automaton;
+ExistenceOfPWithinTwentySecondsProbabilisticProperty automaton;
 int events_processed = 0;
 std::map<Verdict, float> verdictProbabilities;
 
