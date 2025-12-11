@@ -28,18 +28,9 @@ class ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty : public ProbStat
       );
       auto* p_again = new AllRequiredEventsActiveTransition(r_did_not_hold, p_held, 1.0, EVENT_P);
 
-      auto* missing_as_p = new AllRequiredEventsActiveTransition(
-          initial_state,
-          p_held,
-          0.0921, //probability of p overall
-          EVENTS_MISSING
-      );
+      auto* missing_as_p = new AllRequiredEventsActiveTransition(initial_state, p_held, 0.0921, EVENTS_MISSING);
 
-      auto* missing_as_r_success = new TimedAllRequiredEventsActiveTransition(
-        p_held,
-        initial_state,
-        0.0896, //probability of p overall
-        EVENTS_MISSING,
+      auto* missing_as_r_success = new TimedAllRequiredEventsActiveTransition(p_held, initial_state, 0.0896, EVENTS_MISSING,
         new TimePredicateWrapper{
             TimePredicate{EVENT_P, TimeComparator::BETWEEN, 1000, 3000}
         }
