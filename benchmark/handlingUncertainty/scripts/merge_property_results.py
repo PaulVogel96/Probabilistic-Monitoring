@@ -1,10 +1,10 @@
 import csv
 
 files = {
-    "pred_P1": "proportional_missing/coupled/seed2025/iid_mr_0_1/P1/result.csv",
-    "pred_P2": "proportional_missing/coupled/seed2025/iid_mr_0_1/P2/result.csv",
-    "pred_P3": "proportional_missing/coupled/seed2025/iid_mr_0_1/P3/result.csv",
-    "pred_P4": "proportional_missing/coupled/seed2025/iid_mr_0_1/P4/result.csv"
+    "pred_P1": "../proportional_missing/coupled/seed2025/iid_mr_0_1/P1/result_probabilistic.csv",
+    "pred_P2": "../proportional_missing/coupled/seed2025/iid_mr_0_1/P2/result_probabilistic.csv",
+    "pred_P3": "../proportional_missing/coupled/seed2025/iid_mr_0_1/P3/result_probabilistic.csv",
+    "pred_P4": "../proportional_missing/coupled/seed2025/iid_mr_0_1/P4/result_probabilistic.csv"
 }
 
 merged = {}

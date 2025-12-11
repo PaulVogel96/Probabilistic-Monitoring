@@ -1,6 +1,6 @@
 import pandas as pd
 
-PRED_FILE = "merged_violation_iid_mr_0_1.csv"
+PRED_FILE = "../proportional_missing/coupled/seed2025/iid_mr_0_1/merged_violation_iid_mr_0_1_probabilistic.csv"
 TRUTH_FILE = "coupled_truth_labels.csv"
 NUM_PROPERTIES = 4
 
