@@ -28,7 +28,7 @@ void setup() {
 
 void loop() {
   if (events_processed < 3603) {
-    uint8_t event = pgm_read_byte(&coupled_baseline[events_processed]);
+    uint8_t event = pgm_read_byte(&coupled_blocking_missing_seed2025_mr0_2_L_10[events_processed]);
     uint32_t timestamp = events_processed * 1000UL;
     
     p1.changeStates(event, timestamp);
