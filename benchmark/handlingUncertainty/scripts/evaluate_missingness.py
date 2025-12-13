@@ -1,7 +1,7 @@
 import pandas as pd
 import csv
 
-PRED_FILE = "../blocking_missing/coupled/seed2099/burst_mr_0_2_L_10/result.csv"
+PRED_FILE = "../periodic/coupled_prob/seed2025/T20_keep0_7/result.csv"
 TRUTH_FILE = "coupled_truth_labels.csv"
 NUM_PROPERTIES = 4
 
