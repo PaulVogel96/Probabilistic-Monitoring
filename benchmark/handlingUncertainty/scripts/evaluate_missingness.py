@@ -1,6 +1,7 @@
 import pandas as pd
+import csv
 
-PRED_FILE = "../proportional_missing/coupled/seed2025/iid_mr_0_1/merged_violation_iid_mr_0_1_probabilistic.csv"
+PRED_FILE = "../blocking_missing/coupled/seed2099/burst_mr_0_2_L_10/result.csv"
 TRUTH_FILE = "coupled_truth_labels.csv"
 NUM_PROPERTIES = 4
 
@@ -14,12 +15,6 @@ assert "time" in pred.columns
 assert "time" in truth.columns
 
 merged = pred.merge(truth, on="time", how="inner")
-
-if len(merged) == 0:
-    raise ValueError("ERROR: The merge produced 0 rows. "
-                     "Time columns probably do not match. "
-                     "Check the 'time' column formatting!")
-
 print(f"Merged rows: {len(merged)}")
 
 metrics = {}
@@ -29,15 +24,10 @@ for i in range(1, NUM_PROPERTIES + 1):
     pred_col = f"pred_P{i}"
     truth_col = f"viol_C{i}"
 
-    if pred_col not in merged:
-        raise KeyError(f"Missing column in predictions: {pred_col}")
-
-    if truth_col not in merged:
-        raise KeyError(f"Missing column in truth file: {truth_col}")
-
     p = merged[pred_col]
     t = merged[truth_col]
 
+    p = p.str.strip().str.replace('"', '')
     p = p.astype(int)
     t = t.astype(int)
 
@@ -62,9 +52,50 @@ for i in range(1, NUM_PROPERTIES + 1):
         "IoU": round(IoU, 4)
     }
 
-print("\n===== Evaluation Results =====\n")
-for prop, data in metrics.items():
-    print(f"{prop}:")
-    for k, v in data.items():
-        print(f"  {k}: {v}")
-    print()
+output_rows = []
+total_TP = total_FP = total_FN = total_TN = 0
+
+for prop, m in metrics.items():
+    row = [
+        prop,
+        m["TP"],
+        m["FP"],
+        m["FN"],
+        m["TN"],
+        round(m["Precision"], 6),
+        round(m["Recall"], 6),
+        round(m["F1"], 6),
+        round(m["IoU"], 6),
+    ]
+    output_rows.append(row)
+
+    total_TP += m["TP"]
+    total_FP += m["FP"]
+    total_FN += m["FN"]
+    total_TN += m["TN"]
+
+# Compute totals
+total_precision = total_TP / (total_TP + total_FP) if (total_TP + total_FP) > 0 else 0
+total_recall    = total_TP / (total_TP + total_FN) if (total_TP + total_FN) > 0 else 0
+total_f1        = 2 * total_precision * total_recall / (total_precision + total_recall) if (total_precision + total_recall) > 0 else 0
+total_iou       = total_TP / (total_TP + total_FP + total_FN) if (total_TP + total_FP + total_FN) > 0 else 0
+
+output_rows.append([
+    "Total",
+    total_TP,
+    total_FP,
+    total_FN,
+    total_TN,
+    round(total_precision, 6),
+    round(total_recall, 6),
+    round(total_f1, 6),
+    round(total_iou, 6),
+])
+
+# Write CSV
+with open("evaluation_results.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Property", "TP", "FP", "FN", "TN", "Precision", "Recall", "F1", "IoU"])
+    writer.writerows(output_rows)
+
+print("Saved CSV as evaluation_results.csv")

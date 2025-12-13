@@ -24,11 +24,13 @@ std::map<Verdict, float> verdictProbabilitiesP4;
 void setup() {
   Serial.begin(230400);
   Serial.flush();
-  Serial.println("\"time\",\"pred_P1\",\"pred_P2\",\"pred_P3\",\"pred_P4\"");
 }
 
 void loop() {
-  if (events_processed < 3603) {
+  if(events_processed == 0){
+    Serial.println("start");
+  }
+  if (events_processed < 3601) {
     uint8_t event = pgm_read_byte(&coupled_blocking_missing_seed2025_mr0_1_L_3[events_processed]);
     uint32_t timestamp = events_processed * 1000UL;
     
@@ -42,14 +44,21 @@ void loop() {
     verdictProbabilitiesP3 = p3.getVerdictProbabilities();
     verdictProbabilitiesP4 = p4.getVerdictProbabilities();
 
+    bool violP1 = isVerdictViolated(verdictProbabilitiesP1);
+    bool violP2 = isVerdictViolated(verdictProbabilitiesP2);
+    bool violP3 = isVerdictViolated(verdictProbabilitiesP3);
+    bool violP4 = isVerdictViolated(verdictProbabilitiesP4);
+
     Serial.println("\"" + String(events_processed) + "\", \"" 
-    + String(isVerdictViolated(verdictProbabilitiesP1)) + "\", \""
-    + String(isVerdictViolated(verdictProbabilitiesP2)) + "\", \""
-    + String(isVerdictViolated(verdictProbabilitiesP3)) + "\", \""
-    + String(isVerdictViolated(verdictProbabilitiesP4)) + "\"");
-
-    delay(50);
-
+    + String(violP1) + "\", \""
+    + String(violP2) + "\", \""
+    + String(violP3) + "\", \""
+    + String(violP4) + "\"");
+    
+    events_processed += 1;
+  }
+  if(events_processed == 3601){
+    Serial.println("stop");
     events_processed += 1;
   }
 }
