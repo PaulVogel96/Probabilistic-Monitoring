@@ -1,5 +1,5 @@
-#ifndef TimedMixedEventsConfitionTransition_hpp
-#define TimedMixedEventsConfitionTransition_hpp
+#ifndef TimedMixedEventsConditionTransition_hpp
+#define TimedMixedEventsConditionTransition_hpp
 
 #include "StandardCplusplus.h"
 #include <map>

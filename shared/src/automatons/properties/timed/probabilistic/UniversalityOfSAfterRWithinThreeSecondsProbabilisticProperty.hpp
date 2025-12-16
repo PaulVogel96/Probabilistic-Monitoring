@@ -6,6 +6,7 @@
 #include "../../../../transitions/untimed/MixedEventsConditionTransition.hpp"
 #include "../../../../transitions/timed/TimedAllRequiredEventsActiveTransition.hpp"
 #include "../../../../transitions/timed/TimedAllRequiredEventsInactiveTransition.hpp"
+#include "../../../../transitions/timed/TimedNotAllRequiredEventsActiveTransition.hpp"
 #include "../../../../transitions/timed/TimedMatchEverythingTransition.hpp"
 #include "../../../../transitions/timed/predicates/TimePredicateWrapper.hpp"
 #include "../../../../ProbStatemachine.hpp"
@@ -28,7 +29,7 @@ class UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty : public Prob
       new TimedAllRequiredEventsInactiveTransition(r_held, s_did_not_hold, 1.0, EVENT_S, predicate_time_at_2000ms);
       new TimedAllRequiredEventsActiveTransition(r_held, initial_state, 1.0, EVENT_S, predicate_time_at_2000ms);
       new TimedMatchEverythingTransition(r_held, initial_state, 1.0, predicate_time_window_over);
-      new TimedMatchEverythingTransition(s_did_not_hold, initial_state, 1.0, predicate_time_window_over);
+      new TimedNotAllRequiredEventsActiveTransition(s_did_not_hold, initial_state, 1.0, EVENT_R | EVENT_S, predicate_time_window_over);
       new AllRequiredEventsActiveTransition(s_did_not_hold, r_held, 1.0, EVENT_R | EVENT_S);
 
       //additiona probabilistic transitions
