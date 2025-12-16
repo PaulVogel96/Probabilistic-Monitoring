@@ -94,7 +94,6 @@ void ProbStatemachine::changeStates(uint8_t trigger, uint32_t timestamp)
     {
         State* state = it->first;
         float prob = it->second;
-        float restprob = it->second;
         if (prob > 0)
         {
             bool enabled = false;

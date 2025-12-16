@@ -3,6 +3,7 @@
 
 #include "../../../../State.hpp"
 #include "../../../../transitions/untimed/AllRequiredEventsActiveTransition.hpp"
+#include "../../../../transitions/untimed/MixedEventsConditionTransition.hpp"
 #include "../../../../transitions/timed/TimedAllRequiredEventsActiveTransition.hpp"
 #include "../../../../transitions/timed/TimedAllRequiredEventsInactiveTransition.hpp"
 #include "../../../../transitions/timed/TimedMatchEverythingTransition.hpp"
@@ -12,27 +13,37 @@
 //"After each r, s must hold continuously at the three samples {r, r+1, r+2}"
 class UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty : public ProbStatemachine {
   public:
-    UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty() : ProbStatemachine() {
+    UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty() : ProbStatemachine() {      
       auto* initial_state = new State("Initial State", Verdict::SATISFIED);
       auto* r_held = new State("R Held", Verdict::INCONCLUSIVE);
       auto* s_did_not_hold = new State("S did not hold after R", Verdict::VIOLATED);
 
-      auto* r_happened = new AllRequiredEventsActiveTransition(initial_state, r_held, 1.0, EVENT_R);
-      auto* missing_as_r = new AllRequiredEventsActiveTransition(initial_state, r_held, 0.0896, EVENTS_MISSING);
-      
-      TimePredicateWrapper* predicate = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS_EQUAL, 2000}};
-      auto* no_s_in_timewindow = new TimedAllRequiredEventsInactiveTransition(r_held, s_did_not_hold, 1.0, EVENT_S, predicate);
+      TimePredicateWrapper* predicate_time_during_window =  new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::LESS, 2000}};
+      TimePredicateWrapper* predicate_time_at_2000ms = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::EQUAL, 2000}};
+      TimePredicateWrapper* predicate_time_window_over = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER, 2000}};
 
-      TimePredicateWrapper* predicate_two = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER, 2000}};
-      auto* time_window_over = new TimedMatchEverythingTransition(r_held, initial_state, 1.0, predicate_two);
+      new AllRequiredEventsActiveTransition(initial_state, r_held, 1.0, EVENT_R | EVENT_S);
+      new MixedEventsConditionTransition(initial_state, s_did_not_hold, 1.0, EVENT_R, EVENT_S);
+      new TimedAllRequiredEventsInactiveTransition(r_held, s_did_not_hold, 1.0, EVENT_S, predicate_time_during_window);
+      new TimedAllRequiredEventsInactiveTransition(r_held, s_did_not_hold, 1.0, EVENT_S, predicate_time_at_2000ms);
+      new TimedAllRequiredEventsActiveTransition(r_held, initial_state, 1.0, EVENT_S, predicate_time_at_2000ms);
+      new TimedMatchEverythingTransition(r_held, initial_state, 1.0, predicate_time_window_over);
+      new TimedMatchEverythingTransition(s_did_not_hold, initial_state, 1.0, predicate_time_window_over);
+      new AllRequiredEventsActiveTransition(s_did_not_hold, r_held, 1.0, EVENT_R | EVENT_S);
 
-      auto* missing_s_false = new TimedAllRequiredEventsInactiveTransition(r_held, s_did_not_hold, 0.7161f, EVENTS_MISSING,
-          new TimePredicateWrapper{
-              TimePredicate{EVENT_R, TimeComparator::LESS_EQUAL, 2000}
-          }
-      );
+      //additiona probabilistic transitions
+      float globalProbR = 0.0896f;
+      float globalProbS = 0.2839f;
 
-      auto* r_again = new AllRequiredEventsActiveTransition(s_did_not_hold, r_held, 1.0, EVENT_R);
+      //assuming independence of s and r being activetogether on missing ticks
+      float p_missing_RS = globalProbR * globalProbS;
+      float p_missing_R_notS  = globalProbR * (1.0f - globalProbS);
+
+      new AllRequiredEventsActiveTransition(initial_state, r_held, p_missing_RS, EVENTS_MISSING);
+      new AllRequiredEventsActiveTransition(initial_state, s_did_not_hold, p_missing_R_notS, EVENTS_MISSING);
+      new TimedAllRequiredEventsActiveTransition(r_held, s_did_not_hold, 1 - globalProbS, EVENTS_MISSING, predicate_time_during_window);
+      new TimedAllRequiredEventsActiveTransition(r_held, s_did_not_hold, 1 - globalProbS, EVENTS_MISSING, predicate_time_at_2000ms);
+      new TimedAllRequiredEventsActiveTransition(r_held, initial_state, globalProbS, EVENTS_MISSING, predicate_time_at_2000ms);
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;

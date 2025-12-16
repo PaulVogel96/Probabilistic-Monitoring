@@ -16,17 +16,20 @@ class ExistenceOfPWithinTwentySecondsProbabilisticProperty : public ProbStatemac
       auto* p_did_not_hold = new State("P did not hold within 20s", Verdict::VIOLATED);
 
       TimePredicateWrapper* pred_20s_no_p = new TimePredicateWrapper{TimePredicate{EVENT_P, TimeComparator::GREATER, 20000}};
-      
       new AllRequiredEventsActiveTransition(initial_state, p_holds, 1.0, EVENT_P);
       new TimedAllRequiredEventsInactiveTransition(p_holds, p_did_not_hold, 1.0, EVENT_P, pred_20s_no_p);
       new TimedAllRequiredEventsInactiveTransition(initial_state, p_did_not_hold, 1.0, EVENT_P, pred_20s_no_p);
-      new AllRequiredEventsActiveTransition(initial_state, p_holds, 0.0921, EVENTS_MISSING); //interpret missing events as p with probability
       new AllRequiredEventsActiveTransition(p_did_not_hold, p_holds, 1.0, EVENT_P);
 
+      //additional probabilistic transitions
+      float globalProbP = 0.0921f;
+      new AllRequiredEventsActiveTransition(initial_state, p_holds, globalProbP, EVENTS_MISSING);
+      new AllRequiredEventsActiveTransition(p_did_not_hold, p_holds, globalProbP, EVENTS_MISSING);
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
       this->addState(p_holds);
+      this->addState(p_did_not_hold);
     }
 };
 #endif

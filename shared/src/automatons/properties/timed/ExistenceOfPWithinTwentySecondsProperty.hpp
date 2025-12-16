@@ -25,6 +25,7 @@ class ExistenceOfPWithinTwentySecondsProperty : public ProbStatemachine {
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
       this->addState(p_holds);
+      this->addState(p_did_not_hold);
     }
 };
 #endif

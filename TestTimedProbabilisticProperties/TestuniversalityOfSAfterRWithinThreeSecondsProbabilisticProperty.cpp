@@ -1,10 +1,10 @@
 #include <map>
 #include <AUnit.h>
-#include <automatons/properties/timed/UniversalityOfSAfterRWithinThreeSecondsProperty.hpp>
+#include <automatons/properties/timed/probabilistic/UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty.hpp>
 
 using namespace aunit;
 
-class TestUniversalityOfSAfterRWithinThreeSecondsProperty : public TestOnce {
+class TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty : public TestOnce {
   protected:
   void setup() override {}
   
@@ -13,9 +13,9 @@ class TestUniversalityOfSAfterRWithinThreeSecondsProperty : public TestOnce {
   }
 };
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_satisfied) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_satisfied) {
   //given
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   std::vector<uint8_t> events = {EVENT_R | EVENT_S, EVENT_S, EVENT_P | EVENT_S, EVENT_R | EVENT_S, EVENT_X | EVENT_S, EVENT_P | EVENT_S, EVENT_S, EVENT_N};
@@ -29,9 +29,9 @@ testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_satisfied) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_inconclusive) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_inconclusive) {
   //given
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   std::vector<uint8_t> events = {EVENT_R | EVENT_S, EVENT_S};
@@ -45,9 +45,9 @@ testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_inconclusive
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 1.0));
 }
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_violated) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_violated) {
   //given
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   std::vector<uint8_t> events = {EVENT_R, EVENT_Q};
@@ -61,9 +61,9 @@ testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_violated) {
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_violated_no_s_at_time_r) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_violated_no_s_at_time_r) {
   //given
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   std::vector<uint8_t> events = {EVENT_R};
@@ -77,9 +77,9 @@ testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_violated_no_
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_inconclusive_s_at_time_r) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_inconclusive_s_at_time_r) {
   //given
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   std::vector<uint8_t> events = {EVENT_R | EVENT_S};
@@ -93,9 +93,9 @@ testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_inconclusive
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 1.0));
 }
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_violated_but_switches_back_to_satisfied_after_window_over) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_violated_but_switches_back_to_satisfied_after_window_over) {
   //given
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   std::vector<uint8_t> events = {EVENT_R, EVENT_S, EVENT_P, EVENT_S, EVENT_X, EVENT_S, EVENT_S};
@@ -109,9 +109,9 @@ testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_violated_but
   assertTrue(approxEquals(results[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_switches_from_satisfied_to_violated_and_back) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_switches_from_satisfied_to_violated_and_back) {
   //given
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   std::vector<uint8_t> events = {EVENT_R, EVENT_S, EVENT_N};
@@ -147,10 +147,10 @@ testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_switches_fro
   assertTrue(approxEquals(results3[Verdict::INCONCLUSIVE], 0.0));
 }
 
-testF(TestUniversalityOfSAfterRWithinThreeSecondsProperty, Property_violated_when_r_occurs_without_s_after_window) {
+testF(TestUniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty, Property_violated_when_r_occurs_without_s_after_window) {
   //given
 
-  UniversalityOfSAfterRWithinThreeSecondsProperty automaton;
+  UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty automaton;
 
   //when
   automaton.processEvents(
