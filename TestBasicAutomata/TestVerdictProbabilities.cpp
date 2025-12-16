@@ -4,6 +4,7 @@
 #include <automatons/basic/ABCSplitAutomaton.hpp>
 #include <automatons/basic/DoubleSplitAutomatonWithLoop.hpp>
 #include <automatons/basic/ALoopBAutomaton.hpp>
+#include <automatons/properties/timed/probabilistic/ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty.hpp>
 
 using namespace aunit;
 
@@ -61,7 +62,6 @@ testF(TestVerdictProbabilities, ALoopBAutomaton) {
   assertTrue(results[Verdict::INCONCLUSIVE] == 0.25);
 }
 
-//Tests a Loop transition an multiple probabilitic transitions
 testF(TestVerdictProbabilities, DoubleSplitAutomatonWithLoop) {
   //given
   DoubleSplitAutomatonWithLoop automaton;
@@ -73,4 +73,22 @@ testF(TestVerdictProbabilities, DoubleSplitAutomatonWithLoop) {
   assertTrue(results[Verdict::SATISFIED] == 0.52);
   assertTrue(results[Verdict::VIOLATED] == 0.28);
   assertTrue(approxEqual(results[Verdict::INCONCLUSIVE], 0.2));
+}
+
+testF(TestVerdictProbabilities, NoMassLoss_WhenIncomingAndOutgoingSameTick_WithMissing) {
+  //given
+  ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty automaton;
+
+  //when
+  automaton.processEvents(
+    {EVENT_P, EVENT_NONE, EVENT_R | EVENT_S, EVENT_S, EVENTS_MISSING, EVENTS_MISSING},
+    {0, 1000, 2000, 3000, 4000, 5000}
+  );
+
+  //then
+  std::map<Verdict, float> results = automaton.getVerdictProbabilities();
+  float total = results[Verdict::SATISFIED]
+              + results[Verdict::VIOLATED]
+              + results[Verdict::INCONCLUSIVE];
+  assertTrue(approxEqual(total, 1.0));
 }

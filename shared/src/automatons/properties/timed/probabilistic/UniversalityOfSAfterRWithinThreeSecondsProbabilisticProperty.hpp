@@ -26,10 +26,10 @@ class UniversalityOfSAfterRWithinThreeSecondsProbabilisticProperty : public Prob
       TimePredicateWrapper* predicate_two = new TimePredicateWrapper{TimePredicate{EVENT_R, TimeComparator::GREATER, 2000}};
       auto* time_window_over = new TimedMatchEverythingTransition(r_held, initial_state, 1.0, predicate_two);
 
-      auto* missing_as_s_ok = new TimedAllRequiredEventsActiveTransition(r_held, r_held, 0.2839, EVENTS_MISSING,
-        new TimePredicateWrapper{
-          TimePredicate{EVENT_R, TimeComparator::LESS_EQUAL, 2000}
-        }
+      auto* missing_s_false = new TimedAllRequiredEventsInactiveTransition(r_held, s_did_not_hold, 0.7161f, EVENTS_MISSING,
+          new TimePredicateWrapper{
+              TimePredicate{EVENT_R, TimeComparator::LESS_EQUAL, 2000}
+          }
       );
 
       auto* r_again = new AllRequiredEventsActiveTransition(s_did_not_hold, r_held, 1.0, EVENT_R);

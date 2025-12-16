@@ -35,6 +35,12 @@ class ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty : public ProbStat
             TimePredicate{EVENT_P, TimeComparator::BETWEEN, 1000, 3000}
         }
       );
+      
+      auto* missing_timeout_violation = new TimedAllRequiredEventsInactiveTransition(p_held, r_did_not_hold, 1.0, EVENTS_MISSING,
+        new TimePredicateWrapper{
+            TimePredicate{EVENT_P, TimeComparator::GREATER, 3000}
+        }
+    );
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;

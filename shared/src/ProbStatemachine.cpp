@@ -104,13 +104,11 @@ void ProbStatemachine::changeStates(uint8_t trigger, uint32_t timestamp)
                 ProbTransition* transition = transitions[t];
                 if (transition->evaluate(trigger, timestamp, &this->lastEventOcurrences, &this->eventSeen) && transition->getTarget() != state)
                 {
-                    newStates[transition->getTarget()] += (prob * transition->getProbability());
-                    restprob -= (prob * transition->getProbability());
-                    enabled = true;
+                    float delta = prob * transition->getProbability();
+
+                    newStates[transition->getTarget()] += delta;
+                    newStates[state] -= delta;
                 }
-            }
-            if (enabled){
-                newStates[state] = restprob;
             }
         }
     }
