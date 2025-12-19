@@ -31,7 +31,7 @@ class ResponseOfRAfterPWithinThreeSecondsProbabilisticProperty : public ProbStat
       
       auto* missing_as_p = new AllRequiredEventsActiveTransition(initial_state, p_held, globalProbP, EVENTS_MISSING);
       auto* missing_as_r_success = new TimedAllRequiredEventsActiveTransition(p_held, initial_state, globalProbR, EVENTS_MISSING, time_within_window);
-      auto* missing_timeout_violation = new TimedAllRequiredEventsActiveTransition(p_held, r_did_not_hold, globalProbR, EVENTS_MISSING, time_after_window);
+      auto* missing_timeout_violation = new TimedAllRequiredEventsActiveTransition(p_held, r_did_not_hold, 1 - globalProbR, EVENTS_MISSING, time_after_window);
 
       this->initialState = this->addState(initial_state);
       this->states[this->initialState] = 1;
