@@ -73,7 +73,7 @@
 - comparisons (TP X -> Y) are generally done between the deterministic version (X) and the probabilitic version (Y)
 
 ### General observations 
-- Using our probabilistic approach, we always catch at least the same amount of TP violations
+- Using our probabilistic approach, we almost always catch at least the same amount of TP violations except for very high violation thresholds 
 - In nearly all cases, we catch more TP violations than using the deterministic approach
 - In nearly all cases we also generate more FP violations than using the regular approach
 - The lower the threshold for violations is, the more TP violations we catch, but also the higher the amount of FP violations gets
@@ -84,7 +84,7 @@
 - probabilistic approach is okay here
 - The lower the MR, the less effective our probabilistic approach becomes compared to the deterministic one (same amount of TP with MR 0.05, more FP 459 -> 796 at V threshold 0.1)
 - Only At higher MR, slightly more TP are discovered (MR 0.1, Threshold 0.1, one more TP; MR 0.2, V threshold 0.1: TP 40 -> 45, Recall 0,555 -> 0.625)
-- Amount of FP ~ doubles at V threshold 0.1
+- Amount of FP ~ doubles at V threshold 0.1 compared to deterministic approach
 
 ### blocking missing
 - Our probabilistic approach performs well unless lower MR and L
@@ -139,8 +139,8 @@
 - periodic missing sees improvements in recall and TP detection across the board
   - T10 keep 0.5 V threshold 0.1: TP 6 -> 9, recall 0.33 -> 0.5
   - T10 keep 0.7 V threshold 0.1: TP 0 -> 4, recall 0 -> 0.22
-  - T20 keep 0.5 V threshold 0.1: TP 2 -> 9, recall 0.11 -> 0.5
-- proportional missing only sees significant improvements of TP detection at higher MR:
+  - T20 keep 0.5 V threshold 0.1: TP 2 -> 12, recall 0.11 -> 0.66
+- proportional missing only really sees significant improvements of TP detection at higher MR:
   - MR 0.2 V threshold 0.1: TP 1 -> 6, recall 0.05 -> 0.33
 
 ### P3 "After each r, s must hold continuously at the three samples {r, r+1, r+2}"
