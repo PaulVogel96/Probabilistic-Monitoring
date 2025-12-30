@@ -169,7 +169,7 @@
     - MR 0.2, V threshold 0.1: TP 12, recall 0.83, FP 317
     - this is actually the first time that lower V threshold performs better, as the same amount of TP are catched, while FP are lower
 
-### P4 "p may occur only when s is false (i.e., no p triggers inside any s-true window)"
+### P4 " (i.e., no p triggers inside any s-true window)"
 - again FP rate significantly up
 - results over seeds are similar
 - blocking missing: property barely outperforms deterministic version
