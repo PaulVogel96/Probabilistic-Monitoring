@@ -23,6 +23,7 @@ int events_processed = 0;
 void setup() {
   Serial.begin(9600);
   Serial.flush();
+  Serial.println("start");
 }
 
 void loop() {

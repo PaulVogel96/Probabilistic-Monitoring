@@ -1,0 +1,24 @@
+ExistenceOfPWithinTwentySecondsProperty
+run=1 elapsed_us=2912488
+run=2 elapsed_us=2912488
+run=3 elapsed_us=2912488
+run=4 elapsed_us=2912488
+
+ResponseOfRAfterPWithinThreeSecondsProperty:
+run=1 elapsed_us=3390308
+run=2 elapsed_us=3387412
+run=3 elapsed_us=3627560
+run=4 elapsed_us=3387408
+
+UniversalityOfSAfterRProperty:
+run=1 elapsed_us=3679444
+run=2 elapsed_us=3679452
+run=3 elapsed_us=3676584
+run=4 elapsed_us=4156888
+
+MutualExclusionOfPAndSProperty:
+run=1 elapsed_us=2427164
+run=2 elapsed_us=2427164
+run=3 elapsed_us=2427168
+run=4 elapsed_us=2427164
+

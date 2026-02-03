@@ -1,0 +1,17 @@
+Missingness Intensity 1:
+run=1 elapsed_us=2922224
+run=2 elapsed_us=2922220
+run=3 elapsed_us=2922224
+run=4 elapsed_us=2922228
+
+Missingness Intensity 2:
+run=1 elapsed_us=2917776
+run=2 elapsed_us=2917780
+run=3 elapsed_us=2917784
+run=4 elapsed_us=2917776
+
+Missingness Intensity 3:
+run=1 elapsed_us=2917460
+run=2 elapsed_us=2917460
+run=3 elapsed_us=2917460
+run=4 elapsed_us=2917460

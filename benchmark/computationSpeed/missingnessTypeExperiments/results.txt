@@ -1,0 +1,23 @@
+blocking missing:
+run=1 elapsed_us=2912488
+run=2 elapsed_us=2912488
+run=3 elapsed_us=2912488
+run=4 elapsed_us=2912488
+
+event missing:
+run=1 elapsed_us=3059468
+run=2 elapsed_us=3059460
+run=3 elapsed_us=3059468
+run=4 elapsed_us=3059468
+
+periodic missing:
+run=1 elapsed_us=2911084
+run=2 elapsed_us=2911080
+run=3 elapsed_us=2911084
+run=4 elapsed_us=2911084
+
+proportional missing:
+run=1 elapsed_us=2917776
+run=2 elapsed_us=2917780
+run=3 elapsed_us=2917784
+run=4 elapsed_us=2917776

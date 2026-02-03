@@ -1,0 +1,17 @@
+4 coupled properties:
+run=1 elapsed_us=12067936
+run=2 elapsed_us=12066016
+run=3 elapsed_us=12083688
+run=4 elapsed_us=12068880
+
+2 properties:
+run=1 elapsed_us=6643780
+run=2 elapsed_us=7122936
+run=3 elapsed_us=6639740
+run=4 elapsed_us=6643780
+
+1 property:
+run=1 elapsed_us=2912488
+run=2 elapsed_us=2912488
+run=3 elapsed_us=2912488
+run=4 elapsed_us=2912488
